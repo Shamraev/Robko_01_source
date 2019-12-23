@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name arduino_shields)(type Legacy)(uri C:/Users/user/Desktop/Robko_01/PCB/Arduino_Shield_Modules_for_KiCad_V3/arduino_shields.mod)(options "")(descr ""))
+)

@@ -1,0 +1,19 @@
+G:\документы\programming\StandartForm1\StandartForm1\bin\Debug\Family budget.exe
+G:\документы\programming\StandartForm1\StandartForm1\bin\Debug\Family budget.pdb
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\StandartForm1.csprojAssemblyReference.cache
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\StandartForm1.Form1.resources
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\StandartForm1.Properties.Resources.resources
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\StandartForm1.csproj.GenerateResource.cache
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\StandartForm1.csproj.CoreCompileInputs.cache
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Family budget.exe
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Family budget.pdb
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Interop.Mathcad.dll
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\StandartForm1.csproj.ResolveComReference.cache
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Interop.GLLib.dll
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Interop.MathcadAutomationPrivate.dll
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Interop.MathcadDAQ.dll
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Interop.MathcadXSLT.dll
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Interop.MathsoftDataTable.dll
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Interop.MSDATASRC.dll
+G:\документы\programming\StandartForm1\StandartForm1\bin\Debug\Family budget.exe.config
+G:\документы\programming\StandartForm1\StandartForm1\obj\Debug\Interop.Scripting.dll
