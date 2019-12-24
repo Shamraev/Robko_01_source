@@ -357,7 +357,7 @@ namespace StandartForm1
                 {
                     serialPort1.Open();
                     Thread.Sleep(50);
-                    SendAngles();
+                    //SendAngles();
                     OkPort();
                 }
 
@@ -395,9 +395,9 @@ namespace StandartForm1
                         // serialPort1.PortName = deviceId;                        
                         return true;
                     }
-                    
+
                 }
-                serialPort1.PortName = "COM8";
+                serialPort1.PortName = "COM7";
                 return true;
             }
             catch (ManagementException e)
@@ -429,7 +429,7 @@ namespace StandartForm1
             {
                 MessageBox.Show("Введите число большее 400");
                 return;
-            }           
+            }
 
             string[] lines = richTextBox3.Text.Split('\n');
 
@@ -455,9 +455,16 @@ namespace StandartForm1
 
         void SendListCoodinates(string[] lines, int TimeWait)
         {
+            byte[] b = { 1,1,1};
+            double a1, a2, a3;
+            a1 = 1;//57.61;
+            a2 = 1;//66.6;
+            a3 = 1;//0.38;
+            
             String[] coordinates;
             for (int i = 2; i < lines.Length; i++)
             {
+                b[0] += 1;
                 string CheckedNbrs = lines[i];
                 //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
                 if (CheckNumbers(ref CheckedNbrs))//проверить прошели ли проверку, не обнулились ли
@@ -466,8 +473,29 @@ namespace StandartForm1
                     x = Double.Parse(coordinates[0]);
                     y = Double.Parse(coordinates[1]);
                     z = Double.Parse(coordinates[2]);
-                    SendAngles();
-                    Thread.Sleep(TimeWait);
+                    while (true)
+                    {
+                        if (i == 2) {
+                            //SendAngles();
+                            serialPort1.Write(b, 0, 3);
+                            //serialPort1.Write(Convert.ToString(a1) + "," + Convert.ToString(a2) + "," + Convert.ToString(a3));
+                            //serialPort1.Write("1,1,1");
+                            serialPort1.DiscardInBuffer();
+                            break;
+                        }
+                        
+                        if ((serialPort1.IsOpen) && (Convert.ToInt16(serialPort1.ReadLine()) == 64))
+                        {
+                            serialPort1.Write(b, 0, 3);
+                            //SendAngles();
+                            //serialPort1.Write(Convert.ToString(a1) + "," + Convert.ToString(a2) + "," + Convert.ToString(a3));
+                            //serialPort1.Write("1,1,1");
+                            serialPort1.DiscardInBuffer();
+                            break;
+                        }
+                        //Thread.Sleep(TimeWait);
+                        //Thread.Sleep(20);
+                    }
                 }
             }
         }

@@ -13,6 +13,11 @@ float s1, s2, s3, s4, s5;
 const int M5_L = 45;
 int currentValue, prevValue;
 const int ledPin =  13;
+const byte val = B1;
+bool atTurget;
+byte buf[3];
+int n;
+float accelr = 1E+6; 
 void setup()
 {
   s1 = 59200 / 90;
@@ -21,11 +26,11 @@ void setup()
   s5 = 1;
   Serial.begin(9600);
   stepper1.setMaxSpeed(100 * 16);
-  stepper1.setAcceleration(100 * 16);
+  stepper1.setAcceleration(accelr);
   // stepper1.moveTo(-200*16);
 
   stepper2.setMaxSpeed(100 * 16);
-  stepper2.setAcceleration(100 * 16);
+  stepper2.setAcceleration(accelr);
   //stepper2.moveTo(-200*16);
 
   //    stepper3.setMaxSpeed(5000*16);
@@ -33,12 +38,12 @@ void setup()
   //
   //
   stepper4.setMaxSpeed(100 * 16);
-  stepper4.setAcceleration(100 * 16);
+  stepper4.setAcceleration(accelr);
   //  stepper4.moveTo(-200*16);
   //
-      stepper5.setMaxSpeed(100 * 16);
-    stepper5.setAcceleration(100*16);
-//    stepper5.moveTo(-200*16);
+  stepper5.setMaxSpeed(100 * 16);
+  stepper5.setAcceleration(100 * 16);
+  //    stepper5.moveTo(-200*16);
   //
   //      stepper6.setMaxSpeed(5000*16);
   //  stepper6.setAcceleration(100*16);
@@ -53,55 +58,50 @@ void setup()
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, 0);
   pinMode(M5_L,  INPUT);
-  Serial.write(stepper5.currentPosition()+"_0");
- stepper5.moveTo(100*16);
+  //Serial.write(stepper5.currentPosition() + "_0");
+  stepper5.moveTo(100 * 16);
   prevValue = 0;
+  atTurget = false;
 }
 
 void loop()
 {
 
   if (Serial.available()) {
-    myString = Serial.readString();
-    int commaIndex = myString.indexOf(',');
-    int secondCommaIndex = myString.indexOf(',', commaIndex + 1);
-    int firdCommaIndex = myString.indexOf(',', commaIndex + 2);
-    int forthCommaIndex = myString.indexOf(',', commaIndex + 3);
-   // int fifthCommaIndex = myString.indexOf(',', commaIndex + 4);
-
-    a1 = myString.substring(0, commaIndex).toFloat();
-    a2 = myString.substring(commaIndex + 1, secondCommaIndex).toFloat();
-    a3 = myString.substring(secondCommaIndex, secondCommaIndex + 1).toFloat(); // To the end of the string
-    a5 = myString.substring(forthCommaIndex, forthCommaIndex + 1).toFloat();
-    SendTaskToServos(a1, a2, a3, a5);
-  }
-
-
-  currentValue = digitalRead(M5_L);
-  if (currentValue != prevValue) {
-    // Что-то изменилось, здесь возможна зона неопределенности
-    // Делаем задержку
-    delay(10);
-    // А вот теперь спокойно считываем значение, считая, что нестабильность исчезла
-    currentValue = digitalRead(M5_L);
-    if (currentValue == 0) {
-      // turn LED on:
-    //  digitalWrite( ledPin, 0);
-    //  Serial.write(stepper5.currentPosition()+"_1");
-    } else {
-      // turn LED off:
-     // digitalWrite( ledPin, 1);
-     // Serial.write(stepper5.currentPosition()+"_1");
+    // myString = Serial.readString();
+    //    int commaIndex = myString.indexOf(',');
+    //    int secondCommaIndex = myString.indexOf(',', commaIndex + 1);
+    //    int firdCommaIndex = myString.indexOf(',', commaIndex + 2);
+    //    int forthCommaIndex = myString.indexOf(',', commaIndex + 3);
+    //    // int fifthCommaIndex = myString.indexOf(',', commaIndex + 4);
+    //
+    //    a1 = myString.substring(0, commaIndex).toFloat();
+    //    a2 = myString.substring(commaIndex + 1, secondCommaIndex).toFloat();
+    //    a3 = myString.substring(secondCommaIndex, secondCommaIndex + 1).toFloat(); // To the end of the string
+    //    a5 = myString.substring(forthCommaIndex, forthCommaIndex + 1).toFloat();
+    n = Serial.available(); // число принятых байтов
+    if (n == 3) {
+      a1 = Serial.read();
+      a2 = Serial.read();
+      a3 = Serial.read();
+      Serial.println(55);
+      //a1 = 1; a2 = 1; a3 = 1;
+      atTurget = false;
+      SendTaskToServos(a1, a2, a3, a5);
     }
   }
-  prevValue = currentValue;
 
 
-  stepper1.run(); 
+  stepper1.run();
   stepper2.run();
   //// stepper3.run();
   stepper4.run();
-       stepper5.run();
+  stepper5.run();
+  if ((not atTurget) and (not stepper1.isRunning()) and (not stepper2.isRunning()) and (not stepper4.isRunning()))
+  {
+    Serial.println(64);
+    atTurget = true;
+  }
   ////       stepper6.run();
 
 }
@@ -109,5 +109,5 @@ void SendTaskToServos(float a1, float a2, float a3, float a5) {
   stepper1.moveTo(a1 * s1);
   stepper2.moveTo(a2 * s2);
   stepper4.moveTo(a3 * s3);
-//  stepper5.moveTo(a5 * s5);
+  //  stepper5.moveTo(a5 * s5);
 }
