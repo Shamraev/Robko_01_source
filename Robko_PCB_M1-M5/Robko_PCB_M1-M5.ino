@@ -17,7 +17,9 @@ const byte val = B1;
 bool atTurget;
 byte buf[3];
 int n;
-float accelr = 1E+6; 
+float accelr = 1E+10;
+int MotorSpeed = 10000;//100*16
+int MotorMaxSpeed = MotorSpeed;
 void setup()
 {
   s1 = 59200 / 90;
@@ -25,30 +27,39 @@ void setup()
   s3 = 59800 / 90;
   s5 = 1;
   Serial.begin(9600);
-  stepper1.setMaxSpeed(100 * 16);
-  stepper1.setAcceleration(accelr);
+ // stepper1.setMaxSpeed(MotorSpeed);
+  // stepper1.setAcceleration(accelr);
   // stepper1.moveTo(-200*16);
 
-  stepper2.setMaxSpeed(100 * 16);
-  stepper2.setAcceleration(accelr);
+  //stepper2.setMaxSpeed(MotorSpeed);
+  // stepper2.setAcceleration(accelr);
   //stepper2.moveTo(-200*16);
 
   //    stepper3.setMaxSpeed(5000*16);
   //  stepper3.setAcceleration(100*16);
   //
   //
-  stepper4.setMaxSpeed(100 * 16);
-  stepper4.setAcceleration(accelr);
+  //stepper4.setMaxSpeed(MotorSpeed);
+  //stepper4.setAcceleration(accelr);
   //  stepper4.moveTo(-200*16);
   //
-  stepper5.setMaxSpeed(100 * 16);
-  stepper5.setAcceleration(100 * 16);
+  //stepper5.setMaxSpeed(MotorSpeed);
+  // stepper5.setAcceleration(100 * 16);
   //    stepper5.moveTo(-200*16);
   //
   //      stepper6.setMaxSpeed(5000*16);
   //  stepper6.setAcceleration(100*16);
   //    stepper3.moveTo(200*16);
   //  stepper6.moveTo(-200*16);
+
+stepper1.setMaxSpeed(MotorMaxSpeed);
+stepper2.setMaxSpeed(MotorMaxSpeed);
+stepper4.setMaxSpeed(MotorMaxSpeed);
+stepper1.setSpeed(MotorSpeed);
+stepper2.setSpeed(MotorSpeed);
+stepper4.setSpeed(MotorSpeed);
+
+
 
   pinMode(31, OUTPUT);
   digitalWrite(31, 1);
@@ -87,16 +98,16 @@ void loop()
       Serial.println(55);
       //a1 = 1; a2 = 1; a3 = 1;
       atTurget = false;
-      SendTaskToServos(a1, a2, a3, a5);
+      SendTaskToServos(a1 / 10, a2 / 10, a3 / 10, a5 / 10);
     }
   }
 
 
-  stepper1.run();
-  stepper2.run();
+  stepper1.runSpeed();
+  stepper2.runSpeed();
   //// stepper3.run();
-  stepper4.run();
-  stepper5.run();
+  stepper4.runSpeed();
+  stepper5.runSpeed();
   if ((not atTurget) and (not stepper1.isRunning()) and (not stepper2.isRunning()) and (not stepper4.isRunning()))
   {
     Serial.println(64);
@@ -106,8 +117,11 @@ void loop()
 
 }
 void SendTaskToServos(float a1, float a2, float a3, float a5) {
-  stepper1.moveTo(a1 * s1);
-  stepper2.moveTo(a2 * s2);
-  stepper4.moveTo(a3 * s3);
+  //stepper1.moveTo(a1 * s1);
+  //stepper1.setSpeed(MotorSpeed);
+  //stepper2.moveTo(a2 * s2);
+  //stepper2.setSpeed(MotorSpeed);
+ // stepper4.moveTo(a3 * s3);
+  //stepper4.setSpeed(MotorSpeed);
   //  stepper5.moveTo(a5 * s5);
 }

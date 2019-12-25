@@ -465,6 +465,8 @@ namespace StandartForm1
             for (int i = 2; i < lines.Length; i++)
             {
                 b[0] += 1;
+                b[1] += 1;
+                b[2] += 1;
                 string CheckedNbrs = lines[i];
                 //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
                 if (CheckNumbers(ref CheckedNbrs))//проверить прошели ли проверку, не обнулились ли
