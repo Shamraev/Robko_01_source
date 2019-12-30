@@ -1,4 +1,5 @@
 #include <AccelStepper.h>
+#include <MultiStepper.h>
 
 // Define some steppers and the pins the will use
 AccelStepper stepper1(1, 53, 51);
@@ -7,6 +8,8 @@ AccelStepper stepper3(1, 21, 20);
 AccelStepper stepper4(1, 49, 47);
 AccelStepper stepper5(1, 38, 39); //(.., step, dir)
 AccelStepper stepper6(1, 36, 37);
+MultiStepper steppers;
+
 String myString;
 float a1, a2, a3, a4, a5;
 float s1, s2, s3, s4, s5;
@@ -18,15 +21,16 @@ bool atTurget;
 byte buf[3];
 int n;
 float accelr = 1E+10;
-int MotorSpeed = 10000;//100*16
+int MotorSpeed = 1000*3;//100*16
 int MotorMaxSpeed = MotorSpeed;
+long positions[3];
 void setup()
 {
   s1 = 59200 / 90;
   s2 = -36100 / 90;
   s3 = 59800 / 90;
   s5 = 1;
-  Serial.begin(9600);
+  Serial.begin(115200);
  // stepper1.setMaxSpeed(MotorSpeed);
   // stepper1.setAcceleration(accelr);
   // stepper1.moveTo(-200*16);
@@ -59,6 +63,11 @@ stepper1.setSpeed(MotorSpeed);
 stepper2.setSpeed(MotorSpeed);
 stepper4.setSpeed(MotorSpeed);
 
+steppers.addStepper(stepper1);
+steppers.addStepper(stepper2);
+steppers.addStepper(stepper4);
+
+
 
 
   pinMode(31, OUTPUT);
@@ -70,7 +79,7 @@ stepper4.setSpeed(MotorSpeed);
   digitalWrite(ledPin, 0);
   pinMode(M5_L,  INPUT);
   //Serial.write(stepper5.currentPosition() + "_0");
-  stepper5.moveTo(100 * 16);
+ // stepper5.moveTo(100 * 16);
   prevValue = 0;
   atTurget = false;
 }
@@ -78,7 +87,7 @@ stepper4.setSpeed(MotorSpeed);
 void loop()
 {
 
-  if (Serial.available()) {
+  if (Serial.available() and (not steppers.run())) {
     // myString = Serial.readString();
     //    int commaIndex = myString.indexOf(',');
     //    int secondCommaIndex = myString.indexOf(',', commaIndex + 1);
@@ -95,33 +104,45 @@ void loop()
       a1 = Serial.read();
       a2 = Serial.read();
       a3 = Serial.read();
-      Serial.println(55);
+      //Serial.println(55);
       //a1 = 1; a2 = 1; a3 = 1;
       atTurget = false;
-      SendTaskToServos(a1 / 10, a2 / 10, a3 / 10, a5 / 10);
+      SendTaskToServos(a1/5 , a2/5, a3/5, a5 );
     }
   }
 
 
-  stepper1.runSpeed();
-  stepper2.runSpeed();
+  //stepper1.runSpeedToPosition();
+  //stepper2.runSpeedToPosition();
   //// stepper3.run();
-  stepper4.runSpeed();
-  stepper5.runSpeed();
-  if ((not atTurget) and (not stepper1.isRunning()) and (not stepper2.isRunning()) and (not stepper4.isRunning()))
+  //stepper4.runSpeedToPosition();
+  //stepper5.runSpeed();
+ // if ((not atTurget) and (not stepper1.isRunning()) and (not stepper2.isRunning()) and (not stepper4.isRunning()))
+ if ((not atTurget) and (not steppers.run()))
   {
-    Serial.println(64);
+   Serial.write(33);
+  // Serial.write(64);
     atTurget = true;
   }
   ////       stepper6.run();
 
 }
 void SendTaskToServos(float a1, float a2, float a3, float a5) {
-  //stepper1.moveTo(a1 * s1);
-  //stepper1.setSpeed(MotorSpeed);
-  //stepper2.moveTo(a2 * s2);
-  //stepper2.setSpeed(MotorSpeed);
- // stepper4.moveTo(a3 * s3);
-  //stepper4.setSpeed(MotorSpeed);
+  positions[0] = round(a1 * s1);
+  positions[1] = round(a2 * s2);
+  positions[2] = round(a3 * s3);
+  steppers.moveTo(positions);
+  steppers.runSpeedToPosition();
+  //Serial.write(64);
+  //Serial.println(64);
+//  stepper1.moveTo(a1 * s1);
+//  stepper1.setSpeed(MotorSpeed);
+//  stepper1.runSpeedToPosition();
+//  stepper2.moveTo(a2 * s2);
+//  stepper2.setSpeed(MotorSpeed);
+//  stepper2.runSpeedToPosition();
+//  stepper4.moveTo(a3 * s3);
+//  stepper4.setSpeed(MotorSpeed);
+//  stepper4.runSpeedToPosition();
   //  stepper5.moveTo(a5 * s5);
 }

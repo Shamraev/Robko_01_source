@@ -25,6 +25,9 @@ namespace StandartForm1
         double x = 0, y = 300, z = 100;
         double x0, y0, z0;
         int XyzDelta;
+        Boolean TuskComplited, TuskSend;
+
+        byte[] buffer = new byte[1];
 
         System.Timers.Timer aTimer;
         private delegate void updateDelegate(string txt);
@@ -57,30 +60,32 @@ namespace StandartForm1
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-
-            bool PortOpen = false;
-            Invoke(new Action(() => { PortOpen = serialPort1.IsOpen; }));
-
-            if (!PortOpen)
+            if (chkRecievPrt.Checked)
             {
-                Invoke(new Action(() => { PortTurnOn(serialPort1); }));
-                return;
-            }
-            try // так как после закрытия окна таймер еще может выполнится или предел ожидания может быть превышен
-            {
-                // удалим накопившееся в буфере
-                //   serialPort1.DiscardInBuffer();
+
+                bool PortOpen = false;
+                Invoke(new Action(() => { PortOpen = serialPort1.IsOpen; }));
+
+                if (!PortOpen)
+                {
+                    Invoke(new Action(() => { PortTurnOn(serialPort1); }));
+                    return;
+                }
+                try // так как после закрытия окна таймер еще может выполнится или предел ожидания может быть превышен
+                {
+                    // удалим накопившееся в буфере
+                    //   serialPort1.DiscardInBuffer();
 
 
-                // считаем последнее значение 
-                string strFromPort = serialPort1.ReadLine();
-                richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), strFromPort);
+                    // считаем последнее значение 
+                   // string strFromPort = serialPort1.ReadLine();
+                   // richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), strFromPort);
+                }
+                catch (Exception ex)
+                {
+                    richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), ex.Message);
-            }
-
         }
 
         private void updateTextBox(string txt)
@@ -355,7 +360,7 @@ namespace StandartForm1
             {
                 try
                 {
-                    serialPort1.Open();
+                    serialPort1.Open();                    
                     Thread.Sleep(50);
                     //SendAngles();
                     OkPort();
@@ -368,6 +373,7 @@ namespace StandartForm1
             }
             else ErrPort();
         }
+        
         private void PortTurnOff(SerialPort serPort)//выключить порт----------------------
         {
             serPortClose(serialPort1);
@@ -452,10 +458,23 @@ namespace StandartForm1
             else SendListCoodinates(lines, TimeWait);
 
         }
+        private void dataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            //  buffer += serialPort1.ReadExisting();
+            serialPort1.Read(buffer, 0, buffer.Length);
+            //test for termination character in buffer
+            if (buffer[0] == 33) // Синхронизирующий байт. После этого еще делаем проверку контрольной суммы.
+            {
+                TuskComplited = buffer[1] == 64;
+            }
+        }
 
         void SendListCoodinates(string[] lines, int TimeWait)
         {
+            //serialPort1.DataReceived += new SerialDataReceivedEventHandler(dataReceived);
+
             byte[] b = { 1,1,1};
+            
             double a1, a2, a3;
             a1 = 1;//57.61;
             a2 = 1;//66.6;
@@ -467,6 +486,10 @@ namespace StandartForm1
                 b[0] += 1;
                 b[1] += 1;
                 b[2] += 1;
+                string str = Convert.ToString(b[0]);
+                str += Convert.ToString(b[1]);
+                str += Convert.ToString(b[2]);
+
                 string CheckedNbrs = lines[i];
                 //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
                 if (CheckNumbers(ref CheckedNbrs))//проверить прошели ли проверку, не обнулились ли
@@ -475,29 +498,47 @@ namespace StandartForm1
                     x = Double.Parse(coordinates[0]);
                     y = Double.Parse(coordinates[1]);
                     z = Double.Parse(coordinates[2]);
-                    while (true)
+
+
+                    
+                    if (i == 2) {
+                        //SendAngles();
+                        TuskComplited = false;
+                        TuskSend = true;
+                        serialPort1.Write(b, 0, 3);
+                        serialPort1.Read(buffer, 0, 1);
+                        // richTextBox1.BeginInvoke(new updateDelegate(updateTextBox),str);
+
+                        //serialPort1.Write(Convert.ToString(a1) + "," + Convert.ToString(a2) + "," + Convert.ToString(a3));
+                        //serialPort1.Write("1,1,1");
+                       // serialPort1.DiscardInBuffer();
+                       // break;
+                        }
+                    else
+                   // while (!TuskComplited)
                     {
-                        if (i == 2) {
-                            //SendAngles();
+
+                        //if (TuskComplited)
+                        {
+                            TuskComplited = false;
+                            TuskSend = true;
                             serialPort1.Write(b, 0, 3);
+                           // if (!(i == lines.Length-1)) {
+                                serialPort1.Read(buffer, 0, 1); //}
+                            // richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), str);
+
+                            //SendAngles();
                             //serialPort1.Write(Convert.ToString(a1) + "," + Convert.ToString(a2) + "," + Convert.ToString(a3));
                             //serialPort1.Write("1,1,1");
-                            serialPort1.DiscardInBuffer();
-                            break;
+                            //serialPort1.DiscardInBuffer();
+                         //   break;
                         }
                         
-                        if ((serialPort1.IsOpen) && (Convert.ToInt16(serialPort1.ReadLine()) == 64))
-                        {
-                            serialPort1.Write(b, 0, 3);
-                            //SendAngles();
-                            //serialPort1.Write(Convert.ToString(a1) + "," + Convert.ToString(a2) + "," + Convert.ToString(a3));
-                            //serialPort1.Write("1,1,1");
-                            serialPort1.DiscardInBuffer();
-                            break;
-                        }
+
                         //Thread.Sleep(TimeWait);
                         //Thread.Sleep(20);
                     }
+                    
                 }
             }
         }
@@ -508,6 +549,34 @@ namespace StandartForm1
 
         }
 
+        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+          //  bool received;
+          //  received = false;
+          //  // if ((!TuskComplited) && (serialPort1.ReadByte() == 64)) { TuskComplited = true; }
+          //  //serialPort1.DiscardInBuffer();
+
+          //  // prevent error with closed port to appears
+          //  if (!serialPort1.IsOpen)
+          //      return;
+
+          //  // if (serialPort1.BytesToRead == 2){ serialPort1.Read(buffer, 0, 2); received = true; }
+          //  // else if (serialPort1.BytesToRead == 1) { serialPort1.Read(buffer, 0, 1); received = false; }
+          //  serialPort1.Read(buffer, 0, 1);
+          ////  richTextBox1.BeginInvoke(new updateDelegate(updateTextBox),Convert.ToString(buffer[0]));
+          //  //test for termination character in buffer
+
+          //  if ((TuskSend == true) && (buffer[0] == 33) )// Синхронизирующий байт. После этого еще делаем проверку контрольной суммы.
+          //  {
+          //      // Invoke(new Action(() => { TuskComplited = true; }));
+          //      TuskComplited = true;
+          //      return;
+          //  }
+
+
+
+        }
+       
         private void data_coordinates_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsNumber(e.KeyChar) | (e.KeyChar == Convert.ToChar(",")) | (e.KeyChar == Convert.ToChar(".")) | e.KeyChar == '\b') return;
