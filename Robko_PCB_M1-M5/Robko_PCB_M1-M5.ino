@@ -21,8 +21,9 @@ bool atTurget;
 byte buf[3];
 int n;
 float accelr = 1E+10;
-int MotorSpeed = 1000*3;//100*16
+int MotorSpeed = 1000 * 3; //100*16
 int MotorMaxSpeed = MotorSpeed;
+int dataLength = 12;
 long positions[3];
 void setup()
 {
@@ -31,44 +32,17 @@ void setup()
   s3 = 59800 / 90;
   s5 = 1;
   Serial.begin(115200);
- // stepper1.setMaxSpeed(MotorSpeed);
-  // stepper1.setAcceleration(accelr);
-  // stepper1.moveTo(-200*16);
 
-  //stepper2.setMaxSpeed(MotorSpeed);
-  // stepper2.setAcceleration(accelr);
-  //stepper2.moveTo(-200*16);
+  stepper1.setMaxSpeed(MotorMaxSpeed);
+  stepper2.setMaxSpeed(MotorMaxSpeed);
+  stepper4.setMaxSpeed(MotorMaxSpeed);
+  stepper1.setSpeed(MotorSpeed);
+  stepper2.setSpeed(MotorSpeed);
+  stepper4.setSpeed(MotorSpeed);
 
-  //    stepper3.setMaxSpeed(5000*16);
-  //  stepper3.setAcceleration(100*16);
-  //
-  //
-  //stepper4.setMaxSpeed(MotorSpeed);
-  //stepper4.setAcceleration(accelr);
-  //  stepper4.moveTo(-200*16);
-  //
-  //stepper5.setMaxSpeed(MotorSpeed);
-  // stepper5.setAcceleration(100 * 16);
-  //    stepper5.moveTo(-200*16);
-  //
-  //      stepper6.setMaxSpeed(5000*16);
-  //  stepper6.setAcceleration(100*16);
-  //    stepper3.moveTo(200*16);
-  //  stepper6.moveTo(-200*16);
-
-stepper1.setMaxSpeed(MotorMaxSpeed);
-stepper2.setMaxSpeed(MotorMaxSpeed);
-stepper4.setMaxSpeed(MotorMaxSpeed);
-stepper1.setSpeed(MotorSpeed);
-stepper2.setSpeed(MotorSpeed);
-stepper4.setSpeed(MotorSpeed);
-
-steppers.addStepper(stepper1);
-steppers.addStepper(stepper2);
-steppers.addStepper(stepper4);
-
-
-
+  steppers.addStepper(stepper1);
+  steppers.addStepper(stepper2);
+  steppers.addStepper(stepper4);
 
   pinMode(31, OUTPUT);
   digitalWrite(31, 1);
@@ -78,8 +52,8 @@ steppers.addStepper(stepper4);
   pinMode(ledPin, OUTPUT);
   digitalWrite(ledPin, 0);
   pinMode(M5_L,  INPUT);
-  //Serial.write(stepper5.currentPosition() + "_0");
- // stepper5.moveTo(100 * 16);
+
+  // stepper5.moveTo(100 * 16);
   prevValue = 0;
   atTurget = false;
 }
@@ -87,62 +61,45 @@ steppers.addStepper(stepper4);
 void loop()
 {
 
-  if (Serial.available() and (not steppers.run())) {
-    // myString = Serial.readString();
-    //    int commaIndex = myString.indexOf(',');
-    //    int secondCommaIndex = myString.indexOf(',', commaIndex + 1);
-    //    int firdCommaIndex = myString.indexOf(',', commaIndex + 2);
-    //    int forthCommaIndex = myString.indexOf(',', commaIndex + 3);
-    //    // int fifthCommaIndex = myString.indexOf(',', commaIndex + 4);
-    //
-    //    a1 = myString.substring(0, commaIndex).toFloat();
-    //    a2 = myString.substring(commaIndex + 1, secondCommaIndex).toFloat();
-    //    a3 = myString.substring(secondCommaIndex, secondCommaIndex + 1).toFloat(); // To the end of the string
-    //    a5 = myString.substring(forthCommaIndex, forthCommaIndex + 1).toFloat();
-    n = Serial.available(); // число принятых байтов
-    if (n == 3) {
-      a1 = Serial.read();
-      a2 = Serial.read();
-      a3 = Serial.read();
-      //Serial.println(55);
-      //a1 = 1; a2 = 1; a3 = 1;
-      atTurget = false;
-      SendTaskToServos(a1/5 , a2/5, a3/5, a5 );
-    }
+  if ((dataLength == Serial.available()) and (not steppers.run())) {
+    a1 = GetFloatNumber();
+    a2 = GetFloatNumber();
+    a3 = GetFloatNumber();
+    atTurget = false;
+    SendTaskToServos(a1 , a2, a3, a5 );
   }
 
-
-  //stepper1.runSpeedToPosition();
-  //stepper2.runSpeedToPosition();
-  //// stepper3.run();
-  //stepper4.runSpeedToPosition();
-  //stepper5.runSpeed();
- // if ((not atTurget) and (not stepper1.isRunning()) and (not stepper2.isRunning()) and (not stepper4.isRunning()))
- if ((not atTurget) and (not steppers.run()))
-  {
-   Serial.write(33);
-  // Serial.write(64);
-    atTurget = true;
-  }
-  ////       stepper6.run();
+  //  if ((not atTurget) and (not steppers.run()))
+  //  {
+  //    Serial.write(33);
+  //    atTurget = true;
+  //  }
 
 }
+float GetFloatNumber() {
+  long number = 0;
+  byte byteArray[4];
+
+  for (int i = 0; i < 4; i++)
+  {
+    byteArray[i] = Serial.read();
+  }
+  number = *((float*)(byteArray));
+
+  return number;
+
+//  //---------
+//  Serial.println('Float: ' + number);
+//  //-------
+//  Serial.println(byteArray[0] + '-' + byteArray[1] + '-' + byteArray[2] + '-' + byteArray[3], HEX); // Print the hex representation of the float
+//  //----------
+}
 void SendTaskToServos(float a1, float a2, float a3, float a5) {
+  // Serial.print(a1);
   positions[0] = round(a1 * s1);
   positions[1] = round(a2 * s2);
   positions[2] = round(a3 * s3);
   steppers.moveTo(positions);
   steppers.runSpeedToPosition();
-  //Serial.write(64);
-  //Serial.println(64);
-//  stepper1.moveTo(a1 * s1);
-//  stepper1.setSpeed(MotorSpeed);
-//  stepper1.runSpeedToPosition();
-//  stepper2.moveTo(a2 * s2);
-//  stepper2.setSpeed(MotorSpeed);
-//  stepper2.runSpeedToPosition();
-//  stepper4.moveTo(a3 * s3);
-//  stepper4.setSpeed(MotorSpeed);
-//  stepper4.runSpeedToPosition();
-  //  stepper5.moveTo(a5 * s5);
+  Serial.write(33);
 }

@@ -32,6 +32,7 @@ namespace StandartForm1
         System.Timers.Timer aTimer;
         private delegate void updateDelegate(string txt);
 
+        string PortText;
 
 
         public Form1()
@@ -74,12 +75,15 @@ namespace StandartForm1
                 try // так как после закрытия окна таймер еще может выполнится или предел ожидания может быть превышен
                 {
                     // удалим накопившееся в буфере
-                    //   serialPort1.DiscardInBuffer();
+                    // serialPort1.DiscardInBuffer();
 
 
                     // считаем последнее значение 
-                   // string strFromPort = serialPort1.ReadLine();
-                   // richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), strFromPort);
+                    //  string strFromPort = serialPort1.ReadLine();
+
+                    string strFromPort = PortText;
+                    richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), strFromPort);
+                    PortText = "";
                 }
                 catch (Exception ex)
                 {
@@ -325,16 +329,33 @@ namespace StandartForm1
                 ws.SetValue("z", z + 22);//!!!!!!!!!!!!!
                 Thread.Sleep(50);//---------------------------------избавиться---------------------------------------------------------
                 ws.Recalculate();
-                XyzDisplay();
                 Thread.Sleep(50);
                 β3 = Convert.ToString(Math.Round((ws.GetValue("β3") as INumericValue).Real, 2)).Replace(',', '.'); //string α3
                 δ3 = Convert.ToString(Math.Round((ws.GetValue("δ3") as INumericValue).Real, 2)).Replace(',', '.');
                 α3 = Convert.ToString(Math.Round((ws.GetValue("α3") as INumericValue).Real, 2)).Replace(',', '.');
                 try
                 {
-                    serialPort1.Write(β3 + "," + δ3 + "," + α3);
-                    serialPort1.DiscardInBuffer();
+                    float a1 = float.Parse(β3, System.Globalization.CultureInfo.InvariantCulture);
+                    float a2 = float.Parse(δ3, System.Globalization.CultureInfo.InvariantCulture);
+                    float a3 = float.Parse(α3, System.Globalization.CultureInfo.InvariantCulture);
 
+                    var floatArray = new float[] { a1, a2, a3 };
+
+                    var byteArray = new byte[floatArray.Length * 4];
+                    Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
+
+                    serialPort1.Write(byteArray, 0, byteArray.Length);
+                    serialPort1.Read(buffer, 0, 1);//------------
+                    XyzDisplay();
+
+                    //----------
+                    richTextBox2.Text += "\n floatArray: " + floatArray[0] + floatArray[1] + floatArray[2];
+                    richTextBox2.Text += "\n byteArray: ";
+                   // foreach (byte b in byteArray)
+                   // {
+                        richTextBox2.Text += BitConverter.ToString(byteArray);
+                   // }
+                    //-------------
                 }
                 catch
                 {
@@ -360,9 +381,9 @@ namespace StandartForm1
             {
                 try
                 {
-                    serialPort1.Open();                    
+                    serialPort1.Open();
                     Thread.Sleep(50);
-                    //SendAngles();
+                    SendAngles();
                     OkPort();
                 }
 
@@ -373,7 +394,7 @@ namespace StandartForm1
             }
             else ErrPort();
         }
-        
+
         private void PortTurnOff(SerialPort serPort)//выключить порт----------------------
         {
             serPortClose(serialPort1);
@@ -471,25 +492,9 @@ namespace StandartForm1
 
         void SendListCoodinates(string[] lines, int TimeWait)
         {
-            //serialPort1.DataReceived += new SerialDataReceivedEventHandler(dataReceived);
-
-            byte[] b = { 1,1,1};
-            
-            double a1, a2, a3;
-            a1 = 1;//57.61;
-            a2 = 1;//66.6;
-            a3 = 1;//0.38;
-            
             String[] coordinates;
             for (int i = 2; i < lines.Length; i++)
             {
-                b[0] += 1;
-                b[1] += 1;
-                b[2] += 1;
-                string str = Convert.ToString(b[0]);
-                str += Convert.ToString(b[1]);
-                str += Convert.ToString(b[2]);
-
                 string CheckedNbrs = lines[i];
                 //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
                 if (CheckNumbers(ref CheckedNbrs))//проверить прошели ли проверку, не обнулились ли
@@ -499,47 +504,10 @@ namespace StandartForm1
                     y = Double.Parse(coordinates[1]);
                     z = Double.Parse(coordinates[2]);
 
+                    SendAngles();
 
-                    
-                    if (i == 2) {
-                        //SendAngles();
-                        TuskComplited = false;
-                        TuskSend = true;
-                        serialPort1.Write(b, 0, 3);
-                        serialPort1.Read(buffer, 0, 1);
-                        // richTextBox1.BeginInvoke(new updateDelegate(updateTextBox),str);
-
-                        //serialPort1.Write(Convert.ToString(a1) + "," + Convert.ToString(a2) + "," + Convert.ToString(a3));
-                        //serialPort1.Write("1,1,1");
-                       // serialPort1.DiscardInBuffer();
-                       // break;
-                        }
-                    else
-                   // while (!TuskComplited)
-                    {
-
-                        //if (TuskComplited)
-                        {
-                            TuskComplited = false;
-                            TuskSend = true;
-                            serialPort1.Write(b, 0, 3);
-                           // if (!(i == lines.Length-1)) {
-                                serialPort1.Read(buffer, 0, 1); //}
-                            // richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), str);
-
-                            //SendAngles();
-                            //serialPort1.Write(Convert.ToString(a1) + "," + Convert.ToString(a2) + "," + Convert.ToString(a3));
-                            //serialPort1.Write("1,1,1");
-                            //serialPort1.DiscardInBuffer();
-                         //   break;
-                        }
-                        
-
-                        //Thread.Sleep(TimeWait);
-                        //Thread.Sleep(20);
-                    }
-                    
                 }
+
             }
         }
         private void CycleChkBox_CheckedChanged(object sender, EventArgs e)
@@ -551,32 +519,32 @@ namespace StandartForm1
 
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-          //  bool received;
-          //  received = false;
-          //  // if ((!TuskComplited) && (serialPort1.ReadByte() == 64)) { TuskComplited = true; }
-          //  //serialPort1.DiscardInBuffer();
+            //  bool received;
+            //  received = false;
+            //  // if ((!TuskComplited) && (serialPort1.ReadByte() == 64)) { TuskComplited = true; }
+            //  //serialPort1.DiscardInBuffer();
 
-          //  // prevent error with closed port to appears
-          //  if (!serialPort1.IsOpen)
-          //      return;
+            //  // prevent error with closed port to appears
+            //  if (!serialPort1.IsOpen)
+            //      return;
 
-          //  // if (serialPort1.BytesToRead == 2){ serialPort1.Read(buffer, 0, 2); received = true; }
-          //  // else if (serialPort1.BytesToRead == 1) { serialPort1.Read(buffer, 0, 1); received = false; }
-          //  serialPort1.Read(buffer, 0, 1);
-          ////  richTextBox1.BeginInvoke(new updateDelegate(updateTextBox),Convert.ToString(buffer[0]));
-          //  //test for termination character in buffer
+            //  // if (serialPort1.BytesToRead == 2){ serialPort1.Read(buffer, 0, 2); received = true; }
+            //  // else if (serialPort1.BytesToRead == 1) { serialPort1.Read(buffer, 0, 1); received = false; }
+            //  serialPort1.Read(buffer, 0, 1);
+            ////  richTextBox1.BeginInvoke(new updateDelegate(updateTextBox),Convert.ToString(buffer[0]));
+            //  //test for termination character in buffer
 
-          //  if ((TuskSend == true) && (buffer[0] == 33) )// Синхронизирующий байт. После этого еще делаем проверку контрольной суммы.
-          //  {
-          //      // Invoke(new Action(() => { TuskComplited = true; }));
-          //      TuskComplited = true;
-          //      return;
-          //  }
+            //  if ((TuskSend == true) && (buffer[0] == 33) )// Синхронизирующий байт. После этого еще делаем проверку контрольной суммы.
+            //  {
+            //      // Invoke(new Action(() => { TuskComplited = true; }));
+            //      TuskComplited = true;
+            //      return;
+            //  }
 
-
-
+            //  updateTextBox("!!!!!ddd");
+            //PortText += serialPort1.ReadLine();//------------------------------------
         }
-       
+
         private void data_coordinates_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (Char.IsNumber(e.KeyChar) | (e.KeyChar == Convert.ToChar(",")) | (e.KeyChar == Convert.ToChar(".")) | e.KeyChar == '\b') return;
