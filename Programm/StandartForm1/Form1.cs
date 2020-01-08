@@ -15,7 +15,7 @@ namespace StandartForm1
 
     public partial class Form1 : Form
     {
-        RobkoIK robkoIK = new RobkoIK();
+        RobkoIKSolver robkoIKSolver = new RobkoIKSolver(0,190, 178, 178, 82);
         Mathcad.Application mc;
         Mathcad.Worksheet ws;
 
@@ -326,8 +326,14 @@ namespace StandartForm1
                 ws.SetValue("x", x + 2);//!!
                 ws.SetValue("y", y + 3);
                 ws.SetValue("z", z + 22);//!!!!!!!!!!!!!
-                
-                
+
+
+
+                //------ 
+                // robkoIKSolver.SolveIK(x, y, z);   
+                robkoIKSolver.SolveIK(x+2, y+3, z+22);//------
+                //------
+
                 Thread.Sleep(50);//---------------------------------избавиться---------------------------------------------------------
                 ws.Recalculate();
                 Thread.Sleep(50);
