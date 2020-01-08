@@ -322,29 +322,14 @@ namespace StandartForm1
 
                 }
 
-
-                ws.SetValue("x", x + 2);//!!
-                ws.SetValue("y", y + 3);
-                ws.SetValue("z", z + 22);//!!!!!!!!!!!!!
-
-
-
-                //------ 
-                // robkoIKSolver.SolveIK(x, y, z);   
-                robkoIKSolver.SolveIK(x+2, y+3, z+22);//------
-                //------
-
-                Thread.Sleep(50);//---------------------------------избавиться---------------------------------------------------------
-                ws.Recalculate();
-                Thread.Sleep(50);
-                β3 = Convert.ToString(Math.Round((ws.GetValue("β3") as INumericValue).Real, 2)).Replace(',', '.'); //string α3
-                δ3 = Convert.ToString(Math.Round((ws.GetValue("δ3") as INumericValue).Real, 2)).Replace(',', '.');
-                α3 = Convert.ToString(Math.Round((ws.GetValue("α3") as INumericValue).Real, 2)).Replace(',', '.');
+                robkoIKSolver.SolveIK(x, y, z);
+                float a1, a2, a3;
+                a1 = 0; a2 = 0; a3 = 0;
                 try
                 {
-                    float a1 = float.Parse(β3, System.Globalization.CultureInfo.InvariantCulture);
-                    float a2 = float.Parse(δ3, System.Globalization.CultureInfo.InvariantCulture);
-                    float a3 = float.Parse(α3, System.Globalization.CultureInfo.InvariantCulture);
+                    a1 = -robkoIKSolver.NormQ.ValueF[1];
+                    a2 = robkoIKSolver.NormQ.ValueF[3];
+                    a3 = -robkoIKSolver.NormQ.ValueF[0];
 
                     var floatArray = new float[] { a1, a2, a3 };
                     var byteArray = new byte[floatArray.Length * 4];
@@ -359,7 +344,7 @@ namespace StandartForm1
                 {
                     ErrPort();
                 }
-                if (checkBox3.Checked) richTextBox2.Text += "\n" + String.Format("{0},{1},{2}", β3, δ3, α3) + " | " + String.Format("{0},{1},{2}", x, y, z) + " | ";
+                if (checkBox3.Checked) richTextBox2.Text += "\n" + String.Format("{0},{1},{2}",a1, a2, a3) + " | " + String.Format("{0},{1},{2}", x, y, z) + " | ";
 
             }
         }
