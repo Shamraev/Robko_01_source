@@ -77,7 +77,7 @@ void loop()
 
 }
 float GetFloatNumber() {
-  long number = 0;
+  float number = 0;
   byte byteArray[4];
 
   for (int i = 0; i < 4; i++)
@@ -85,17 +85,9 @@ float GetFloatNumber() {
     byteArray[i] = Serial.read();
   }
   number = *((float*)(byteArray));
-
   return number;
-
-//  //---------
-//  Serial.println('Float: ' + number);
-//  //-------
-//  Serial.println(byteArray[0] + '-' + byteArray[1] + '-' + byteArray[2] + '-' + byteArray[3], HEX); // Print the hex representation of the float
-//  //----------
 }
 void SendTaskToServos(float a1, float a2, float a3, float a5) {
-  // Serial.print(a1);
   positions[0] = round(a1 * s1);
   positions[1] = round(a2 * s2);
   positions[2] = round(a3 * s3);

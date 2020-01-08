@@ -8,13 +8,14 @@ using System.Threading;
 using System.Timers;
 using System.IO.Ports;
 using System.Windows.Forms;
-
+using InverseKinematics;
 
 namespace StandartForm1
 {
 
     public partial class Form1 : Form
     {
+        RobkoIK robkoIK = new RobkoIK();
         Mathcad.Application mc;
         Mathcad.Worksheet ws;
 
@@ -78,10 +79,8 @@ namespace StandartForm1
                     // serialPort1.DiscardInBuffer();
 
 
-                    // считаем последнее значение 
-                    //  string strFromPort = serialPort1.ReadLine();
-
-                    string strFromPort = PortText;
+                    // считаем последнее значение                     
+                    string strFromPort = serialPort1.ReadExisting();                   
                     richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), strFromPort);
                     PortText = "";
                 }
@@ -327,6 +326,8 @@ namespace StandartForm1
                 ws.SetValue("x", x + 2);//!!
                 ws.SetValue("y", y + 3);
                 ws.SetValue("z", z + 22);//!!!!!!!!!!!!!
+                
+                
                 Thread.Sleep(50);//---------------------------------избавиться---------------------------------------------------------
                 ws.Recalculate();
                 Thread.Sleep(50);
@@ -340,22 +341,13 @@ namespace StandartForm1
                     float a3 = float.Parse(α3, System.Globalization.CultureInfo.InvariantCulture);
 
                     var floatArray = new float[] { a1, a2, a3 };
-
                     var byteArray = new byte[floatArray.Length * 4];
+
                     Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
 
                     serialPort1.Write(byteArray, 0, byteArray.Length);
                     serialPort1.Read(buffer, 0, 1);//------------
                     XyzDisplay();
-
-                    //----------
-                    richTextBox2.Text += "\n floatArray: " + floatArray[0] + floatArray[1] + floatArray[2];
-                    richTextBox2.Text += "\n byteArray: ";
-                   // foreach (byte b in byteArray)
-                   // {
-                        richTextBox2.Text += BitConverter.ToString(byteArray);
-                   // }
-                    //-------------
                 }
                 catch
                 {
@@ -482,7 +474,7 @@ namespace StandartForm1
         private void dataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //  buffer += serialPort1.ReadExisting();
-            serialPort1.Read(buffer, 0, buffer.Length);
+           // serialPort1.Read(buffer, 0, buffer.Length);
             //test for termination character in buffer
             if (buffer[0] == 33) // Синхронизирующий байт. После этого еще делаем проверку контрольной суммы.
             {
@@ -542,7 +534,7 @@ namespace StandartForm1
             //  }
 
             //  updateTextBox("!!!!!ddd");
-            //PortText += serialPort1.ReadLine();//------------------------------------
+           // PortText += serialPort1.ReadExisting();//------------------------------------
         }
 
         private void data_coordinates_KeyPress(object sender, KeyPressEventArgs e)

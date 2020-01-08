@@ -454,8 +454,6 @@
             // chkRecievPrt
             // 
             this.chkRecievPrt.AutoSize = true;
-            this.chkRecievPrt.Checked = true;
-            this.chkRecievPrt.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRecievPrt.Location = new System.Drawing.Point(16, 28);
             this.chkRecievPrt.Name = "chkRecievPrt";
             this.chkRecievPrt.Size = new System.Drawing.Size(269, 28);

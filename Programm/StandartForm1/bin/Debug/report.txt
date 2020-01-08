@@ -3,3 +3,43 @@
  floatArray: 57,6166,60,38
  byteArray: A4-70-66-42-33-33-85-42-5C-8F-C2-3E
 
+ floatArray: 57.7466.320.38
+ byteArray: C3-F5-66-42-D7-A3-84-42-5C-8F-C2-3E
+ floatArray: 57.8766.050.38
+ byteArray: E1-7A-67-42-9A-19-84-42-5C-8F-C2-3E
+ floatArray: 5865.770.37
+ byteArray: 00-00-68-42-3D-8A-83-42-A4-70-BD-3E
+ floatArray: 58.1465.490.37
+ byteArray: 5C-8F-68-42-E1-FA-82-42-A4-70-BD-3E
+ floatArray: 58.2765.220.37
+ byteArray: 7B-14-69-42-A4-70-82-42-A4-70-BD-3E
+ floatArray: 58.4164.940.37
+ byteArray: D7-A3-69-42-48-E1-81-42-A4-70-BD-3E
+ floatArray: 58.5564.670.37
+ byteArray: 33-33-6A-42-0A-57-81-42-A4-70-BD-3E
+ floatArray: 58.6964.390.37
+ byteArray: 8F-C2-6A-42-AE-C7-80-42-A4-70-BD-3E
+ floatArray: 58.8364.110.37
+ byteArray: EC-51-6B-42-52-38-80-42-A4-70-BD-3E
+ floatArray: 58.9763.840.37
+ byteArray: 48-E1-6B-42-29-5C-7F-42-A4-70-BD-3E
+ floatArray: 57.7466.320.38
+ byteArray: C3-F5-66-42-D7-A3-84-42-5C-8F-C2-3E
+ floatArray: 57.8766.050.38
+ byteArray: E1-7A-67-42-9A-19-84-42-5C-8F-C2-3E
+ floatArray: 5865.770.37
+ byteArray: 00-00-68-42-3D-8A-83-42-A4-70-BD-3E
+ floatArray: 58.1465.490.37
+ byteArray: 5C-8F-68-42-E1-FA-82-42-A4-70-BD-3E
+ floatArray: 58.2765.220.37
+ byteArray: 7B-14-69-42-A4-70-82-42-A4-70-BD-3E
+ floatArray: 58.4164.940.37
+ byteArray: D7-A3-69-42-48-E1-81-42-A4-70-BD-3E
+ floatArray: 58.5564.670.37
+ byteArray: 33-33-6A-42-0A-57-81-42-A4-70-BD-3E
+ floatArray: 58.6964.390.37
+ byteArray: 8F-C2-6A-42-AE-C7-80-42-A4-70-BD-3E
+ floatArray: 58.8364.110.37
+ byteArray: EC-51-6B-42-52-38-80-42-A4-70-BD-3E
+ floatArray: 58.9763.840.37
+ byteArray: 48-E1-6B-42-29-5C-7F-42-A4-70-BD-3E
