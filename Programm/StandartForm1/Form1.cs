@@ -15,8 +15,8 @@ namespace StandartForm1
 
     public partial class Form1 : Form
     {
-        RobkoIKSolver robkoIKSolver = new RobkoIKSolver(0,190, 178, 178, 82);
-        Mathcad.Application mc;
+        IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0,190, 178, 177, 82);//d4 = 178
+         Mathcad.Application mc;
         Mathcad.Worksheet ws;
 
         static string path = Directory.GetCurrentDirectory();
@@ -41,15 +41,7 @@ namespace StandartForm1
             InitializeComponent();
         }
         private void Form1_Shown(object sender, EventArgs e)
-        {
-
-            mc = new Mathcad.Application();
-            mc.Visible = false;
-            Mathcad.Worksheets mwk = mc.Worksheets;
-            ws = mwk.Open(mathFile);
-            Thread.Sleep(50);
-
-
+        {          
             PortTurnOn(serialPort1); //включить порт
             XyzDisplay();
             if (File.Exists(report)) { richTextBox2.Text = File.ReadAllText(report); }
@@ -119,12 +111,8 @@ namespace StandartForm1
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mc.ActiveWorksheet.Close(Mathcad.MCSaveOption.mcDiscardChanges);
-            mc.Quit(Mathcad.MCSaveOption.mcDiscardChanges);
-
             aTimer.Enabled = false;
             serPortClose(serialPort1);
-
         }
         private void button6_Click(object sender, EventArgs e)
         {
@@ -156,7 +144,7 @@ namespace StandartForm1
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            richTextBox2.Text = "Углы  β,δ,α | x,y,z в программе | x,y,z в реальности\n----------------------------------------------------------------------------------";
+            richTextBox2.Text = "Углы  β,δ,α | x,y,z в программе | x,y,z в реальности\n---------------------------------------------------------------------";
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -183,6 +171,7 @@ namespace StandartForm1
             bool angls = (data_angels.Text != "");//углы заданы
             bool coords = (data_coordinates.Text != "");//координаты заданы
             string CheckedNbrs = "";
+            double[] NumbersDouble;
             if (serialPort1.IsOpen)
             {
                 if (angls && !coords)//углы заданы, а координы нет
@@ -190,12 +179,12 @@ namespace StandartForm1
                     CheckedNbrs = data_angels.Text;
 
                     //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
-                    if (CheckNumbers(ref CheckedNbrs))//проверить прошели ли проверку, не обнулились ли
+                    if (CheckNumbers(ref CheckedNbrs, out NumbersDouble))//проверить прошели ли проверку, не обнулились ли
                     {
                         data_angels.Text = CheckedNbrs;
 
-                        serialPort1.Write(data_angels.Text);
-                        serialPort1.DiscardInBuffer();
+                        
+                        SendAngelesToRobot(NumbersDouble[0], NumbersDouble[1], NumbersDouble[2]);
 
                         //если режим отладки включен, написать углы и координаты в окошке
                         if (checkBox3.Checked) richTextBox2.Text += "\n" + data_angels.Text + " | " + String.Format("{0},{1},{2}", x, y, z) + " || ";
@@ -207,14 +196,14 @@ namespace StandartForm1
                     CheckedNbrs = data_coordinates.Text;
 
                     //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
-                    if (CheckNumbers(ref CheckedNbrs))//проверить прошели ли проверку, не обнулились ли
+                    
+                    if (CheckNumbers(ref CheckedNbrs, out NumbersDouble))//проверить прошели ли проверку, не обнулились ли
                     {
                         data_coordinates.Text = CheckedNbrs;
-
-                        String[] coordinates = data_coordinates.Text.Split(',');//отделить числа запятой
-                        x = Double.Parse(coordinates[0]);
-                        y = Double.Parse(coordinates[1]);
-                        z = Double.Parse(coordinates[2]);
+                        
+                        x = NumbersDouble[0];
+                        y = NumbersDouble[1];
+                        z = NumbersDouble[2];                     
                         SendAngles();
                     }
 
@@ -228,10 +217,11 @@ namespace StandartForm1
 
         }
 
-        public bool CheckNumbers(ref string nbrs)
+        public bool CheckNumbers(ref string nbrs, out double[] NumbersDouble)
         {
+            
             String[] gh = nbrs.Split(',');//отделить числа запятой
-
+            NumbersDouble = new double[gh.Length];
             //проверить введенные числа
             if (gh.Length != 3 || gh.Contains(""))
             {
@@ -241,7 +231,7 @@ namespace StandartForm1
 
             }
 
-            double[] tmp = new double[gh.Length];
+            
             //сделать double  с раделителем - ".", а не ","
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             nbrs = "";
@@ -249,9 +239,9 @@ namespace StandartForm1
             {
                 try
                 {
-                    tmp[i] = Math.Round(Convert.ToDouble(gh[i]), 2);
-                    if (i != gh.Length - 1) nbrs += Convert.ToString(tmp[i]) + ",";
-                    else nbrs += Convert.ToString(tmp[i]);
+                    NumbersDouble[i] = Math.Round(Convert.ToDouble(gh[i]), 2);
+                    if (i != gh.Length - 1) nbrs += Convert.ToString(NumbersDouble[i]) + ",";
+                    else nbrs += Convert.ToString(NumbersDouble[i]);
                 }
                 catch
                 {
@@ -321,23 +311,19 @@ namespace StandartForm1
                         break;
 
                 }
-
-                robkoIKSolver.SolveIK(x, y, z);
-                float a1, a2, a3;
+                
+                iKSolver3DOF.SolveIK(x, y, z);
+                double a1, a2, a3;
                 a1 = 0; a2 = 0; a3 = 0;
                 try
                 {
-                    a1 = -robkoIKSolver.NormQ.ValueF[1];
-                    a2 = robkoIKSolver.NormQ.ValueF[3];
-                    a3 = -robkoIKSolver.NormQ.ValueF[0];
+                    a1 = iKSolver3DOF.QDeg[1];
+                    a2 = iKSolver3DOF.QDeg[2];
+                    a3 = iKSolver3DOF.QDeg[0];
 
-                    var floatArray = new float[] { a1, a2, a3 };
-                    var byteArray = new byte[floatArray.Length * 4];
+                    SendAngelesToRobot(a1, a2, a3);               
 
-                    Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
-
-                    serialPort1.Write(byteArray, 0, byteArray.Length);
-                    serialPort1.Read(buffer, 0, 1);//------------
+                    
                     XyzDisplay();
                 }
                 catch
@@ -350,7 +336,17 @@ namespace StandartForm1
         }
 
 
+        protected void SendAngelesToRobot(double a1, double a2, double a3)
+        {
+            if (!serialPort1.IsOpen) { return; }
+            var floatArray = new float[] { (float)Math.Round(a1, 2), (float)Math.Round(a2, 2), (float)Math.Round(a3, 2) };
+            var byteArray = new byte[floatArray.Length * 4];
 
+            Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
+            serialPort1.Write(byteArray, 0, byteArray.Length);
+            serialPort1.Read(buffer, 0, 1);//------------
+
+        }
         public void XyzDisplay()
         {
             label1.Text = String.Format("{0},{1},{2}", Convert.ToString(Math.Round(x, 2)).Replace(',', '.'), Convert.ToString(Math.Round(y, 2)).Replace(',', '.'), Convert.ToString(Math.Round(z, 2)).Replace(',', '.'));
@@ -363,9 +359,9 @@ namespace StandartForm1
             if (FoundArdnoPort())
             {
                 try
-                {
+                {                    
                     serialPort1.Open();
-                    Thread.Sleep(50);
+                    Thread.Sleep(1000);//---------
                     SendAngles();
                     OkPort();
                 }
@@ -475,20 +471,17 @@ namespace StandartForm1
 
         void SendListCoodinates(string[] lines, int TimeWait)
         {
-            String[] coordinates;
+            double[] coordinates;
             for (int i = 2; i < lines.Length; i++)
             {
                 string CheckedNbrs = lines[i];
                 //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
-                if (CheckNumbers(ref CheckedNbrs))//проверить прошели ли проверку, не обнулились ли
-                {
-                    coordinates = CheckedNbrs.Split(',');//отделить числа запятой
-                    x = Double.Parse(coordinates[0]);
-                    y = Double.Parse(coordinates[1]);
-                    z = Double.Parse(coordinates[2]);
-
+                if (CheckNumbers(ref CheckedNbrs, out coordinates))//проверить прошели ли проверку, не обнулились ли
+                {                    
+                    x = coordinates[0];
+                    y = coordinates[1];
+                    z = coordinates[2];
                     SendAngles();
-
                 }
 
             }

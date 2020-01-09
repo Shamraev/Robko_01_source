@@ -267,7 +267,7 @@
             this.serialPort1.BaudRate = 115200;
             this.serialPort1.DtrEnable = true;
             this.serialPort1.ReadBufferSize = 8192;
-            this.serialPort1.ReadTimeout = 30000;
+            this.serialPort1.ReadTimeout = 60000;
             this.serialPort1.WriteTimeout = 1000;
             this.serialPort1.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort1_ErrorReceived);
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
@@ -448,7 +448,7 @@
             this.richTextBox2.Size = new System.Drawing.Size(462, 282);
             this.richTextBox2.TabIndex = 12;
             this.richTextBox2.Text = "Углы  β,δ,α | x,y,z в программе | x,y,z в реальности\n----------------------------" +
-    "---------------------------------------------";
+    "------------------------------------";
             this.richTextBox2.TextChanged += new System.EventHandler(this.richTextBox2_TextChanged);
             // 
             // chkRecievPrt

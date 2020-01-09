@@ -56,4 +56,5 @@ namespace VecLib
             this.y = y;            
         }
     }
+
 }
