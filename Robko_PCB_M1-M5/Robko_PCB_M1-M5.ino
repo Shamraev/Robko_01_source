@@ -12,18 +12,15 @@ MultiStepper steppers;
 
 String myString;
 float a1, a2, a3, a4, a5;
-//float s1, s2, s3, s4, s5;
-float  s1 = 59200 / 90;
-float  s2 = -36100 / 90;
-float  s3 = 59800 / 90;
-float  s5A1 = -(55000 / 90)*0.04;
-float  s5A2 = (55000 / 90)*0.7;  
-float oldA1, oldA2;
+float  s1 = -59800 / 90;
+float  s2 = 59200 / 90;
+float  s3 = -36100 / 90.7;
+float  s5A2 = -(55000 / 90)*0.04;
+float  s5A3 = (55000 / 90)*0.7;  
+float oldA2, oldA3;
 const int M5_L = 45;
-int currentValue, prevValue;
 const int ledPin =  13;
 const byte val = B1;
-bool atTurget;
 byte buf[3];
 int n;
 float accelr = 1E+10;
@@ -35,8 +32,8 @@ int dataLength = 12;
 long positions[4];
 void setup()
 {
-  oldA1 = a1;
   oldA2 = a2;
+  oldA3 = a3;
   Serial.begin(115200);
 
   stepper1.setMaxSpeed(MotorMaxSpeed);
@@ -48,9 +45,9 @@ void setup()
   stepper4.setSpeed(MotorSpeed);
   stepper5.setSpeed(MotorSpeed5);
 
-  steppers.addStepper(stepper1);
-  steppers.addStepper(stepper2);
-  steppers.addStepper(stepper4);
+  steppers.addStepper(stepper4);//q1
+  steppers.addStepper(stepper1);//q2
+  steppers.addStepper(stepper2);//q3  
   steppers.addStepper(stepper5);
 
   pinMode(31, OUTPUT);
@@ -63,31 +60,21 @@ void setup()
   pinMode(M5_L,  INPUT);
 
   // stepper5.moveTo(100 * 16);
-  prevValue = 0;
-  atTurget = false;
 }
 
 void loop()
 {
 
-  if ((dataLength == Serial.available()) and (not steppers.run())) {
+  if ((dataLength <= Serial.available()) and (not steppers.run())) {
     a1 = GetFloatNumber();
     a2 = GetFloatNumber();
     a3 = GetFloatNumber();
-    atTurget = false;
 
-    a5 = a5 +  s5A1*(a1 - oldA1) +  s5A2*(a2 - oldA2);
-   // a5 = a5 + (a1 - oldA1);
-    oldA1 = a1;
+    a5 = a5 +  s5A2*(a2 - oldA2) +  s5A3*(a3 - oldA3);    
     oldA2 = a2;
+    oldA3 = a3;
     SendTaskToServos(a1 , a2, a3, a5 );
   }
-
-  //  if ((not atTurget) and (not steppers.run()))
-  //  {
-  //    Serial.write(33);
-  //    atTurget = true;
-  //  }
 
 }
 float GetFloatNumber() {

@@ -148,19 +148,14 @@ namespace InverseKinematics
         {
             base.SolveIK(aX, aY, aZ);
 
-            QRad[0] = Atan2(x, y);
+            QRad[0] = Atan2(-x, y);
             double ll = Sqrt(x * x + y * y) - d5;
             double l = Sqrt(Pow(z - d2, 2) + Pow(ll, 2));
             double a1 = Atan2(z - d2, ll);
             double a2 = GetAngelIntriangle(l, d3, d4);
             QRad[1] = PI / 2 - a1 - a2;
             double a3 = GetAngelIntriangle(d4, d3, l);
-            QRad[2] = PI - a3;
-            //--------совместить нули нормально
-            //-----------
-            QRad[2] = PI - QRad[2] - QRad[1];
-            QRad[2] = PI / 2 - QRad[2];
-            //-----------------
+            QRad[2] = PI - a3-(PI / 2 - QRad[1]);
             ConvertQFromRadToDeg();
             GetNormQ();
         }

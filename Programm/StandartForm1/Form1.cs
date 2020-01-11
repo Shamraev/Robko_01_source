@@ -15,7 +15,7 @@ namespace StandartForm1
 
     public partial class Form1 : Form
     {
-        IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0,190, 178, 177, 82);//d4 = 178
+        IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0,190, 178, 177, 80);//d4 = 178; d5 = 82;
          Mathcad.Application mc;
         Mathcad.Worksheet ws;
 
@@ -317,9 +317,9 @@ namespace StandartForm1
                 a1 = 0; a2 = 0; a3 = 0;
                 try
                 {
-                    a1 = iKSolver3DOF.QDeg[1];
-                    a2 = iKSolver3DOF.QDeg[2];
-                    a3 = iKSolver3DOF.QDeg[0];
+                    a1 = iKSolver3DOF.QDeg[0];
+                    a2 = iKSolver3DOF.QDeg[1];
+                    a3 = iKSolver3DOF.QDeg[2];
 
                     SendAngelesToRobot(a1, a2, a3);               
 
