@@ -362,7 +362,8 @@ namespace StandartForm1
                 {                    
                     serialPort1.Open();
                     Thread.Sleep(1000);//---------
-                    SendAngles();
+                                       // SendAngles();
+                    SendAngelesToRobot(0, 0, 0);//-----??
                     OkPort();
                 }
 
@@ -416,7 +417,7 @@ namespace StandartForm1
 
         private void data_angels_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar) | (e.KeyChar == Convert.ToChar(",")) | (e.KeyChar == Convert.ToChar(".")) | e.KeyChar == '\b') return;
+            if (Char.IsNumber(e.KeyChar) | (e.KeyChar == Convert.ToChar("-")) | (e.KeyChar == Convert.ToChar(",")) | (e.KeyChar == Convert.ToChar(".")) | e.KeyChar == '\b') return;
             else
                 e.Handled = true;
         }

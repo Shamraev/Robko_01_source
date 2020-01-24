@@ -1485,15 +1485,15 @@ F 3 "~" H 13950 4850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Text GLabel 14300 4450 2    50   Input ~ 0
-M1_LIMIT
+M3_LIMIT
 Wire Wire Line
 	14150 4450 14300 4450
 Text GLabel 14300 4550 2    50   Input ~ 0
-M2_LIMIT
+M5_LIMIT
 Wire Wire Line
 	14150 4550 14300 4550
 Text GLabel 14300 4650 2    50   Input ~ 0
-M3_LIMIT
+M1_LIMIT
 Wire Wire Line
 	14150 4650 14300 4650
 Text GLabel 14300 4750 2    50   Input ~ 0
@@ -1501,7 +1501,7 @@ M4_LIMIT
 Wire Wire Line
 	14150 4750 14300 4750
 Text GLabel 14300 4850 2    50   Input ~ 0
-M5_LIMIT
+M2_LIMIT
 Wire Wire Line
 	14150 4850 14300 4850
 Text GLabel 14300 4950 2    50   Input ~ 0
@@ -1509,13 +1509,13 @@ M6_LIMIT
 Wire Wire Line
 	14150 4950 14300 4950
 Text GLabel 350  6050 0    50   Input ~ 0
-M1_LIMIT
+M3_LIMIT
 Text GLabel 350  6150 0    50   Input ~ 0
-M2_LIMIT
+M5_LIMIT
 Text GLabel 350  6350 0    50   Input ~ 0
 M4_LIMIT
 Text GLabel 350  6450 0    50   Input ~ 0
-M5_LIMIT
+M2_LIMIT
 Text GLabel 350  6600 0    50   Input ~ 0
 M6_LIMIT
 Wire Wire Line
@@ -1637,7 +1637,7 @@ F 3 "~" H 550 7250 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Text GLabel 350  6250 0    50   Input ~ 0
-M3_LIMIT
+M1_LIMIT
 Wire Wire Line
 	350  6450 1550 6450
 Wire Wire Line
