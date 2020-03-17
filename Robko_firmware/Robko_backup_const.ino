@@ -1,7 +1,14 @@
 #include <AccelStepper.h>
 #include <MultiStepper.h>
 
-
+// Define some steppers and the pins the will use
+AccelStepper stepper1(1, 53, 51);
+AccelStepper stepper2(1, 33, 35);
+AccelStepper stepper3(1, 21, 20);
+AccelStepper stepper4(1, 49, 47);
+AccelStepper stepper5(1, 38, 39); //(.., step, dir)
+AccelStepper stepper6(1, 36, 37);
+MultiStepper steppers;
 
 typedef struct {
   byte  pin;
@@ -41,9 +48,15 @@ float  s5A2 = -(55000 / 90) * 0.04;
 float  s5A3 = (55000 / 90) * 0.7;
 float oldA2, oldA3;
 
+const byte M1_LIMIT_P = 44;
+const byte M2_LIMIT_P = 42;
+const byte M3_LIMIT_P = 46;
+const byte M4_LIMIT_P = 43;
+const byte M5_LIMIT_P = 45;
+const byte M6_LIMIT_P = 41;
 
-
-
+const byte notEn = 31;
+const int ledPin =  13;//светодиод на ардуино
 const byte val = B1;
 byte buf[3];
 int n;
