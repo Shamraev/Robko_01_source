@@ -9,7 +9,7 @@ void setup()
 
 void loop()
 {
-	robko.reciveCommand();
+	//robko.reciveCommand();
 	robko.doTask();
-	robko.transmetReply();
+	//robko.transmitReply();
 }
