@@ -1,8 +1,9 @@
 #ifndef RobkoTypes_h
 #define RobkoTypes_h
+#include <Arduino.h>
 
 //--------------------константы-------------------------------
-const int SerialRate = 115200;//??в один файл параметров??
+const long SerialRate = 115200;//??в один файл параметров??
 const int dataLength = 12;
 //коэффициенты преобразования углов в микрошаги
 const float  s1 = -59800 / 90;
@@ -20,6 +21,10 @@ const float MotorSpeed5 =  MotorSpeed * 0.6;
 const float SlowMotorSpeed5 = MotorSpeed5 / 2;
 const float MotorMaxSpeed5 = MotorSpeed5;
 
+//-------------------перечесляемые типы------------------------
+enum MotorSpeedState {slow, normal};
+
+enum Command {none, goToStartPositions};
 
 //--------------------структуры-------------------------------
 typedef struct {
@@ -30,7 +35,7 @@ typedef struct {
 
 typedef struct {
   bool Received;
-  bool isDoing;
+  //bool isDoing;
   bool Complete;
   bool DoneRun;
   Command  command;
@@ -39,11 +44,5 @@ typedef struct {
 typedef struct {
   bool isRunning;
 } StatusSteppers;
-
-
-//-------------------перечесляемые типы------------------------
-enum MotorSpeedState {slow, normal};
-
-enum Command {none, goToStartPositions};
 
 #endif

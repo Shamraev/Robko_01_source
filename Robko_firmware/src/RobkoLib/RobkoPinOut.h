@@ -1,8 +1,8 @@
 #ifndef RobkoPinOut_h
 #define RobkoPinOut_h
+#include <Arduino.h>
 
 /*пины платы управления*/
-
 const byte M1_STEP_P = 53;
 const byte M1_DIR_P = 51;
 const byte M2_STEP_P = 33;
