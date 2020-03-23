@@ -181,11 +181,52 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# arduino_shieldsNCL_ARDUINO_MEGA_SHIELD
+# power_+5V
 #
-DEF arduino_shieldsNCL_ARDUINO_MEGA_SHIELD SHIELD 0 40 Y Y 1 F N
+DEF power_+5V #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -150 50 H I C CNN
+F1 "power_+5V" 0 140 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -30 50 0 100 N
+P 2 0 1 0 0 0 0 100 N
+P 2 0 1 0 0 100 30 50 N
+X +5V 1 0 0 0 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# power_GND
+#
+DEF power_GND #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -250 50 H I C CNN
+F1 "power_GND" 0 -150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
+X GND 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# power_GNDA
+#
+DEF power_GNDA #PWR 0 0 Y Y 1 F P
+F0 "#PWR" 0 -250 50 H I C CNN
+F1 "power_GNDA" 0 -150 50 H V C CNN
+F2 "" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
+X GNDA 1 0 0 0 D 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
+# robko_PCB_arduino_shield-rescue_ARDUINO_MEGA_SHIELD-arduino_shieldsNCL
+#
+DEF robko_PCB_arduino_shield-rescue_ARDUINO_MEGA_SHIELD-arduino_shieldsNCL SHIELD 0 40 Y Y 1 F N
 F0 "SHIELD" -400 2500 60 H V C CNN
-F1 "arduino_shieldsNCL_ARDUINO_MEGA_SHIELD" -100 -2700 60 H V C CNN
+F1 "robko_PCB_arduino_shield-rescue_ARDUINO_MEGA_SHIELD-arduino_shieldsNCL" -100 -2700 60 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -278,52 +319,11 @@ X V_IN V_IN -1000 1450 300 R 50 50 1 1 W
 ENDDRAW
 ENDDEF
 #
-# power_+5V
+# robko_PCB_arduino_shield-rescue_POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue
 #
-DEF power_+5V #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -150 50 H I C CNN
-F1 "power_+5V" 0 140 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -30 50 0 100 N
-P 2 0 1 0 0 0 0 100 N
-P 2 0 1 0 0 100 30 50 N
-X +5V 1 0 0 0 U 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_GND
-#
-DEF power_GND #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GND" 0 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
-X GND 1 0 0 0 D 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# power_GNDA
-#
-DEF power_GNDA #PWR 0 0 Y Y 1 F P
-F0 "#PWR" 0 -250 50 H I C CNN
-F1 "power_GNDA" 0 -150 50 H V C CNN
-F2 "" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 6 0 1 0 0 0 0 -50 50 -50 0 -100 -50 -50 0 -50 N
-X GNDA 1 0 0 0 D 50 50 1 1 W N
-ENDDRAW
-ENDDEF
-#
-# sb-cnc-shield-rescue_POLOLU_STEPPER_DRIVER
-#
-DEF sb-cnc-shield-rescue_POLOLU_STEPPER_DRIVER U 0 40 Y Y 1 F N
+DEF robko_PCB_arduino_shield-rescue_POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue U 0 40 Y Y 1 F N
 F0 "U" -350 600 60 H V C CNN
-F1 "sb-cnc-shield-rescue_POLOLU_STEPPER_DRIVER" 0 -450 60 H V C CNN
+F1 "robko_PCB_arduino_shield-rescue_POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue" 0 -450 60 H V C CNN
 F2 "" 0 0 60 H V C CNN
 F3 "" 0 0 60 H V C CNN
 DRAW
@@ -347,11 +347,11 @@ X GND 9 450 -300 200 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# sb-cnc-shield-rescue_VIN
+# robko_PCB_arduino_shield-rescue_VIN-sb-cnc-shield-rescue
 #
-DEF sb-cnc-shield-rescue_VIN #PWR 0 0 Y Y 1 F P
+DEF robko_PCB_arduino_shield-rescue_VIN-sb-cnc-shield-rescue #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "sb-cnc-shield-rescue_VIN" 0 140 50 H V C CNN
+F1 "robko_PCB_arduino_shield-rescue_VIN-sb-cnc-shield-rescue" 0 140 50 H V C CNN
 F2 "" 0 0 60 H V C CNN
 F3 "" 0 0 60 H V C CNN
 DRAW

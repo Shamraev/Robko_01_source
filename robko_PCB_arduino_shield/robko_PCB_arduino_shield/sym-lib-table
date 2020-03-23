@@ -2,4 +2,5 @@
   (lib (name NiceRAMPS-cache)(type Legacy)(uri C:/Users/user/Desktop/Robko_01/PCB/NiceRAMPS-master/kicad/NiceRAMPS-cache.lib)(options "")(descr ""))
   (lib (name arduino_shieldsNCL)(type Legacy)(uri C:/Users/user/Desktop/Robko_01/PCB/Arduino_Shield_Modules_for_KiCad_V3/arduino_shieldsNCL.lib)(options "")(descr ""))
   (lib (name sb-cnc-shield-rescue)(type Legacy)(uri C:/Users/user/Desktop/Robko_01/PCB/sb-cnc-shield-master/sb-cnc-shield-rescue.lib)(options "")(descr ""))
+  (lib (name robko_PCB_arduino_shield-rescue)(type Legacy)(uri ${KIPRJMOD}/robko_PCB_arduino_shield-rescue.lib)(options "")(descr ""))
 )
