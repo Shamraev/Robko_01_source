@@ -1,5 +1,6 @@
 #ifndef RobkoPinOut_h
 #define RobkoPinOut_h
+
 #include <Arduino.h>
 
 /*пины платы управления*/
@@ -23,7 +24,7 @@ const byte M4_LIMIT_P = 43;
 const byte M5_LIMIT_P = 45;
 const byte M6_LIMIT_P = 41;
 
-const byte notEn = 31;
-const int ledPin =  13;//светодиод на ардуино
+const byte NOT_ENABLE = 31;//пин выключения всех драйверов
+const int LED_PIN = 13; //светодиод на ардуино
 
 #endif

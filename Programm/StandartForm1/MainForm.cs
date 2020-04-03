@@ -10,10 +10,10 @@ using System.IO.Ports;
 using System.Windows.Forms;
 using InverseKinematics;
 
-namespace StandartForm1
+namespace StandartMainForm
 {
 
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0,190, 178, 177, 80);//d4 = 178; d5 = 82;
          Mathcad.Application mc;
@@ -36,12 +36,13 @@ namespace StandartForm1
         string PortText;
 
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
         }
-        private void Form1_Shown(object sender, EventArgs e)
-        {          
+        private void MainForm_Shown(object sender, EventArgs e)
+        {        
+            
             PortTurnOn(serialPort1); //включить порт
             XyzDisplay();
             if (File.Exists(report)) { richTextBox2.Text = File.ReadAllText(report); }
@@ -109,7 +110,7 @@ namespace StandartForm1
             printDialog1.ShowDialog();
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             aTimer.Enabled = false;
             serPortClose(serialPort1);
@@ -363,7 +364,7 @@ namespace StandartForm1
                     serialPort1.Open();
                     Thread.Sleep(1000);//---------
                                        // SendAngles();
-                    SendAngelesToRobot(0, 0, 0);//-----??
+                   // SendAngelesToRobot(0, 0, 0);//-----??
                     OkPort();
                 }
 
