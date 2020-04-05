@@ -7,8 +7,9 @@
 c = x+y-z;
 figure('Name','Color points Robko 01 workspace Plot','NumberTitle','off'); 
 for i = 1:4
-    subplot(2,2,i)
-    scatter3(x,y,z,5,c)
+    subplot(2,2,i);
+    scatter3(x,y,z,5,c);    
+    if Constants.DO_CHESS_MWORKSPACE doChessManipulateWorkspace();end
     setView(i);
 end
 %print(gcf, '-dpdf', 'RWorkspace_ColorPoints.pdf', '-bestfit');

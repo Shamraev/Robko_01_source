@@ -8,6 +8,7 @@ figure('Name','Points Robko 01 workspace Plot','NumberTitle','off');
 for i = 1:4
     subplot(2,2,i)
     plot3(x,y,z,'o', 'MarkerSize',3);
+    if Constants.DO_CHESS_MWORKSPACE doChessManipulateWorkspace();end
     setView(i);
 end
 %print(gcf, '-dpdf', 'RWorkspace_Points.pdf', '-bestfit');

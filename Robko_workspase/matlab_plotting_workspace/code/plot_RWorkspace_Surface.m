@@ -8,7 +8,8 @@ k = boundary(x,y,z);
 figure('Name','Surface Robko 01 workspace Plot','NumberTitle','off');
 for i = 1:4
     subplot(2,2,i)
-    trisurf(k,x,y,z,'Facecolor','red','FaceAlpha',0.1);
+    trisurf(k,x,y,z,'Facecolor','red','FaceAlpha',0.1, 'EdgeAlpha', 0.2);
+    if Constants.DO_CHESS_MWORKSPACE doChessManipulateWorkspace();end
     setView(i);
 end
 %print(gcf, '-dpdf', 'RWorkspace_Surface.pdf', '-bestfit');
