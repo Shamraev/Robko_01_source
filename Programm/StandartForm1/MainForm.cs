@@ -345,7 +345,7 @@ namespace StandartMainForm
 
             Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
             serialPort1.Write(byteArray, 0, byteArray.Length);
-            serialPort1.Read(buffer, 0, 1);//------------
+            //serialPort1.Read(buffer, 0, 1);//------------
 
         }
         public void XyzDisplay()

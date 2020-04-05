@@ -16,6 +16,7 @@ public:
 	void init();
 	void reciveCommand();
 	void doTask(); //clear and focussed
+	void transmitReply();
 protected:
 	void initLimits();
 	float getFloatNumber();
@@ -23,6 +24,8 @@ protected:
 	void checkLimits();
 	void checkLimit(byte i);
 	void steppersRun();
+	void steppersRunStartPos();
+	void steppersRunStandart();
 	void goToStartPositions(); //??
 	void setMotorsSpeed(float motorSpeed_[]);
 	void setMotorsSpeed(enum MSpeedState mSpeedState);

@@ -17,6 +17,11 @@ void Robko::init()
   oldA3 = a3;
   Serial.begin(SERIAL_RATE);
 
+  stepper1.setAcceleration(10000); //--------------
+  stepper2.setAcceleration(10000); //--------------
+  stepper4.setAcceleration(10000); //--------------
+  stepper5.setAcceleration(10000); //--------------
+
   stepper1.setMaxSpeed(MOTOR_MAX_SPEED);
   stepper2.setMaxSpeed(MOTOR_MAX_SPEED);
   stepper4.setMaxSpeed(MOTOR_MAX_SPEED);
@@ -32,9 +37,12 @@ void Robko::init()
   steppers.addStepper(stepper5);
   initLimits();
 
-  task_ = (TaskType){
-      false, false, false, Command{COMMAND_NONE}};
-  statusSteppers_ = {false};
+  task_.Received = false;
+  task_.Complete = false;
+  task_.DoneRun = false;
+  task_.command = COMMAND_NONE;
+
+  statusSteppers_.isRunning = false;
 
   pinMode(NOT_ENABLE, OUTPUT); //?? сократить время
   digitalWrite(NOT_ENABLE, 1);
@@ -47,6 +55,12 @@ void Robko::init()
   //-----------
   Done = false;
   //	goToStartPositions();//--
+
+  //команда идти в ноль//убрать отсюда//temp
+  task_.command = COMMAND_GO_TO_START_POSITIONS; //??---
+  task_.Received = true;
+  task_.Complete = false;
+  goToStartPositions(); //-------------
 }
 
 void Robko::reciveCommand()
@@ -65,16 +79,24 @@ void Robko::reciveCommand()
 
 void Robko::doTask()
 {
-  if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning))
+  if ((DATA_LENGTH <= Serial.available())) //if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning))
   {
     a1 = getFloatNumber();
     a2 = getFloatNumber();
     a3 = getFloatNumber();
 
     //task_.;
-
     sendTaskToSteppers(a1, a2, a3, a5);
   }
+
+  // if ((task_.Received == true) && (task_.command == COMMAND_GO_TO_START_POSITIONS)){
+  //   task_.Received = false;
+  //   goToStartPositions();
+  // }
+
+  steppersRun();
+
+  transmitReply();
 
   // checkLimits();
   // if (!task_.DoneRun) steppersRun();
@@ -86,24 +108,36 @@ void Robko::doTask()
   // }
   // //идти в нулевое положение
 
-  if (task_.Received and (not statusSteppers_.isRunning))
-  {
-    task_ = (TaskType){
-        false, false, true, task_.command //received == false??
-    };
-  }
-  if (task_.Complete and (not task_.DoneRun))
-  {
-    // if (task_.command == Command{COMMAND_GO_TO_START_POSITIONS}) {
-    //   task_.command = Command{COMMAND_NONE};
-    //   setMotorsSpeed(M_SPEED_STATE_NORMAL);
-    //   //Serial.print(tmpQ1);//----
-    //   //sendTaskToSteppers(a1 , a2, a3, a5);
-    // }
-    Serial.write(33);
+  // if (task_.Received and (not statusSteppers_.isRunning))
+  // {
+  //   task_ = (TaskType){
+  //       false, false, true, task_.command //received == false??
+  //   };
+  // }
+  // if (task_.Complete and (not task_.DoneRun))
+  // {
+  //   // if (task_.command == Command{COMMAND_GO_TO_START_POSITIONS}) {
+  //   //   task_.command = Command{COMMAND_NONE};
+  //   //   setMotorsSpeed(M_SPEED_STATE_NORMAL);
+  //   //   //Serial.print(tmpQ1);//----
+  //   //   //sendTaskToSteppers(a1 , a2, a3, a5);
+  //   // }
+  //   Serial.write(33);
 
-    task_.DoneRun = true;
-    Done = true; //-----
+  //   task_.DoneRun = true;
+  //   Done = true; //-----
+  // }
+}
+
+void Robko::transmitReply()
+{
+  bool steppersDistanceToGoIsZero = (stepper4.distanceToGo() == 0) && (stepper1.distanceToGo() == 0) && (stepper2.distanceToGo() == 0); //??остальные strppers
+  task_.Complete = task_.Received && steppersDistanceToGoIsZero;
+
+  if (task_.Complete)
+  {
+    Serial.write(33);
+    task_.Received = false;
   }
 }
 
@@ -198,54 +232,101 @@ void Robko::checkLimit(byte i)
 
 void Robko::steppersRun()
 {
-  CanRun = false;
-  float a3 = 0;
-  if ((mLimit_[0].currentValue == false) and (mLimit_[1].currentValue == false) and (mLimit_[3].currentValue == false))
+  if (task_.command == COMMAND_GO_TO_START_POSITIONS)
   {
-    CanRun = true;
+    steppersRunStartPos();
   }
-  if (task_.command == Command{COMMAND_GO_TO_START_POSITIONS})
-  { //??номера степперов сделать одинаковыми
-    CanRun = true;
+  else
+  {
+    steppersRunStandart();
+  }
+}
 
-    if (mLimit_[3].currentValue)
+void Robko::steppersRunStartPos()
+{
+  if ((task_.command != COMMAND_GO_TO_START_POSITIONS) || task_.Complete)//task_.Complete??
+    return;
+
+  float a3;
+  //??номера степперов сделать одинаковыми
+  CanRun = true; //-----
+  checkLimits();
+  if (mLimit_[3].currentValue) //q1 сработал концевик пусть едет в анправлении q2
+  {
+    tmpQ1 = stepper4.currentPosition(); //отладка//------------
+    stepper4.setCurrentPosition(0);
+    sendTaskToSteppers(0, -300, 0, 0);
+  }
+
+  if (mLimit_[0].currentValue) //q2 сработал концевик
+  {
+    tmpQ2 = stepper1.currentPosition(); //отладка//------------
+    stepper1.setCurrentPosition(0);
+
+    a3 = 0;
+    if (not mLimit_[1].currentValue)
+      a3 = 300; //q3 не сработал концевик
+
+    oldA2 = 0;
+    oldA3 = 0;
+    sendTaskToSteppers(0, 0, a3, 0);
+  }
+  if (mLimit_[1].currentValue) //q3 сработал концевик
+  {
+    tmpQ3 = stepper2.currentPosition(); //отладка//------------
+    stepper2.setCurrentPosition(0);
+    if (not mLimit_[0].currentValue) //q2 не сработал концевик
     {
-      tmpQ1 = stepper4.currentPosition(); //отладка//------------
-      stepper4.setCurrentPosition(0);
-      sendTaskToSteppers(0, positions_[1], positions_[2], 0);
-    }
-    if (mLimit_[0].currentValue)
-    {
-      tmpQ2 = stepper1.currentPosition(); //отладка//------------
+      a3 = -15;
       stepper1.setCurrentPosition(0);
-      sendTaskToSteppers(positions_[0], 0, positions_[2], 0);
-    }
-    if (mLimit_[1].currentValue)
-    {
-      tmpQ3 = stepper2.currentPosition(); //отладка//------------
-      stepper2.setCurrentPosition(0);
-      if (not mLimit_[0].currentValue)
-      {
-        a3 = -5;
-      }
-      else
-        a3 = 0;
-      stepper2.moveTo(a3);
-      //sendTaskToSteppers(positions_[0], positions_[1], a3, 0);
-    }
+      stepper5.setCurrentPosition(0);
 
-    //CanRun = not(mLimit_[0].currentValue and mLimit_[1].currentValue and mLimit_[3].currentValue);//??
+      positions_[0] = 0;
+      positions_[1] = 0;
+      positions_[2] = a3*S3;
+      positions_[3] = 0;
+      steppers.moveTo(positions_);
+
+      steppers.runSpeedToPosition(); //блок, пока не выполнит ничего не произойдет
+
+      positions_[0] = 0;
+      positions_[1] = -300*S2;
+      positions_[2] = 0;
+      positions_[3] = 0;
+      steppers.moveTo(positions_);
+    }
+    else
+    {
+      a3 = 0;
+      oldA2 = 0;
+      oldA3 = a3;
+      sendTaskToSteppers(0, 0, a3, 0);
+    }    
   }
 
-  if (CanRun)
-    statusSteppers_.isRunning = steppers.run();
+  bool mLimitsIsTrue = (mLimit_[0].currentValue == true) and (mLimit_[1].currentValue == true) and (mLimit_[3].currentValue == true);
+  if (mLimitsIsTrue)
+    task_.Complete = true;//??
+
+  statusSteppers_.isRunning = steppers.run(); //Run steppers
+
+}
+
+void Robko::steppersRunStandart()
+{
+
+  checkLimits();
+  bool mLimitsIsFalse = (mLimit_[0].currentValue == false) and (mLimit_[1].currentValue == false) and (mLimit_[3].currentValue == false);
+
+  if (mLimitsIsFalse)
+    statusSteppers_.isRunning = steppers.run(); //Run steppers
 }
 
 void Robko::goToStartPositions()
 {
-  task_.command = Command{COMMAND_GO_TO_START_POSITIONS};
+  //task_.command = Command{COMMAND_GO_TO_START_POSITIONS};//---------
   setMotorsSpeed(M_SPEED_STATE_SLOW);
-  sendTaskToSteppers(300, -300, 300, 0); //--------------
+  sendTaskToSteppers(300, 0, 0, 0); //--------------(300, -300, 300, 0)
   //sendTaskToSteppers(100, 0, 0, 0); //--------------
 }
 
