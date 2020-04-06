@@ -23,7 +23,7 @@ namespace StandartMainForm
         string mathFile = path + @"\robot_1.xmcd";//файл маткада
         string report = path + @"\report.txt";//файл отчета
 
-        double x = 0, y = 300, z = 100;
+        double x = 0, y = 257, z = 368;
         double x0, y0, z0;
         int XyzDelta;
         Boolean TuskComplited, TuskSend;
@@ -322,8 +322,7 @@ namespace StandartMainForm
                     a2 = iKSolver3DOF.QDeg[1];
                     a3 = iKSolver3DOF.QDeg[2];
 
-                    SendAngelesToRobot(a1, a2, a3);               
-
+                    SendAngelesToRobot(a1, a2, a3);              
                     
                     XyzDisplay();
                 }

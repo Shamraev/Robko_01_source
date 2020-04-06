@@ -16,6 +16,7 @@ public:
 	void init();
 	void reciveCommand();
 	void doTask(); //clear and focussed
+	void doCommand();
 	void transmitReply();
 protected:
 	void initLimits();
@@ -25,6 +26,7 @@ protected:
 	void checkLimit(byte i);
 	void steppersRun();
 	void steppersRunStartPos();
+	void steppersRunZeros();	
 	void steppersRunStandart();
 	void goToStartPositions(); //??
 	void setMotorsSpeed(float motorSpeed_[]);
@@ -49,7 +51,6 @@ private:
 	float oldA2, oldA3;		  //----------
 
 	long positions_[4];
-	bool CanRun;			  //-------------------
 	long tmpQ1, tmpQ2, tmpQ3; //------
 	bool Done;				  //---------------------
 };

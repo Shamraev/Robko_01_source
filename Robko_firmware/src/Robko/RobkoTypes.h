@@ -13,6 +13,12 @@ const float S3 = -36100 / 90.7;
 const float S5A2 = -(55000 / 90) * 0.04;
 const float S5A3 = (55000 / 90) * 0.7;
 
+//углы в градусах, в которых достигаются нули - срабатывают концевики
+// tmpQ1, tmpQ2, tmpQ3 in steps: -49415 -14631 -14755
+const float Q1_ZERO = 74.42;
+const float Q2_ZERO = -22.27;
+const float Q3_ZERO = 37.07;
+
 //стандартные скорости, ускореия для моторов
 const float ACCELERATION = 1E+10;
 const float MOTOR_SPEED = 1000 * 3; //100*16
@@ -32,7 +38,8 @@ enum MSpeedState
 enum Command
 {
   COMMAND_NONE,
-  COMMAND_GO_TO_START_POSITIONS
+  COMMAND_GO_TO_START_POSITIONS,
+  COMMAND_GO_TO_ZEROS
 };
 
 /*--------------------структуры-------------------------------*/
