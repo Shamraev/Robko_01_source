@@ -36,7 +36,7 @@ enum MSpeedState
 };
 
 enum Command
-{
+{  
   COMMAND_NONE,
   COMMAND_GO_TO_START_POSITIONS,
   COMMAND_GO_TO_ZEROS
