@@ -28,6 +28,9 @@ protected:
 	void steppersRunStartPos();
 	void steppersRunZeros();	
 	void steppersRunStandart();
+	void gripperResetAndOpenTo(float a5);
+	void gripperFindZeroAndOpenTo(float a5);
+	void gripperOpenTo(float a5);
 	void goToStartPositions(); //??
 	void setMotorsSpeed(float motorSpeed_[]);
 	void setMotorsSpeed(enum MSpeedState mSpeedState);

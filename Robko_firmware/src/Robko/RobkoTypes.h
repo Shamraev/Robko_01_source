@@ -12,6 +12,7 @@ const int DATA_LENGTH = 12;
 const float S1 = -59800 / 90;
 const float S2 = 59200 / 90;
 const float S3 = -36100 / 90.7;
+const float S5 = 500;
 const float S5A2 = -(55000 / 90) * 0.04;
 const float S5A3 = (55000 / 90) * 0.7;
 
@@ -55,9 +56,9 @@ typedef struct
 typedef struct
 {
   bool Received;
-  //bool isDoing;
+  bool isDoing;
   bool Complete;
-  bool DoneRun;
+  bool DoneRun;//--
   Command command;
 } TaskType;
 
