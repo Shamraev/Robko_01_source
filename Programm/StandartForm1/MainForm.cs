@@ -16,11 +16,9 @@ namespace StandartMainForm
     public partial class MainForm : Form
     {
         IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0,190, 178, 177, 80);//d4 = 178; d5 = 82;
-         Mathcad.Application mc;
-        Mathcad.Worksheet ws;
+
 
         static string path = Directory.GetCurrentDirectory();
-        string mathFile = path + @"\robot_1.xmcd";//файл маткада
         string report = path + @"\report.txt";//файл отчета
 
         double x = 0, y = 257, z = 368;

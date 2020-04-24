@@ -89,7 +89,7 @@ void Robko::doTask()
 
   doCommand();
 
-  steppersRun();
+  steppersRun();//здесь происходит шаг двигателей
 
   transmitReply();
 
@@ -119,7 +119,7 @@ void Robko::transmitReply()
 {
   if (task_.command == COMMAND_GO_TO_START_POSITIONS)
   {
-    if (task_.Complete == true) //?? только для отладки - нахождения нулей
+    if ((task_.Complete == true) && DEBUG)) //?? только для отладки - нахождения нулей
     {
       Serial.print("tmpQ1, tmpQ2, tmpQ3 in deg: ");
       Serial.print(tmpQ1 / S1);
