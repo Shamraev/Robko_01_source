@@ -13,8 +13,8 @@ Robko::Robko(/*byte color = 5, byte bright = 30*/)
 
 void Robko::init()
 {
-  oldA2 = a2;
-  oldA3 = a3;
+  oldA2 = 0;
+  oldA3 = 0;  
   Serial.begin(SERIAL_RATE);
 
   stepper1.setAcceleration(10000); //--------------
@@ -43,7 +43,8 @@ void Robko::init()
 
   statusSteppers_.isRunning = false;
 
-  stepper5.setCurrentPosition(A5_ZERO*S5);//схват при включении раздвинут на A5_ZERO
+  stepper5.setCurrentPosition(A5_ZERO * S5); //схват при включении раздвинут на A5_ZERO
+  a5_offset_a2_a3_ = 0;
 
   pinMode(NOT_ENABLE, OUTPUT); //?? сократить время
   digitalWrite(NOT_ENABLE, 1);
@@ -62,14 +63,14 @@ void Robko::init()
 
 void Robko::reciveCommand()
 {
-  if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning))
+  if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning)) //if ((DATA_LENGTH <= Serial.available()))
   {
-    a1 = getFloatNumber();
-    a2 = getFloatNumber();
-    a3 = getFloatNumber();
+    float a1 = getFloatNumber();
+    float a2 = getFloatNumber();
+    float a3 = getFloatNumber();
 
     //task_.;
-    a5 = 0;
+    float a5 = A5_ZERO;
     sendTaskToSteppers(a1, a2, a3, a5);
   }
 }
@@ -78,13 +79,13 @@ void Robko::doTask()
 {
   if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning)) //if ((DATA_LENGTH <= Serial.available()))
   {
-    a1 = getFloatNumber();
-    a2 = getFloatNumber();
-    a3 = getFloatNumber();
+    float a1 = getFloatNumber();
+    float a2 = getFloatNumber();
+    float a3 = getFloatNumber();
 
     //task_.;
-    a5 = A5_ZERO;
-    sendTaskToSteppers(a1, a2, a3, a5);
+    float a5 = A5_ZERO;    
+    sendTaskToSteppers(a1, a2, a3, a5);    
   }
 
   doCommand();
@@ -110,6 +111,7 @@ void Robko::doCommand()
     gripperFindZeroAndOpenTo(A5_ZERO);
     oldA2 = 0;
     oldA3 = 0;
+    a5_offset_a2_a3_ = 0;
     //обнулим шаговики, теперь мы в нулях
     stepper4.setCurrentPosition(0); //q1
     stepper1.setCurrentPosition(0); //q2
@@ -206,8 +208,9 @@ void Robko::sendTaskToSteppers(float a1, float a2, float a3, float a5)
   task_.Complete = false;
   task_.DoneRun = false;
 
-  a5 = a5 * S5;                                        //перевод расстояния между губками (мм) в количество шагов
-  a5 = a5 + S5A2 * (a2 - oldA2) + S5A3 * (a3 - oldA3); //поправка для сжатия схвата//??для нуля слишком большие цифры
+  a5 = a5 * S5;                                                                    //перевод расстояния между губками (мм) в количество шагов
+  a5_offset_a2_a3_ = a5_offset_a2_a3_ + S5A2 * (a2 - oldA2) + S5A3 * (a3 - oldA3); //поправка для сжатия схвата//??для нуля слишком большие цифры
+  a5 = a5 + a5_offset_a2_a3_;
   oldA2 = a2;
   oldA3 = a3;
 

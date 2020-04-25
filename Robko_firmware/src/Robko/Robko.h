@@ -51,7 +51,8 @@ private:
 	StatusSteppers statusSteppers_;
 
 	float motorSpeed_[4];
-	float a1, a2, a3, a4, a5; //----
+	float a5_offset_a2_a3_;	
+	
 	float oldA2, oldA3;		  //----------
 
 	long positions_[4];
