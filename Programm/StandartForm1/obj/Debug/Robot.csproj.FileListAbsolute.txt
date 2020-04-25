@@ -283,3 +283,4 @@ F:\source\Robko_01_source\Programm\StandartForm1\obj\Debug\Robot.csproj.CoreComp
 F:\source\Robko_01_source\Programm\StandartForm1\obj\Debug\Robot.exe
 F:\source\Robko_01_source\Programm\StandartForm1\obj\Debug\Robot.pdb
 F:\source\Robko_01_source\Programm\StandartForm1\obj\Debug\StandartMainForm.MainForm.resources
+F:\source\Robko_01_source\Programm\StandartForm1\obj\Debug\RobotSpace.FormSetCurWorkCoordts.resources

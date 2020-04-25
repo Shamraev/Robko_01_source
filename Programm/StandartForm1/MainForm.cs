@@ -9,14 +9,17 @@ using System.Timers;
 using System.IO.Ports;
 using System.Windows.Forms;
 using InverseKinematics;
+using VecLib;
+using RobotSpace;
 
 namespace StandartMainForm
 {
 
     public partial class MainForm : Form
     {
-        IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0,190, 178, 177, 80);//d4 = 178; d5 = 82;
-
+        IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0, 190, 178, 177, 80);//d4 = 178; d5 = 82;
+        public Vector3d CurWork = new Vector3d(10, 257, 368);
+        
 
         static string path = Directory.GetCurrentDirectory();
         string report = path + @"\report.txt";//файл отчета
@@ -39,8 +42,7 @@ namespace StandartMainForm
             InitializeComponent();
         }
         private void MainForm_Shown(object sender, EventArgs e)
-        {        
-            
+        {            
             PortTurnOn(serialPort1); //включить порт
             XyzDisplay();
             if (File.Exists(report)) { richTextBox2.Text = File.ReadAllText(report); }
@@ -71,7 +73,7 @@ namespace StandartMainForm
 
 
                     // считаем последнее значение                     
-                    string strFromPort = serialPort1.ReadExisting();                   
+                    string strFromPort = serialPort1.ReadExisting();
                     richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), strFromPort);
                     PortText = "";
                 }
@@ -182,7 +184,7 @@ namespace StandartMainForm
                     {
                         data_angels.Text = CheckedNbrs;
 
-                        
+
                         SendAngelesToRobot(NumbersDouble[0], NumbersDouble[1], NumbersDouble[2]);
 
                         //если режим отладки включен, написать углы и координаты в окошке
@@ -195,14 +197,14 @@ namespace StandartMainForm
                     CheckedNbrs = data_coordinates.Text;
 
                     //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
-                    
+
                     if (CheckNumbers(ref CheckedNbrs, out NumbersDouble))//проверить прошели ли проверку, не обнулились ли
                     {
                         data_coordinates.Text = CheckedNbrs;
-                        
+
                         x = NumbersDouble[0];
                         y = NumbersDouble[1];
-                        z = NumbersDouble[2];                     
+                        z = NumbersDouble[2];
                         SendAngles();
                     }
 
@@ -218,7 +220,7 @@ namespace StandartMainForm
 
         public bool CheckNumbers(ref string nbrs, out double[] NumbersDouble)
         {
-            
+
             String[] gh = nbrs.Split(',');//отделить числа запятой
             NumbersDouble = new double[gh.Length];
             //проверить введенные числа
@@ -230,7 +232,7 @@ namespace StandartMainForm
 
             }
 
-            
+
             //сделать double  с раделителем - ".", а не ","
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
             nbrs = "";
@@ -310,7 +312,7 @@ namespace StandartMainForm
                         break;
 
                 }
-                
+
                 iKSolver3DOF.SolveIK(x, y, z);
                 double a1, a2, a3;
                 a1 = 0; a2 = 0; a3 = 0;
@@ -320,15 +322,15 @@ namespace StandartMainForm
                     a2 = iKSolver3DOF.QDeg[1];
                     a3 = iKSolver3DOF.QDeg[2];
 
-                    SendAngelesToRobot(a1, a2, a3);              
-                    
+                    SendAngelesToRobot(a1, a2, a3);
+
                     XyzDisplay();
                 }
                 catch
                 {
                     ErrPort();
                 }
-                if (checkBox3.Checked) richTextBox2.Text += "\n" + String.Format("{0},{1},{2}",a1, a2, a3) + " | " + String.Format("{0},{1},{2}", x, y, z) + " | ";
+                if (checkBox3.Checked) richTextBox2.Text += "\n" + String.Format("{0},{1},{2}", a1, a2, a3) + " | " + String.Format("{0},{1},{2}", x, y, z) + " | ";
 
             }
         }
@@ -347,7 +349,13 @@ namespace StandartMainForm
         }
         public void XyzDisplay()
         {
-            label1.Text = String.Format("{0},{1},{2}", Convert.ToString(Math.Round(x, 2)).Replace(',', '.'), Convert.ToString(Math.Round(y, 2)).Replace(',', '.'), Convert.ToString(Math.Round(z, 2)).Replace(',', '.'));
+            labelX.Text = Convert.ToString(Math.Round(x, 2)).Replace(',', '.');
+            labelY.Text = Convert.ToString(Math.Round(y, 2)).Replace(',', '.');
+            labelZ.Text = Convert.ToString(Math.Round(z, 2)).Replace(',', '.');
+
+            buttonCurWorkX.Text = Convert.ToString(CurWork.x);
+            buttonCurWorkY.Text = Convert.ToString(CurWork.y);
+            buttonCurWorkZ.Text = Convert.ToString(CurWork.z);
         }
 
         private void PortTurnOn(SerialPort serPort)//включить порт
@@ -357,11 +365,11 @@ namespace StandartMainForm
             if (FoundArdnoPort())
             {
                 try
-                {                    
+                {
                     serialPort1.Open();
                     Thread.Sleep(1000);//---------
                                        // SendAngles();
-                   // SendAngelesToRobot(0, 0, 0);//-----??
+                                       // SendAngelesToRobot(0, 0, 0);//-----??
                     OkPort();
                 }
 
@@ -460,7 +468,7 @@ namespace StandartMainForm
         private void dataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //  buffer += serialPort1.ReadExisting();
-           // serialPort1.Read(buffer, 0, buffer.Length);
+            // serialPort1.Read(buffer, 0, buffer.Length);
             //test for termination character in buffer
             if (buffer[0] == 33) // Синхронизирующий байт. После этого еще делаем проверку контрольной суммы.
             {
@@ -476,7 +484,7 @@ namespace StandartMainForm
                 string CheckedNbrs = lines[i];
                 //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
                 if (CheckNumbers(ref CheckedNbrs, out coordinates))//проверить прошели ли проверку, не обнулились ли
-                {                    
+                {
                     x = coordinates[0];
                     y = coordinates[1];
                     z = coordinates[2];
@@ -490,6 +498,58 @@ namespace StandartMainForm
             if (CycleChkBox.Checked) stopwhile = false;
             else stopwhile = true;
 
+        }
+
+        private void buttonCurWorkX_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                CurWork.x = 0;
+                buttonCurWorkX.Text = Convert.ToString(CurWork.x);
+            }
+            if (e.Button == MouseButtons.Right)
+            {
+                ShowFormSetCurWorkCoordts();             
+            }
+        }
+        
+        private void buttonCurWorkY_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                CurWork.y = 0;
+                buttonCurWorkY.Text = Convert.ToString(CurWork.y);
+            }
+            if (e.Button == MouseButtons.Right)
+            {
+                ShowFormSetCurWorkCoordts();
+            }
+
+        }
+
+        private void buttonCurWorkZ_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                CurWork.z = 0;
+                buttonCurWorkZ.Text = Convert.ToString(CurWork.z);
+            }
+            if (e.Button == MouseButtons.Right)
+            {
+                ShowFormSetCurWorkCoordts();
+            }
+
+        }
+        private void ShowFormSetCurWorkCoordts()
+        {
+            FormSetCurWorkCoordts fm = new FormSetCurWorkCoordts();
+            fm.textBoxX.Text = buttonCurWorkX.Text;
+            fm.textBoxY.Text = buttonCurWorkY.Text;
+            fm.textBoxZ.Text = buttonCurWorkZ.Text;
+
+            fm.mf = this;
+            fm.StartPosition = FormStartPosition.CenterParent;
+            fm.ShowDialog();
         }
 
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -517,7 +577,7 @@ namespace StandartMainForm
             //  }
 
             //  updateTextBox("!!!!!ddd");
-           // PortText += serialPort1.ReadExisting();//------------------------------------
+            // PortText += serialPort1.ReadExisting();//------------------------------------
         }
 
         private void data_coordinates_KeyPress(object sender, KeyPressEventArgs e)

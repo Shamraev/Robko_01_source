@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormSetCurWorkCoordts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSetCurWorkCoordts.Designer.cs">
+      <DependentUpon>FormSetCurWorkCoordts.cs</DependentUpon>
+    </Compile>
     <Compile Include="VecLib.cs" />
     <Compile Include="InverseKinematics.cs" />
     <Compile Include="MainForm.cs">
@@ -58,6 +64,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormSetCurWorkCoordts.resx">
+      <DependentUpon>FormSetCurWorkCoordts.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

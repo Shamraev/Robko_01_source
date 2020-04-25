@@ -44,6 +44,7 @@ void Robko::init()
   statusSteppers_.isRunning = false;
 
   stepper5.setCurrentPosition(A5_ZERO * S5); //схват при включении раздвинут на A5_ZERO
+  positions_[3] = A5_ZERO * S5;
   a5_offset_a2_a3_ = 0;
 
   pinMode(NOT_ENABLE, OUTPUT); //?? сократить время
