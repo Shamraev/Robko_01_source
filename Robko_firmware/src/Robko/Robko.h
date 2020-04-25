@@ -19,6 +19,7 @@ public:
 	void doCommand();
 	void transmitReply();
 protected:
+	void sendAngelsFromStartToEndSensor();
 	void initLimits();
 	float getFloatNumber();
 	void sendTaskToSteppers(float a1, float a2, float a3, float a5);

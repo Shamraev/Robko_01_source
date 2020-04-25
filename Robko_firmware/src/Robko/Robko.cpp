@@ -43,6 +43,8 @@ void Robko::init()
 
   statusSteppers_.isRunning = false;
 
+  stepper5.setCurrentPosition(A5_ZERO*S5);//схват при включении раздвинут на A5_ZERO
+
   pinMode(NOT_ENABLE, OUTPUT); //?? сократить время
   digitalWrite(NOT_ENABLE, 1);
   delay(2000);
@@ -55,7 +57,7 @@ void Robko::init()
   Done = false;
 
   //команда идти в ноль//убрать отсюда//temp
-  goToStartPositions(); //-------------
+  //goToStartPositions(); //-------------
 }
 
 void Robko::reciveCommand()
@@ -81,7 +83,7 @@ void Robko::doTask()
     a3 = getFloatNumber();
 
     //task_.;
-    a5 = 0;
+    a5 = A5_ZERO;
     sendTaskToSteppers(a1, a2, a3, a5);
   }
 
@@ -96,6 +98,8 @@ void Robko::doCommand()
 {
   if ((task_.command == COMMAND_GO_TO_START_POSITIONS) && (task_.Complete == true))
   {
+    if (DEBUG)
+      sendAngelsFromStartToEndSensor();
     task_.command = COMMAND_GO_TO_ZEROS;
     task_.Complete = false;
     task_.isDoing = false;
@@ -103,7 +107,7 @@ void Robko::doCommand()
   }
   else if ((task_.command == COMMAND_GO_TO_ZEROS) && (task_.Complete == true))
   {
-    gripperFindZeroAndOpenTo(20);
+    gripperFindZeroAndOpenTo(A5_ZERO);
     oldA2 = 0;
     oldA3 = 0;
     //обнулим шаговики, теперь мы в нулях
@@ -121,31 +125,30 @@ void Robko::doCommand()
     statusSteppers_.isRunning = false;
   }
 }
+
+void Robko::sendAngelsFromStartToEndSensor()
+{
+  //?? только для отладки - нахождения нулей
+  Serial.print("tmpQ1, tmpQ2, tmpQ3 in deg: ");
+  Serial.print(tmpQ1 / S1);
+  Serial.print(" ");
+  Serial.print(tmpQ2 / S2);
+  Serial.print(" ");
+  Serial.print(tmpQ3 / S3);
+  Serial.println("");
+  Serial.println("-------------");
+  Serial.print("tmpQ1, tmpQ2, tmpQ3 in steps: ");
+  Serial.print(tmpQ1);
+  Serial.print(" ");
+  Serial.print(tmpQ2);
+  Serial.print(" ");
+  Serial.print(tmpQ3);
+  Serial.println("");
+  Serial.println("-------------");
+}
 void Robko::transmitReply()
 {
-  if (task_.command == COMMAND_GO_TO_START_POSITIONS)
-  {
-    if ((task_.Complete == true) && DEBUG) //?? только для отладки - нахождения нулей
-    {
-      Serial.print("tmpQ1, tmpQ2, tmpQ3 in deg: ");
-      Serial.print(tmpQ1 / S1);
-      Serial.print(" ");
-      Serial.print(tmpQ2 / S2);
-      Serial.print(" ");
-      Serial.print(tmpQ3 / S3);
-      Serial.println("");
-      Serial.println("-------------");
-      Serial.print("tmpQ1, tmpQ2, tmpQ3 in steps: ");
-      Serial.print(tmpQ1);
-      Serial.print(" ");
-      Serial.print(tmpQ2);
-      Serial.print(" ");
-      Serial.print(tmpQ3);
-      Serial.println("");
-      Serial.println("-------------");
-    };
-  }
-  else
+  if (task_.command != COMMAND_GO_TO_START_POSITIONS)
   {
     bool steppersDistanceToGoIsZero = (stepper4.distanceToGo() == 0) && (stepper1.distanceToGo() == 0) && (stepper2.distanceToGo() == 0); //??остальные strppers
     task_.Complete = task_.Received && steppersDistanceToGoIsZero;
