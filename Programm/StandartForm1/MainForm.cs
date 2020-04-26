@@ -338,6 +338,8 @@ namespace StandartMainForm
         }
         public void XyzDisplay()
         {
+            Invoke(new Action(() => {  
+
             labelX.Text = Convert.ToString(Math.Round(AbsWorkCoorts.x, 2)).Replace(',', '.');
             labelY.Text = Convert.ToString(Math.Round(AbsWorkCoorts.y, 2)).Replace(',', '.');
             labelZ.Text = Convert.ToString(Math.Round(AbsWorkCoorts.z, 2)).Replace(',', '.');
@@ -347,12 +349,15 @@ namespace StandartMainForm
             buttonCurWorkX.Text = Convert.ToString(CurWorkCoorts.x);
             buttonCurWorkY.Text = Convert.ToString(CurWorkCoorts.y);
             buttonCurWorkZ.Text = Convert.ToString(CurWorkCoorts.z);
+
+            }));
         }
-        protected void AbsWorkCoortsToCur()
+
+        public void AbsWorkCoortsToCur()
         {
             CurWorkCoorts = Vector3d.Subtract(AbsWorkCoorts, CoortsOffset);
         }
-        protected void CurWorkCoortsToAbs()
+        public void CurWorkCoortsToAbs()
         {
             AbsWorkCoorts = Vector3d.Add(CurWorkCoorts, CoortsOffset);
         }
@@ -520,7 +525,12 @@ namespace StandartMainForm
 
             //  updateTextBox("!!!!!ddd");
             // PortText += serialPort1.ReadExisting();//------------------------------------
+
+            //XyzDisplay();//??----
+            mCController.TaskComplete();
+            
         }
+
 
         private void data_coordinates_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -531,8 +541,8 @@ namespace StandartMainForm
 
         private void buttonGCodeStart_Click(object sender, EventArgs e)
         {
-            commandSender.CommandList = richTextBoxGCode.Lines;
-            commandSender.IntrStep = 0.5;
+            commandSender.CommandList = richTextBoxGCode.Text.Split('\n');
+            commandSender.IntrpStep = 1;
             commandSender.Start();
         }
         protected void MCControllerCreate()
@@ -544,11 +554,21 @@ namespace StandartMainForm
             commandSender = new CommandSender();
             commandSender.Owner = this;
             commandSender.MCController = mCController;
-            commandSender.IKSolver3DOF = iKSolver3DOF;
+            commandSender.IKSolver = iKSolver3DOF;
         }
         public void UpdateStatus(string str)
         {
             StatusLabel.Text = str;
+        }
+
+        private void buttonGCodeStop_Click(object sender, EventArgs e)
+        {
+            Invoke(new Action(() => { commandSender.Stop(); }));            
+        }
+
+        public void Error(string strErr)
+        {
+            MessageBox.Show(strErr);
         }
 
     }

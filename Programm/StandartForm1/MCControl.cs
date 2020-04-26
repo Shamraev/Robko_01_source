@@ -14,8 +14,13 @@ namespace MCControl
         private MainForm owner;
         public MainForm Owner { get { return owner; } set { /*owner = value; */} }
 
+        private bool taskCompleted;
+        public bool TaskCompleted { get { return taskCompleted; } set { taskCompleted = value; } }
+        
+
 
         /*-----------------------------------реализация-------------------------------------------*/
+
 
 
         public MCController(SerialPort aSerialPort, MainForm aOwner)
@@ -31,6 +36,7 @@ namespace MCControl
 
         public void SendAngles(double a1, double a2, double a3)
         {
+            taskCompleted = false;
             if ((serialPort == null) || (!serialPort.IsOpen))
             {
                 ErrPort();
@@ -43,6 +49,11 @@ namespace MCControl
             Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
             serialPort.Write(byteArray, 0, byteArray.Length);
             //serialPort1.Read(buffer, 0, 1);//------------
+        }
+        public void TaskComplete()
+        {
+            owner.XyzDisplay();
+            taskCompleted = true;
         }
         public void PortTurnOn()//включить порт
         {

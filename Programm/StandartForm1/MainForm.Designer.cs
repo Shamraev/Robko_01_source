@@ -685,6 +685,7 @@
             // 
             this.labelZ.AutoSize = true;
             this.labelZ.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelZ.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelZ.Location = new System.Drawing.Point(87, 99);
             this.labelZ.Name = "labelZ";
             this.labelZ.Size = new System.Drawing.Size(28, 15);
@@ -695,6 +696,7 @@
             // 
             this.labelY.AutoSize = true;
             this.labelY.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelY.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelY.Location = new System.Drawing.Point(87, 70);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(28, 15);
@@ -710,6 +712,7 @@
             this.labelX.Size = new System.Drawing.Size(14, 15);
             this.labelX.TabIndex = 26;
             this.labelX.Text = "0";
+            this.labelX.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label9
             // 
@@ -828,7 +831,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(400, 392);
+            this.tabPage2.Size = new System.Drawing.Size(400, 426);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "G Code";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -841,7 +844,7 @@
             this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxGCode.Name = "richTextBoxGCode";
             this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 386);
+            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 420);
             this.richTextBoxGCode.TabIndex = 21;
             this.richTextBoxGCode.Text = "";
             this.richTextBoxGCode.WordWrap = false;
@@ -856,7 +859,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(400, 392);
+            this.tabPage3.Size = new System.Drawing.Size(400, 426);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -906,7 +909,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(441, 392);
+            this.tabPage5.Size = new System.Drawing.Size(441, 426);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Порт";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -954,6 +957,7 @@
             this.buttonGCodeStop.Size = new System.Drawing.Size(30, 29);
             this.buttonGCodeStop.TabIndex = 23;
             this.buttonGCodeStop.UseVisualStyleBackColor = true;
+            this.buttonGCodeStop.Click += new System.EventHandler(this.buttonGCodeStop_Click);
             // 
             // buttonGCodePause
             // 
