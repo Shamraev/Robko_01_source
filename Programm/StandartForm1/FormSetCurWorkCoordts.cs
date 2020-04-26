@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using StandartMainForm;
+using VecLib;
 
 namespace RobotSpace
 {
@@ -18,10 +19,16 @@ namespace RobotSpace
             //сделать double  с раделителем - ".", а не ","
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
 
-            ((MainForm)mf).CurWork.x = Math.Round(Convert.ToDouble(textBoxX.Text), 2);
-            ((MainForm)mf).CurWork.y = Math.Round(Convert.ToDouble(textBoxY.Text), 2);
-            ((MainForm)mf).CurWork.z = Math.Round(Convert.ToDouble(textBoxZ.Text), 2);
-            ((MainForm) mf).XyzDisplay();
+            Vector3d v;
+            v.x = Math.Round(Convert.ToDouble(textBoxX.Text), 2);
+            v.y = Math.Round(Convert.ToDouble(textBoxY.Text), 2);
+            v.z = Math.Round(Convert.ToDouble(textBoxZ.Text), 2);
+
+            ((MainForm)mf).CurWorkCoorts = v;
+
+            ((MainForm)mf).CoortsOffset = Vector3d.Subtract(((MainForm)mf).AbsWorkCoorts, ((MainForm)mf).CurWorkCoorts);
+
+            ((MainForm)mf).XyzDisplay();
             this.Close();
         }
 

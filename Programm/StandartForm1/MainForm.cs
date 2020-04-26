@@ -1,4 +1,3 @@
-using Mathcad;
 using System;
 using System.IO;
 using System.IO.Ports;
@@ -6,11 +5,12 @@ using System.Linq;
 using System.Management;
 using System.Threading;
 using System.Timers;
-using System.IO.Ports;
 using System.Windows.Forms;
 using InverseKinematics;
 using VecLib;
 using RobotSpace;
+using MCControl;
+using CommandSend;
 
 namespace StandartMainForm
 {
@@ -18,15 +18,17 @@ namespace StandartMainForm
     public partial class MainForm : Form
     {
         IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0, 190, 178, 177, 80);//d4 = 178; d5 = 82;
-        public Vector3d CurWork = new Vector3d(10, 257, 368);
-        
+        public Vector3d AbsWorkCoorts = new Vector3d(0, 257, 368);//абсолютные координаты
+        public Vector3d CurWorkCoorts = new Vector3d(0, 257, 368);//относительные координаты
+        public Vector3d CoortsOffset = new Vector3d(0, 0, 0);    // смещение для перевода из относительных координат в абсолютные и наоборот
+                                                                 //AbsWorkCoorts = CurWorkCoorts + CoortsOffset
+
+        MCController mCController;
+        CommandSender commandSender;
 
         static string path = Directory.GetCurrentDirectory();
-        string report = path + @"\report.txt";//файл отчета
+        string report = path + @"\report.txt";//файл отчета        
 
-        double x = 0, y = 257, z = 368;
-        double x0, y0, z0;
-        int XyzDelta;
         Boolean TuskComplited, TuskSend;
 
         byte[] buffer = new byte[1];
@@ -42,8 +44,10 @@ namespace StandartMainForm
             InitializeComponent();
         }
         private void MainForm_Shown(object sender, EventArgs e)
-        {            
-            PortTurnOn(serialPort1); //включить порт
+        {
+            MCControllerCreate();
+            СommandSenderCreate();
+
             XyzDisplay();
             if (File.Exists(report)) { richTextBox2.Text = File.ReadAllText(report); }
 
@@ -53,17 +57,18 @@ namespace StandartMainForm
             aTimer.Enabled = true;
         }
 
-        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)//---запрятать в отдельный класс??
         {
             if (chkRecievPrt.Checked)
             {
+                if (mCController == null) return;
 
                 bool PortOpen = false;
-                Invoke(new Action(() => { PortOpen = serialPort1.IsOpen; }));
+                Invoke(new Action(() => { PortOpen = mCController.SerialPortIsOpen(); }));
 
                 if (!PortOpen)
                 {
-                    Invoke(new Action(() => { PortTurnOn(serialPort1); }));
+                    Invoke(new Action(() => { mCController.PortTurnOn(); }));
                     return;
                 }
                 try // так как после закрытия окна таймер еще может выполнится или предел ожидания может быть превышен
@@ -73,7 +78,7 @@ namespace StandartMainForm
 
 
                     // считаем последнее значение                     
-                    string strFromPort = serialPort1.ReadExisting();
+                    string strFromPort = mCController.SerialPortReadExisting();
                     richTextBox1.BeginInvoke(new updateDelegate(updateTextBox), strFromPort);
                     PortText = "";
                 }
@@ -113,7 +118,6 @@ namespace StandartMainForm
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             aTimer.Enabled = false;
-            serPortClose(serialPort1);
         }
         private void button6_Click(object sender, EventArgs e)
         {
@@ -159,62 +163,58 @@ namespace StandartMainForm
             File.WriteAllLines(report, richTextBox2.Text.Split('\n'));
         }
 
-        private void button8_Click(object sender, EventArgs e)//задать нулевую точку/---------------------------------------------доработать-----------------------
-        {
-            x0 = x;
-            y0 = y;
-            z0 = z;
-        }
-
 
         private void SendBtn_Click(object sender, EventArgs e)
         {
+            if (mCController == null) return;
+            if (!mCController.SerialPortIsOpen()) return;
+
             bool angls = (data_angels.Text != "");//углы заданы
             bool coords = (data_coordinates.Text != "");//координаты заданы
             string CheckedNbrs = "";
             double[] NumbersDouble;
-            if (serialPort1.IsOpen)
+
+
+            if (angls && !coords)//углы заданы, а координы нет
             {
-                if (angls && !coords)//углы заданы, а координы нет
+                CheckedNbrs = data_angels.Text;
+
+                //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
+                if (CheckNumbers(ref CheckedNbrs, out NumbersDouble))//проверить прошели ли проверку, не обнулились ли
                 {
-                    CheckedNbrs = data_angels.Text;
-
-                    //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
-                    if (CheckNumbers(ref CheckedNbrs, out NumbersDouble))//проверить прошели ли проверку, не обнулились ли
-                    {
-                        data_angels.Text = CheckedNbrs;
+                    data_angels.Text = CheckedNbrs;
 
 
-                        SendAngelesToRobot(NumbersDouble[0], NumbersDouble[1], NumbersDouble[2]);
+                    SendAnglesToRobot(NumbersDouble[0], NumbersDouble[1], NumbersDouble[2]);
 
-                        //если режим отладки включен, написать углы и координаты в окошке
-                        if (checkBox3.Checked) richTextBox2.Text += "\n" + data_angels.Text + " | " + String.Format("{0},{1},{2}", x, y, z) + " || ";
-                    }
-
+                    //если режим отладки включен, написать углы и координаты в окошке
+                    if (checkBox3.Checked) richTextBox2.Text += "\n" + data_angels.Text + " | " + String.Format("{0},{1},{2}", AbsWorkCoorts.x, AbsWorkCoorts.y, AbsWorkCoorts.z) + " || ";
                 }
-                else if (coords && !angls)//координы  заданы, а углы нет
-                {
-                    CheckedNbrs = data_coordinates.Text;
 
-                    //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
-
-                    if (CheckNumbers(ref CheckedNbrs, out NumbersDouble))//проверить прошели ли проверку, не обнулились ли
-                    {
-                        data_coordinates.Text = CheckedNbrs;
-
-                        x = NumbersDouble[0];
-                        y = NumbersDouble[1];
-                        z = NumbersDouble[2];
-                        SendAngles();
-                    }
-
-                }
-                //заданы и углы, и координаты
-                else if (angls && coords)
-                {
-                    MessageBox.Show("Введите либо углы, либо координаты");
-                }
             }
+            else if (coords && !angls)//координаты  заданы, а углы нет
+            {
+                CheckedNbrs = data_coordinates.Text;
+
+                //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
+
+                if (CheckNumbers(ref CheckedNbrs, out NumbersDouble))//проверить прошели ли проверку, не обнулились ли
+                {
+                    data_coordinates.Text = CheckedNbrs;
+
+                    AbsWorkCoorts.x = NumbersDouble[0];//??может в относительных считать??
+                    AbsWorkCoorts.y = NumbersDouble[1];
+                    AbsWorkCoorts.z = NumbersDouble[2];
+                    SendAngles();
+                }
+
+            }
+            //заданы и углы, и координаты
+            else if (angls && coords)
+            {
+                MessageBox.Show("Введите либо углы, либо координаты");
+            }
+
 
         }
 
@@ -263,161 +263,105 @@ namespace StandartMainForm
 
         public void SendAngles(int XyzDelta)
         {
-            if (serialPort1.IsOpen)
+            if (mCController == null) return;
+            if (!mCController.SerialPortIsOpen()) return;
+
+            double xForStraightZero = AbsWorkCoorts.x;
+
+            int checkedDelta = 0;
+            if (radioButton10.Checked)
             {
-                double xForStraightZero = x;
-                string β3;
-                string δ3;
-                string α3;
+                checkedDelta = 10;
+            }
+            if (radioButton50.Checked)
+            {
+                checkedDelta = 50;
+            }
+            if (radioButton100.Checked)
+            {
+                checkedDelta = 100;
+            }
+            if (radioButton200.Checked)
+            {
+                checkedDelta = 200;
+            }
 
-                int checkedDelta = 0;
-                if (radioButton10.Checked)
-                {
-                    checkedDelta = 10;
-                }
-                if (radioButton50.Checked)
-                {
-                    checkedDelta = 50;
-                }
-                if (radioButton100.Checked)
-                {
-                    checkedDelta = 100;
-                }
-                if (radioButton200.Checked)
-                {
-                    checkedDelta = 200;
-                }
-
-                switch (XyzDelta)
-                {
-                    case 0:
-                        x = x + checkedDelta;
-                        break;
-                    case 1:
-                        y = y + checkedDelta;
-                        break;
-                    case 2:
-                        x = x - checkedDelta;
-                        break;
-                    case 3:
-                        y = y - checkedDelta;
-                        break;
-                    case 4:
-                        z = z - checkedDelta;
-                        break;
-                    case 5:
-                        z = z + checkedDelta;
-                        break;
-                    default:
-                        break;
-
-                }
-
-                iKSolver3DOF.SolveIK(x, y, z);
-                double a1, a2, a3;
-                a1 = 0; a2 = 0; a3 = 0;
-                try
-                {
-                    a1 = iKSolver3DOF.QDeg[0];
-                    a2 = iKSolver3DOF.QDeg[1];
-                    a3 = iKSolver3DOF.QDeg[2];
-
-                    SendAngelesToRobot(a1, a2, a3);
-
-                    XyzDisplay();
-                }
-                catch
-                {
-                    ErrPort();
-                }
-                if (checkBox3.Checked) richTextBox2.Text += "\n" + String.Format("{0},{1},{2}", a1, a2, a3) + " | " + String.Format("{0},{1},{2}", x, y, z) + " | ";
+            switch (XyzDelta)
+            {
+                case 0:
+                    AbsWorkCoorts.x = AbsWorkCoorts.x + checkedDelta;
+                    break;
+                case 1:
+                    AbsWorkCoorts.y = AbsWorkCoorts.y + checkedDelta;
+                    break;
+                case 2:
+                    AbsWorkCoorts.x = AbsWorkCoorts.x - checkedDelta;
+                    break;
+                case 3:
+                    AbsWorkCoorts.y = AbsWorkCoorts.y - checkedDelta;
+                    break;
+                case 4:
+                    AbsWorkCoorts.z = AbsWorkCoorts.z - checkedDelta;
+                    break;
+                case 5:
+                    AbsWorkCoorts.z = AbsWorkCoorts.z + checkedDelta;
+                    break;
+                default:
+                    break;
 
             }
+
+            iKSolver3DOF.SolveIK(AbsWorkCoorts.x, AbsWorkCoorts.y, AbsWorkCoorts.z);
+            double a1, a2, a3;
+            a1 = 0; a2 = 0; a3 = 0;
+
+            a1 = iKSolver3DOF.QDeg[0];
+            a2 = iKSolver3DOF.QDeg[1];
+            a3 = iKSolver3DOF.QDeg[2];
+
+            SendAnglesToRobot(a1, a2, a3);
+
+            XyzDisplay();
+
+
+            if (checkBox3.Checked) richTextBox2.Text += "\n" + String.Format("{0},{1},{2}", a1, a2, a3) + " | " + String.Format("{0},{1},{2}", AbsWorkCoorts.x, AbsWorkCoorts.y, AbsWorkCoorts.z) + " | ";
+
+
         }
 
 
-        protected void SendAngelesToRobot(double a1, double a2, double a3)
+        protected void SendAnglesToRobot(double a1, double a2, double a3)
         {
-            if (!serialPort1.IsOpen) { return; }
-            var floatArray = new float[] { (float)Math.Round(a1, 2), (float)Math.Round(a2, 2), (float)Math.Round(a3, 2) };
-            var byteArray = new byte[floatArray.Length * 4];
+            if (mCController == null) return;
 
-            Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
-            serialPort1.Write(byteArray, 0, byteArray.Length);
-            //serialPort1.Read(buffer, 0, 1);//------------
-
+            mCController.SendAngles(a1, a2, a3);
         }
         public void XyzDisplay()
         {
-            labelX.Text = Convert.ToString(Math.Round(x, 2)).Replace(',', '.');
-            labelY.Text = Convert.ToString(Math.Round(y, 2)).Replace(',', '.');
-            labelZ.Text = Convert.ToString(Math.Round(z, 2)).Replace(',', '.');
+            labelX.Text = Convert.ToString(Math.Round(AbsWorkCoorts.x, 2)).Replace(',', '.');
+            labelY.Text = Convert.ToString(Math.Round(AbsWorkCoorts.y, 2)).Replace(',', '.');
+            labelZ.Text = Convert.ToString(Math.Round(AbsWorkCoorts.z, 2)).Replace(',', '.');
 
-            buttonCurWorkX.Text = Convert.ToString(CurWork.x);
-            buttonCurWorkY.Text = Convert.ToString(CurWork.y);
-            buttonCurWorkZ.Text = Convert.ToString(CurWork.z);
+            AbsWorkCoortsToCur();
+
+            buttonCurWorkX.Text = Convert.ToString(CurWorkCoorts.x);
+            buttonCurWorkY.Text = Convert.ToString(CurWorkCoorts.y);
+            buttonCurWorkZ.Text = Convert.ToString(CurWorkCoorts.z);
         }
-
-        private void PortTurnOn(SerialPort serPort)//включить порт
+        protected void AbsWorkCoortsToCur()
         {
-
-            serPortClose(serialPort1);
-            if (FoundArdnoPort())
-            {
-                try
-                {
-                    serialPort1.Open();
-                    Thread.Sleep(1000);//---------
-                                       // SendAngles();
-                                       // SendAngelesToRobot(0, 0, 0);//-----??
-                    OkPort();
-                }
-
-                catch
-                {
-                    ErrPort();
-                }
-            }
-            else ErrPort();
+            CurWorkCoorts = Vector3d.Subtract(AbsWorkCoorts, CoortsOffset);
         }
-
-        private void PortTurnOff(SerialPort serPort)//выключить порт----------------------
+        protected void CurWorkCoortsToAbs()
         {
-            serPortClose(serialPort1);
+            AbsWorkCoorts = Vector3d.Add(CurWorkCoorts, CoortsOffset);
         }
+
+
 
         private void serialPort1_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
         {
-            ErrPort();
-        }
-
-        private bool FoundArdnoPort()
-        {
-            ManagementScope connectionScope = new ManagementScope();
-            SelectQuery serialQuery = new SelectQuery("SELECT * FROM Win32_SerialPort");
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher(connectionScope, serialQuery);
-            //comboBox1.Items.AddRange(SerialPort.GetPortNames());
-            try
-            {
-                foreach (ManagementObject item in searcher.Get())
-                {
-                    string desc = item["Description"].ToString();
-                    string deviceId = item["DeviceID"].ToString();
-                    if (desc.Contains("Arduino"))
-                    {
-                        // serialPort1.PortName = deviceId;                        
-                        return true;
-                    }
-
-                }
-                serialPort1.PortName = "COM7";
-                return true;
-            }
-            catch (ManagementException e)
-            {
-                return false;
-            }
-            return false;
+            mCController.ErrPort();
         }
 
 
@@ -428,13 +372,8 @@ namespace StandartMainForm
                 e.Handled = true;
         }
 
-        private void паротвклToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            PortTurnOn(serialPort1);
-        }
-
         public bool stopwhile;
-        private void button9_Click(object sender, EventArgs e)
+        private void button9_Click(object sender, EventArgs e)//------
         {
             int TimeWait = -1;
             if (textBox1.Text != "") TimeWait = Int32.Parse(textBox1.Text);
@@ -465,7 +404,7 @@ namespace StandartMainForm
             else SendListCoodinates(lines, TimeWait);
 
         }
-        private void dataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void dataReceived(object sender, SerialDataReceivedEventArgs e)//---------
         {
             //  buffer += serialPort1.ReadExisting();
             // serialPort1.Read(buffer, 0, buffer.Length);
@@ -476,7 +415,7 @@ namespace StandartMainForm
             }
         }
 
-        void SendListCoodinates(string[] lines, int TimeWait)
+        void SendListCoodinates(string[] lines, int TimeWait)//-----
         {
             double[] coordinates;
             for (int i = 2; i < lines.Length; i++)
@@ -485,9 +424,9 @@ namespace StandartMainForm
                 //CheckNumbers() - проверить введенные числа и окурглить до 2 цифр после точки
                 if (CheckNumbers(ref CheckedNbrs, out coordinates))//проверить прошели ли проверку, не обнулились ли
                 {
-                    x = coordinates[0];
-                    y = coordinates[1];
-                    z = coordinates[2];
+                    AbsWorkCoorts.x = coordinates[0];
+                    AbsWorkCoorts.y = coordinates[1];
+                    AbsWorkCoorts.z = coordinates[2];
                     SendAngles();
                 }
 
@@ -504,21 +443,23 @@ namespace StandartMainForm
         {
             if (e.Button == MouseButtons.Left)
             {
-                CurWork.x = 0;
-                buttonCurWorkX.Text = Convert.ToString(CurWork.x);
+                CoortsOffset.x = AbsWorkCoorts.x;
+                CurWorkCoorts.x = 0;
+                buttonCurWorkX.Text = Convert.ToString(CurWorkCoorts.x);
             }
             if (e.Button == MouseButtons.Right)
             {
-                ShowFormSetCurWorkCoordts();             
+                ShowFormSetCurWorkCoordts();
             }
         }
-        
+
         private void buttonCurWorkY_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                CurWork.y = 0;
-                buttonCurWorkY.Text = Convert.ToString(CurWork.y);
+                CoortsOffset.y = AbsWorkCoorts.y;
+                CurWorkCoorts.y = 0;
+                buttonCurWorkY.Text = Convert.ToString(CurWorkCoorts.y);
             }
             if (e.Button == MouseButtons.Right)
             {
@@ -531,8 +472,9 @@ namespace StandartMainForm
         {
             if (e.Button == MouseButtons.Left)
             {
-                CurWork.z = 0;
-                buttonCurWorkZ.Text = Convert.ToString(CurWork.z);
+                CoortsOffset.z = AbsWorkCoorts.z;
+                CurWorkCoorts.z = 0;
+                buttonCurWorkZ.Text = Convert.ToString(CurWorkCoorts.z);
             }
             if (e.Button == MouseButtons.Right)
             {
@@ -586,27 +528,27 @@ namespace StandartMainForm
             else
                 e.Handled = true;
         }
-        private void serPortClose(SerialPort sPort)
-        {
-            //  var portExists = SerialPort.GetPortNames().Any(x => x == sPort.PortName);
-            //   if (portExists)
-            try
-            {
-                if (sPort.IsOpen)
-                    sPort.Close();
-            }
-            catch { }
 
-
-        }
-        private void ErrPort()
+        private void buttonGCodeStart_Click(object sender, EventArgs e)
         {
-            serPortClose(serialPort1);//---------------------------------------------------------------????
-            StatusLabel.Text = "соединение отсутствует";
+            commandSender.CommandList = richTextBoxGCode.Lines;
+            commandSender.IntrStep = 0.5;
+            commandSender.Start();
         }
-        private void OkPort()
+        protected void MCControllerCreate()
         {
-            StatusLabel.Text = "соединено с Arduino";
+            mCController = new MCController(serialPort1, this);
+        }
+        protected void СommandSenderCreate()
+        {
+            commandSender = new CommandSender();
+            commandSender.Owner = this;
+            commandSender.MCController = mCController;
+            commandSender.IKSolver3DOF = iKSolver3DOF;
+        }
+        public void UpdateStatus(string str)
+        {
+            StatusLabel.Text = str;
         }
 
     }

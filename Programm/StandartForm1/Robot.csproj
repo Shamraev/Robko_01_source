@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandSend.cs" />
+    <Compile Include="MCControl.cs" />
     <Compile Include="FormSetCurWorkCoordts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -173,6 +175,15 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play-button-arrowhead.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\music-pause-button-pair-of-lines.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

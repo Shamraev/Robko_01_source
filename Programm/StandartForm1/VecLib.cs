@@ -16,6 +16,27 @@ namespace VecLib
         {
             return Sqrt(x*x+y*y+z*z);
         }
+        public static Vector3d Subtract(Vector3d v1, Vector3d v2)
+        {
+            Vector3d v;
+
+            v.x = v1.x - v2.x;
+            v.y = v1.y - v2.y;
+            v.z = v1.z - v2.z;
+
+            return v;
+        }
+        public static Vector3d Add(Vector3d v1, Vector3d v2)
+        {
+            Vector3d v;
+
+            v.x = v1.x + v2.x;
+            v.y = v1.y + v2.y;
+            v.z = v1.z + v2.z;
+
+            return v;
+        }
+
         public Vector3d(double x, double y, double z) : this()
         {
             this.x = x;

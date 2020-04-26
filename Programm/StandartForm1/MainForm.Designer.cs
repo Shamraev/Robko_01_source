@@ -110,6 +110,9 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.buttonGCodeStop = new System.Windows.Forms.Button();
+            this.buttonGCodePause = new System.Windows.Forms.Button();
+            this.buttonGCodeStart = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -275,10 +278,10 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 673);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 597);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 24, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1048, 34);
+            this.statusStrip1.Size = new System.Drawing.Size(867, 34);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             this.statusStrip1.Visible = false;
@@ -624,7 +627,7 @@
             this.groupBox4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox4.Location = new System.Drawing.Point(12, 3);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(314, 124);
+            this.groupBox4.Size = new System.Drawing.Size(228, 124);
             this.groupBox4.TabIndex = 20;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Состояние";
@@ -825,7 +828,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(400, 426);
+            this.tabPage2.Size = new System.Drawing.Size(400, 392);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "G Code";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -838,7 +841,7 @@
             this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxGCode.Name = "richTextBoxGCode";
             this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 420);
+            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 386);
             this.richTextBoxGCode.TabIndex = 21;
             this.richTextBoxGCode.Text = "";
             this.richTextBoxGCode.WordWrap = false;
@@ -853,7 +856,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(400, 426);
+            this.tabPage3.Size = new System.Drawing.Size(400, 392);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -903,7 +906,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(441, 426);
+            this.tabPage5.Size = new System.Drawing.Size(441, 392);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Порт";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -929,7 +932,11 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.buttonGCodeStop);
+            this.splitContainer2.Panel1.Controls.Add(this.buttonGCodePause);
+            this.splitContainer2.Panel1.Controls.Add(this.buttonGCodeStart);
             this.splitContainer2.Panel1.Controls.Add(this.groupBox4);
+            this.splitContainer2.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
             // 
             // splitContainer2.Panel2
             // 
@@ -937,6 +944,37 @@
             this.splitContainer2.Size = new System.Drawing.Size(867, 604);
             this.splitContainer2.SplitterDistance = 129;
             this.splitContainer2.TabIndex = 23;
+            // 
+            // buttonGCodeStop
+            // 
+            this.buttonGCodeStop.BackgroundImage = global::RobotSpace.Properties.Resources.stop;
+            this.buttonGCodeStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGCodeStop.Location = new System.Drawing.Point(789, 8);
+            this.buttonGCodeStop.Name = "buttonGCodeStop";
+            this.buttonGCodeStop.Size = new System.Drawing.Size(30, 29);
+            this.buttonGCodeStop.TabIndex = 23;
+            this.buttonGCodeStop.UseVisualStyleBackColor = true;
+            // 
+            // buttonGCodePause
+            // 
+            this.buttonGCodePause.BackgroundImage = global::RobotSpace.Properties.Resources.music_pause_button_pair_of_lines;
+            this.buttonGCodePause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGCodePause.Location = new System.Drawing.Point(753, 8);
+            this.buttonGCodePause.Name = "buttonGCodePause";
+            this.buttonGCodePause.Size = new System.Drawing.Size(30, 29);
+            this.buttonGCodePause.TabIndex = 22;
+            this.buttonGCodePause.UseVisualStyleBackColor = true;
+            // 
+            // buttonGCodeStart
+            // 
+            this.buttonGCodeStart.BackgroundImage = global::RobotSpace.Properties.Resources.play_button_arrowhead;
+            this.buttonGCodeStart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGCodeStart.Location = new System.Drawing.Point(717, 8);
+            this.buttonGCodeStart.Name = "buttonGCodeStart";
+            this.buttonGCodeStart.Size = new System.Drawing.Size(30, 29);
+            this.buttonGCodeStart.TabIndex = 21;
+            this.buttonGCodeStart.UseVisualStyleBackColor = true;
+            this.buttonGCodeStart.Click += new System.EventHandler(this.buttonGCodeStart_Click);
             // 
             // MainForm
             // 
@@ -1071,6 +1109,9 @@
         private System.Windows.Forms.Button buttonCurWorkX;
         private System.Windows.Forms.Button buttonCurWorkZ;
         private System.Windows.Forms.Button buttonCurWorkY;
+        private System.Windows.Forms.Button buttonGCodeStart;
+        private System.Windows.Forms.Button buttonGCodeStop;
+        private System.Windows.Forms.Button buttonGCodePause;
     }
 }
 
