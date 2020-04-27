@@ -182,6 +182,7 @@ namespace CommandSend
                 if (stopCycle == true)//??
                     break;
 
+               // mCTaskCompleted = true;//---если просто отправлять в порт задания, не дожидаясь ответа, то довольно плавно работает
                 owner.Invoke(new Action(() => { mCTaskCompleted = mCController.TaskCompleted; }));//??                        
 
                 if (mCTaskCompleted)
@@ -191,6 +192,8 @@ namespace CommandSend
                     VDirection.Norm();
 
                     Nextpoint = Vector3d.Add(owner.CurWorkCoorts, Vector3d.Multiply(VDirection, intrpStep));
+
+                    //реализвать если не между точками и текущая точка не последаняя - перейти в последнюю
 
                     if (!Vector3d.PBetweenP1P2(Nextpoint, curGoalCoordts, owner.CurWorkCoorts))//вышла за пределы отрезка
                     {
