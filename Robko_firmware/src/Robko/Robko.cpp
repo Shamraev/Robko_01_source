@@ -59,7 +59,7 @@ void Robko::init()
   Done = false;
 
   //команда идти в ноль//убрать отсюда//temp
-  //goToStartPositions(); //-------------
+  goToStartPositions(); //-------------
 }
 
 void Robko::reciveCommand()
@@ -310,7 +310,7 @@ void Robko::steppersRunStartPos()
     a3 = 0;
 
     if (mLimit_[4].currentValue) //схват сомкнулся - сработал концевик
-      gripperResetAndOpenTo(30);
+      gripperResetAndOpenTo(30); //разжать схват
 
     if (not mLimit_[1].currentValue) //q3 не сработал концевик
     {
@@ -320,6 +320,7 @@ void Robko::steppersRunStartPos()
 
     oldA2 = 0;
     oldA3 = 0;
+    a5_offset_a2_a3_ = 0;//??
     sendTaskToSteppers(0, 0, a3, 0);
   }
   if (mLimit_[1].currentValue) //q3 сработал концевик
