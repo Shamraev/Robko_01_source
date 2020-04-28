@@ -1,24 +1,56 @@
 {
     "configurations": [
         {
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
+        },
+        {
             "name": "Win32",
             "includePath": [
-                "G:\\Arduino\\tools\\**",
-                "G:\\Arduino\\hardware\\arduino\\avr\\**",
-                "${workspaceFolder}/**"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "intelliSenseMode": "msvc-x64",
-            "forcedInclude": [
-                "G:\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h"
+                "F:/source/Robko_01_source/Robko_firmware/include",
+                "F:/source/Robko_01_source/Robko_firmware/src",
+                "C:/Users/user/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "C:/Users/user/.platformio/packages/framework-arduino-avr/variants/mega",
+                "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "C:/Users/user/.platformio/packages/tool-unity",
+                ""
             ],
             "browse": {
-                "limitSymbolsToIncludedHeaders": false
-            }
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "F:/source/Robko_01_source/Robko_firmware/include",
+                    "F:/source/Robko_01_source/Robko_firmware/src",
+                    "C:/Users/user/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "C:/Users/user/.platformio/packages/framework-arduino-avr/variants/mega",
+                    "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "C:/Users/user/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "C:/Users/user/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=40302",
+                "ARDUINO_AVR_MEGA2560",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega2560__",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "C:/Users/user/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+            "compilerArgs": [
+                "-mmcu=atmega2560",
+                ""
+            ]
         }
     ],
     "version": 4
