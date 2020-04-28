@@ -59,7 +59,7 @@ void Robko::init()
   Done = false;
 
   //команда идти в ноль//убрать отсюда//temp
-  goToStartPositions(); //-------------
+  //goToStartPositions(); //-------------
 }
 
 void Robko::reciveCommand()
@@ -70,6 +70,7 @@ void Robko::reciveCommand()
     float a2 = getFloatNumber();
     float a3 = getFloatNumber();
 
+    
     //task_.;
     float a5 = A5_ZERO;
     sendTaskToSteppers(a1, a2, a3, a5);
@@ -88,7 +89,9 @@ void Robko::doTask()
     float a5 = A5_ZERO;    
     sendTaskToSteppers(a1, a2, a3, a5);    
   }
-
+  
+  
+  
   doCommand();
 
   steppersRun(); //здесь происходит шаг двигателей
