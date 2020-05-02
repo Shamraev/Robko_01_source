@@ -1,4 +1,4 @@
-﻿namespace StandartMainForm
+﻿namespace RobotSpace
 {
     partial class MainForm
     {
@@ -45,7 +45,7 @@
             this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.параметрыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemParameters = new System.Windows.Forms.ToolStripMenuItem();
             this.PortNames = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
@@ -144,7 +144,7 @@
             this.файлToolStripMenuItem,
             this.правкаToolStripMenuItem,
             this.справкаToolStripMenuItem,
-            this.параметрыToolStripMenuItem});
+            this.ToolStripMenuItemParameters});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(10, 4, 0, 4);
@@ -250,19 +250,21 @@
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 19);
             this.справкаToolStripMenuItem.Text = "Справка";
             // 
-            // параметрыToolStripMenuItem
+            // ToolStripMenuItemParameters
             // 
-            this.параметрыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItemParameters.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.PortNames});
-            this.параметрыToolStripMenuItem.Name = "параметрыToolStripMenuItem";
-            this.параметрыToolStripMenuItem.Size = new System.Drawing.Size(83, 19);
-            this.параметрыToolStripMenuItem.Text = "Параметры";
+            this.ToolStripMenuItemParameters.Name = "ToolStripMenuItemParameters";
+            this.ToolStripMenuItemParameters.Size = new System.Drawing.Size(83, 19);
+            this.ToolStripMenuItemParameters.Text = "Параметры";
+            this.ToolStripMenuItemParameters.Click += new System.EventHandler(this.ToolStripMenuItemParameters_Click);
             // 
             // PortNames
             // 
             this.PortNames.Name = "PortNames";
-            this.PortNames.Size = new System.Drawing.Size(100, 22);
-            this.PortNames.Text = "порт";
+            this.PortNames.Size = new System.Drawing.Size(180, 22);
+            this.PortNames.Text = "Порт";
+            this.PortNames.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.PortNames_DropDownItemClicked);
             // 
             // printDialog1
             // 
@@ -1083,7 +1085,7 @@
         private System.Windows.Forms.CheckBox CycleChkBox;
         private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
-        private System.Windows.Forms.ToolStripMenuItem параметрыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemParameters;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.Button button9;

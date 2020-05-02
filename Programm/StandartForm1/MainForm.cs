@@ -8,11 +8,10 @@ using System.Timers;
 using System.Windows.Forms;
 using InverseKinematics;
 using VecLib;
-using RobotSpace;
 using MCControl;
 using CommandSend;
 
-namespace StandartMainForm
+namespace RobotSpace
 {
 
     public partial class MainForm : Form
@@ -22,6 +21,11 @@ namespace StandartMainForm
         public Vector3d CurWorkCoorts = new Vector3d(0, 257, 368);//относительные координаты
         public Vector3d CoortsOffset = new Vector3d(0, 0, 0);    // смещение для перевода из относительных координат в абсолютные и наоборот
                                                                  //AbsWorkCoorts = CurWorkCoorts + CoortsOffset
+
+        private string[] portnames;
+        private string robotPortName;
+
+        public string RobotPortName { get { return robotPortName; } set { } }
 
         MCController mCController;
         CommandSender commandSender;
@@ -45,8 +49,10 @@ namespace StandartMainForm
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            LoadSettings();
+            
             MCControllerCreate();
-            СommandSenderCreate();
+            СommandSenderCreate();            
 
             XyzDisplay();
             if (File.Exists(report)) { richTextBox2.Text = File.ReadAllText(report); }
@@ -57,6 +63,34 @@ namespace StandartMainForm
             aTimer.Enabled = true;
         }
 
+        protected void LoadSettings()
+        {
+            LoadRobotPortName();
+        }
+
+        protected void GetPortNames()
+        {
+            portnames = null;//---            
+            PortNames.DropDown.Items.Clear();
+
+            portnames = SerialPort.GetPortNames();
+            // Проверяем есть ли доступные
+            if (portnames == null)
+            {                
+                robotPortName = null;
+                UpdateStatus("COM PORT not found");
+            }
+            else
+                foreach (string portName in portnames)
+                {
+                    //добавляем доступные COM порты в список
+                    if (portName == robotPortName)//выбранный ранее порт
+                        PortNames.DropDown.Items.Add(portName + " (V)");
+                    else
+                        PortNames.DropDown.Items.Add(portName);
+                }
+
+        }
         private void OnTimedEvent(object sender, ElapsedEventArgs e)//---запрятать в отдельный класс??
         {
             if (chkRecievPrt.Checked)
@@ -68,7 +102,7 @@ namespace StandartMainForm
 
                 if (!PortOpen)
                 {
-                    Invoke(new Action(() => { mCController.PortTurnOn(); }));
+                    Invoke(new Action(() => { mCController.PortTurnOn(robotPortName); }));
                     return;
                 }
                 try // так как после закрытия окна таймер еще может выполнится или предел ожидания может быть превышен
@@ -118,6 +152,7 @@ namespace StandartMainForm
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             aTimer.Enabled = false;
+            SaveRobotPortName();
         }
         private void button6_Click(object sender, EventArgs e)
         {
@@ -338,17 +373,18 @@ namespace StandartMainForm
         }
         public void XyzDisplay()
         {
-            Invoke(new Action(() => {  
+            Invoke(new Action(() =>
+            {
 
-            labelX.Text = Convert.ToString(Math.Round(AbsWorkCoorts.x, 2)).Replace(',', '.');
-            labelY.Text = Convert.ToString(Math.Round(AbsWorkCoorts.y, 2)).Replace(',', '.');
-            labelZ.Text = Convert.ToString(Math.Round(AbsWorkCoorts.z, 2)).Replace(',', '.');
+                labelX.Text = Convert.ToString(Math.Round(AbsWorkCoorts.x, 2)).Replace(',', '.');
+                labelY.Text = Convert.ToString(Math.Round(AbsWorkCoorts.y, 2)).Replace(',', '.');
+                labelZ.Text = Convert.ToString(Math.Round(AbsWorkCoorts.z, 2)).Replace(',', '.');
 
-            AbsWorkCoortsToCur();
+                AbsWorkCoortsToCur();
 
-            buttonCurWorkX.Text = Convert.ToString(CurWorkCoorts.x);
-            buttonCurWorkY.Text = Convert.ToString(CurWorkCoorts.y);
-            buttonCurWorkZ.Text = Convert.ToString(CurWorkCoorts.z);
+                buttonCurWorkX.Text = Convert.ToString(CurWorkCoorts.x);
+                buttonCurWorkY.Text = Convert.ToString(CurWorkCoorts.y);
+                buttonCurWorkZ.Text = Convert.ToString(CurWorkCoorts.z);
 
             }));
         }
@@ -528,7 +564,7 @@ namespace StandartMainForm
 
             //XyzDisplay();//??----
             mCController.TaskComplete();
-            
+
         }
 
 
@@ -547,7 +583,7 @@ namespace StandartMainForm
         }
         protected void MCControllerCreate()
         {
-            mCController = new MCController(serialPort1, this);
+            mCController = new MCController(serialPort1, this);           
         }
         protected void СommandSenderCreate()
         {
@@ -563,12 +599,39 @@ namespace StandartMainForm
 
         private void buttonGCodeStop_Click(object sender, EventArgs e)
         {
-            Invoke(new Action(() => { commandSender.Stop(); }));            
+            Invoke(new Action(() => { commandSender.Stop(); }));
+        }
+
+        private void ToolStripMenuItemParameters_Click(object sender, EventArgs e)
+        {
+            GetPortNames();
+        }
+
+        private void PortNames_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            robotPortName = e.ClickedItem.Text;
+            if (mCController != null) mCController.PortTurnOn(robotPortName);
         }
 
         public void Error(string strErr)
         {
             MessageBox.Show(strErr);
+        }
+
+        private void LoadRobotPortName()
+        {
+            if (Properties.Settings.Default.RobotPortName != null)
+            {
+                robotPortName = Properties.Settings.Default.RobotPortName;
+            }
+        }
+        private void SaveRobotPortName()
+        {
+            //set the new value of RobotPortName 
+            Properties.Settings.Default.RobotPortName = robotPortName;
+
+            //apply the changes to the settings file  
+            Properties.Settings.Default.Save();
         }
 
     }

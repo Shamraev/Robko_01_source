@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using StandartMainForm;
 using VecLib;
 
 namespace RobotSpace

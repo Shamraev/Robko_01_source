@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO.Ports;
-using StandartMainForm;
+using RobotSpace;
 using System.Threading;
 
 namespace MCControl
@@ -16,7 +16,7 @@ namespace MCControl
 
         private bool taskCompleted;
         public bool TaskCompleted { get { return taskCompleted; } set { taskCompleted = value; } }
-        
+
 
 
         /*-----------------------------------реализация-------------------------------------------*/
@@ -27,7 +27,7 @@ namespace MCControl
         {
             this.serialPort = aSerialPort;
             this.owner = aOwner;
-            PortTurnOn(); //включить порт
+            PortTurnOn(owner.RobotPortName); //включить порт
         }
         ~MCController()
         {
@@ -55,15 +55,16 @@ namespace MCControl
             owner.XyzDisplay();
             taskCompleted = true;
         }
-        public void PortTurnOn()//включить порт
+        public void PortTurnOn(string aPortName)//включить порт
         {
             if (serialPort == null) return;
 
             PortTurnOff();
-            if (FoundArdnoPort())
+            if (aPortName != null)
             {
                 try
                 {
+                    serialPort.PortName = aPortName;
                     serialPort.Open();
                     Thread.Sleep(1000);//---------
                                        // SendAngles();
@@ -103,40 +104,10 @@ namespace MCControl
 
             return serialPort.ReadExisting();
         }
-        private bool FoundArdnoPort()
-        {
-            //ManagementScope connectionScope = new ManagementScope();
-            //SelectQuery serialQuery = new SelectQuery("SELECT * FROM Win32_SerialPort");
-            //ManagementObjectSearcher searcher = new ManagementObjectSearcher(connectionScope, serialQuery);
-            ////comboBox1.Items.AddRange(SerialPort.GetPortNames());
-            //try
-            //{
-            //    foreach (ManagementObject item in searcher.Get())
-            //    {
-            //        string desc = item["Description"].ToString();
-            //        string deviceId = item["DeviceID"].ToString();
-            //        if (desc.Contains("Arduino"))
-            //        {
-            //            // serialPort1.PortName = deviceId;                        
-            //            return true;
-            //        }
-
-            //    }
-            //    serialPort1.PortName = "COM7";
-            //    return true;
-            //}
-            //catch (ManagementException e)
-            //{
-            //    return false;
-            //}
-            //return false;
-
-            serialPort.PortName = "COM7";
-            return true;
-        }
         private void OkPort()
         {
-            owner.UpdateStatus("соединено с Arduino");
+            if (serialPort != null)
+                owner.UpdateStatus("соединено с " + serialPort.PortName);
         }
         public void ErrPort()
         {
