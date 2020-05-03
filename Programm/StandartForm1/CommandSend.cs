@@ -186,9 +186,13 @@ namespace CommandSend
         {
             if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
 
-            GoToRelativeCoorts(curGoalCoordts);
-            mCController.Send();
+            TaskGoToRelativeCoorts(curGoalCoordts);
+            SendTask();            
 
+        }
+       protected void SendTask()
+        {
+            mCController.Send();
         }
         private void DoCommandG01()
         {
@@ -215,11 +219,11 @@ namespace CommandSend
                     else break; //Прерываем цикл
                 }
 
-                GoToRelativeCoorts(Nextpoint);
+                TaskGoToRelativeCoorts(Nextpoint);
 
                 //А если робот передвинется раньше, чем ПК посчитает следующию точку??
                 mCController.CommandHandle.WaitOne();//следующая команда будет отправлена тогда, когда завершится предыдущая операция
-                mCController.Send();
+                SendTask();
 
 
             } while (true);
@@ -237,7 +241,7 @@ namespace CommandSend
 
         /*-----------------------------------реализация прочих методов и функций-------------------------------------------*/
 
-        private void GoToRelativeCoorts(Vector3d goalCoordts)
+        private void TaskGoToRelativeCoorts(Vector3d goalCoordts)
         {
             if ((owner == null) || (iKSolver == null) || (mCController == null)) return;
 

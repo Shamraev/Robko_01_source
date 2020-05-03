@@ -44,14 +44,13 @@ namespace MCControl
         /// </summary>
         public void Send()
         {
-            if (!SerialPortIsOpen())
-            {
-                ErrPort();
-                return;
-            }
+            //if (!SerialPortIsOpen())
+            //{
+            //   if (!PortTurnOn(owner.RobotPortName)) return;
+            //}
 
 
-            if (curByteArr != null)
+            if ((SerialPortIsOpen()) && (curByteArr != null))
             {
                 serialPort.Write(curByteArr, 0, curByteArr.Length);
                 taskCompleted = false;
@@ -102,9 +101,10 @@ namespace MCControl
             taskCompleted = true;
             commandHandle.Set();
         }
-        public void PortTurnOn(string aPortName)//включить порт
+        public bool PortTurnOn(string aPortName)//включить порт
         {
-            if (serialPort == null) return;
+            bool res = false;
+            if (serialPort == null) return res;
 
             PortTurnOff();
             if (aPortName != null)
@@ -114,9 +114,10 @@ namespace MCControl
                     serialPort.PortName = aPortName;
                     serialPort.Open();
                     Thread.Sleep(100);//?? сколько лучше всего ??
-                                       // SendAngles();
-                                       // SendAngelesToRobot(0, 0, 0);//-----??
+                                      // SendAngles();
+                                      // SendAngelesToRobot(0, 0, 0);//-----??                    
                     OkPort();
+                    res = true;
                 }
 
                 catch
@@ -125,6 +126,8 @@ namespace MCControl
                 }
             }
             else ErrPort();
+
+            return res;
         }
         public void PortTurnOff()//выключить порт----------------------
         {
