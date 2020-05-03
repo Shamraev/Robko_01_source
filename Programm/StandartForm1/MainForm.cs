@@ -3,7 +3,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
 using InverseKinematics;
@@ -21,6 +21,8 @@ namespace RobotSpace
         public Vector3d CurWorkCoorts = new Vector3d(0, 257, 368);//относительные координаты
         public Vector3d CoortsOffset = new Vector3d(0, 0, 0);    // смещение для перевода из относительных координат в абсолютные и наоборот
                                                                  //AbsWorkCoorts = CurWorkCoorts + CoortsOffset
+
+
 
         private string[] portnames;
         private string robotPortName;
@@ -50,9 +52,11 @@ namespace RobotSpace
         private void MainForm_Shown(object sender, EventArgs e)
         {
             LoadSettings();
-            
+
+
+
             MCControllerCreate();
-            СommandSenderCreate();            
+            СommandSenderCreate();
 
             XyzDisplay();
             if (File.Exists(report)) { richTextBox2.Text = File.ReadAllText(report); }
@@ -76,7 +80,7 @@ namespace RobotSpace
             portnames = SerialPort.GetPortNames();
             // Проверяем есть ли доступные
             if (portnames == null)
-            {                
+            {
                 robotPortName = null;
                 UpdateStatus("COM PORT not found");
             }
@@ -563,7 +567,9 @@ namespace RobotSpace
             // PortText += serialPort1.ReadExisting();//------------------------------------
 
             //XyzDisplay();//??----
-            mCController.TaskComplete();
+
+            Invoke(new Action(() => { mCController.TaskComplete(); }));
+
 
         }
 
@@ -579,11 +585,13 @@ namespace RobotSpace
         {
             commandSender.CommandList = richTextBoxGCode.Text.Split('\n');
             commandSender.IntrpStep = 1;
-            commandSender.Start();
+            Task.Factory.StartNew(() => {
+                commandSender.Start();
+            });
         }
         protected void MCControllerCreate()
         {
-            mCController = new MCController(serialPort1, this);           
+            mCController = new MCController(serialPort1, this);
         }
         protected void СommandSenderCreate()
         {

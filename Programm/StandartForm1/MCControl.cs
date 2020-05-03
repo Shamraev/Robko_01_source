@@ -16,8 +16,12 @@ namespace MCControl
 
         private bool taskCompleted;
         public bool TaskCompleted { get { return taskCompleted; } set { taskCompleted = value; } }
+        
+        private byte[] curByteArr;
 
+        public EventWaitHandle commandHandle;
 
+        public EventWaitHandle CommandHandle { get { return commandHandle; } set { } }
 
         /*-----------------------------------реализация-------------------------------------------*/
 
@@ -27,6 +31,7 @@ namespace MCControl
         {
             this.serialPort = aSerialPort;
             this.owner = aOwner;
+            commandHandle = new AutoResetEvent(false);
             PortTurnOn(owner.RobotPortName); //включить порт
         }
         ~MCController()
@@ -34,7 +39,32 @@ namespace MCControl
             PortTurnOff();
         }
 
-        public void SendAngles(double a1, double a2, double a3)
+        /// <summary>
+        /// Отправить уже созданный пакет
+        /// </summary>
+        public void Send()
+        {            
+            serialPort.Write(curByteArr, 0, curByteArr.Length);
+            taskCompleted = false;
+        }
+
+        public void TaskAngles(double a1, double a2, double a3)
+        {
+            //taskCompleted = false;
+            if ((serialPort == null) || (!serialPort.IsOpen))
+            {
+                ErrPort();
+                return;
+            }
+
+            var floatArray = new float[] { (float)Math.Round(a1, 2), (float)Math.Round(a2, 2), (float)Math.Round(a3, 2) };
+            var byteArray = new byte[floatArray.Length * 4];
+
+            Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
+
+            curByteArr = byteArray;
+        }
+        public void SendAngles(double a1, double a2, double a3)//---убрать---
         {
             taskCompleted = false;
             if ((serialPort == null) || (!serialPort.IsOpen))
@@ -47,13 +77,18 @@ namespace MCControl
             var byteArray = new byte[floatArray.Length * 4];
 
             Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
-            serialPort.Write(byteArray, 0, byteArray.Length);
+
+            curByteArr = byteArray;
+            Send();
+
+            //serialPort.Write(byteArray, 0, byteArray.Length);
             //serialPort1.Read(buffer, 0, 1);//------------
         }
         public void TaskComplete()
         {
             owner.XyzDisplay();
             taskCompleted = true;
+            commandHandle.Set();
         }
         public void PortTurnOn(string aPortName)//включить порт
         {

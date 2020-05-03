@@ -7,6 +7,8 @@ using MCControl;
 using InverseKinematics;
 using VecLib;
 using System.Globalization;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace CommandSend
 {
@@ -48,11 +50,10 @@ namespace CommandSend
         private IKSolver iKSolver;
         public IKSolver IKSolver { get { return iKSolver; } set { iKSolver = value; } }
 
-        private bool stopCycle;
+        private bool stopCycle;//??
         private bool CycleStated;
-        private int pauseItem;
+        private int pauseItem;//??
 
-        bool mCTaskCompleted = false;
 
         private string currentStrCommand;//текущая строка в списке комманд
         private string previousStrCommand;//предыдущая строка в списке комманд
@@ -63,11 +64,14 @@ namespace CommandSend
         Vector3d curGoalCoordts;//координаты текущей точки, в которую надо переместиться
 
 
+
+
         /*-----------------------------------реализация-------------------------------------------*/
 
 
         public CommandSender()
         {
+
             Reset();
         }
         ~CommandSender()
@@ -77,7 +81,6 @@ namespace CommandSend
 
         public void Start()
         {
-
             if (commandList == null) return;
 
             CycleStated = true;
@@ -85,28 +88,8 @@ namespace CommandSend
 
             for (int i = pauseItem; i < commandList.Length; i++)
             {
-                if (stopCycle == false)
-                {
-                    do
-                    {
-                        owner.Invoke(new Action(() => { mCTaskCompleted = mCController.TaskCompleted; }));//??                        
-
-                        if ((i == pauseItem) || mCTaskCompleted)
-                        {
-
-                            DoCommand(commandList[i]);
-                            previousStrCommand = currentStrCommand;//
-                            break; //Прерываем цикл
-                        }
-
-                    } while (true);
-
-                }
-                else
-                {
-                    break; //Прерываем цикл
-                }
-                System.Windows.Forms.Application.DoEvents(); // Эту строку не трогать, это для того чтобы и другие события работали
+                DoCommand(commandList[i]);
+                previousStrCommand = currentStrCommand;
             }
         }
         public void Stop()//??
@@ -142,6 +125,7 @@ namespace CommandSend
                     break;
             }
             previousGCommand = currentGCommand;
+
         }
 
         public void Reset()
@@ -165,46 +149,53 @@ namespace CommandSend
             if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
 
             GoToRelativeCoorts(curGoalCoordts);
+            mCController.Send();            
 
         }
         private void DoCommandG01()
         {
-            if ((owner == null) || (mCController == null)) return;
+            if ((owner == null) || (mCController == null) || (mCController.CommandHandle == null)) return;
             if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
 
             Vector3d VDirection;
             Vector3d Nextpoint;
 
-            mCController.TaskCompleted = true;//??
+            bool start = true;//---
+            
             do
             {
-                
-                if (stopCycle == true)//??
-                    break;
 
-               // mCTaskCompleted = true;//---если просто отправлять в порт задания, не дожидаясь ответа, то довольно плавно работает
-                owner.Invoke(new Action(() => { mCTaskCompleted = mCController.TaskCompleted; }));//??                        
+                //if (stopCycle == true)//??
+                //    break;
 
-                if (mCTaskCompleted)
+
+                VDirection = Vector3d.Subtract(curGoalCoordts, owner.CurWorkCoorts);
+                VDirection.Norm();
+
+                Nextpoint = Vector3d.Add(owner.CurWorkCoorts, Vector3d.Multiply(VDirection, intrpStep));
+
+
+
+                if (!Vector3d.PBetweenP1P2(Nextpoint, curGoalCoordts, owner.CurWorkCoorts))//вышла за пределы отрезка
                 {
-
-                    VDirection = Vector3d.Subtract(curGoalCoordts, owner.CurWorkCoorts);
-                    VDirection.Norm();
-
-                    Nextpoint = Vector3d.Add(owner.CurWorkCoorts, Vector3d.Multiply(VDirection, intrpStep));
-
                     //реализвать если не между точками и текущая точка не последаняя - перейти в последнюю
-
-                    if (!Vector3d.PBetweenP1P2(Nextpoint, curGoalCoordts, owner.CurWorkCoorts))//вышла за пределы отрезка
-                    {
-                        //endCommand = true;//??
-                        break; //Прерываем цикл
-                    }
-
-                    GoToRelativeCoorts(Nextpoint);
+                    if (Vector3d.VEC_MUL_Scalar(Vector3d.Subtract(Nextpoint, owner.CurWorkCoorts), VDirection) >= 0)//находятся в одном направлении
+                        Nextpoint = curGoalCoordts;
+                    else break; //Прерываем цикл
                 }
 
-                System.Windows.Forms.Application.DoEvents(); // Эту строку не трогать, это для того чтобы и другие события работали
+                GoToRelativeCoorts(Nextpoint);
+
+                if (start)
+                {
+                    mCController.Send();
+                    start = false;
+                }
+                else
+                {
+                    mCController.CommandHandle.WaitOne();//следующая команда будет отправлена тогда, когда завершится предыдущая операция
+                    mCController.Send();
+            }
 
             } while (true);
 
@@ -231,7 +222,7 @@ namespace CommandSend
             iKSolver.SolveIK(owner.AbsWorkCoorts.x, owner.AbsWorkCoorts.y, owner.AbsWorkCoorts.z);
 
             if (IKSolverType.IK3DOF == iKSolver.GetType())
-                mCController.SendAngles(iKSolver.QDeg[0], iKSolver.QDeg[1], iKSolver.QDeg[2]);
+                mCController.TaskAngles(iKSolver.QDeg[0], iKSolver.QDeg[1], iKSolver.QDeg[2]);
 
         }
 

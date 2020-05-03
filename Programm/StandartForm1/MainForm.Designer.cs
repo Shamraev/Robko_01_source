@@ -262,7 +262,7 @@
             // PortNames
             // 
             this.PortNames.Name = "PortNames";
-            this.PortNames.Size = new System.Drawing.Size(180, 22);
+            this.PortNames.Size = new System.Drawing.Size(102, 22);
             this.PortNames.Text = "Порт";
             this.PortNames.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.PortNames_DropDownItemClicked);
             // 
@@ -693,6 +693,7 @@
             this.labelZ.Size = new System.Drawing.Size(28, 15);
             this.labelZ.TabIndex = 28;
             this.labelZ.Text = "368";
+            this.labelZ.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelY
             // 
@@ -704,6 +705,7 @@
             this.labelY.Size = new System.Drawing.Size(28, 15);
             this.labelY.TabIndex = 27;
             this.labelY.Text = "257";
+            this.labelY.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labelX
             // 

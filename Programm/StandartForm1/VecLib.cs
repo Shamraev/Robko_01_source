@@ -16,6 +16,13 @@ namespace VecLib
         {
             return Sqrt(x * x + y * y + z * z);
         }
+
+        /// <summary>
+        /// Вычитание векторов v1 - v2
+        /// </summary>
+        /// <param name="v1"></param>
+        /// <param name="v2"></param>
+        /// <returns></returns>
         public static Vector3d Subtract(Vector3d v1, Vector3d v2)
         {
             Vector3d v;
@@ -46,6 +53,13 @@ namespace VecLib
 
             return vv;
         }
+        /// <summary>
+        /// Точка p находится на прямой между точками p1, p2, не включая их
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
         public static bool PBetweenP1P2(Vector3d p, Vector3d p1, Vector3d p2)
         {
             Vector3d v21 = Subtract(p2, p1);
@@ -53,7 +67,7 @@ namespace VecLib
             Vector3d v1 = Subtract(p, p1);
             Vector3d v2 = Subtract(p, p2);
 
-            bool res = (VEC_MUL_Scalar(v21, v1) >= 0) && (VEC_MUL_Scalar(v12, v2) >= 0);
+            bool res = (VEC_MUL_Scalar(v21, v1) > 0) && (VEC_MUL_Scalar(v12, v2) > 0);
 
             return res;
         }
