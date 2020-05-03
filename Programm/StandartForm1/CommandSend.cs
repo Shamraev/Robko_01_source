@@ -52,7 +52,11 @@ namespace CommandSend
 
         private bool stopCycle;//??
         private bool CycleStated;
+        private bool CyclePause;
         private int pauseItem;//??
+
+        Thread CSThread;
+        ManualResetEvent CSThreadMREvent;
 
 
         private string currentStrCommand;//текущая строка в списке комманд
@@ -71,7 +75,7 @@ namespace CommandSend
 
         public CommandSender()
         {
-
+            CSThreadMREvent = new ManualResetEvent(true);
             Reset();
         }
         ~CommandSender()
@@ -81,16 +85,29 @@ namespace CommandSend
 
         public void Start()
         {
-            if (commandList == null) return;
+            Reset();
 
-            CycleStated = true;
-            stopCycle = false;
+            if ((CSThread != null) && (CSThread.IsAlive)) CSThread.Abort();
 
-            for (int i = pauseItem; i < commandList.Length; i++)
+            CSThread = new Thread(new ThreadStart(this.StartSycle));
+            CSThread.IsBackground = true;
+            CSThread.Start(); // запускаем поток  
+        }
+        public void Pause()
+        {
+            if (!CyclePause)//предыдущее состояние 
             {
-                DoCommand(commandList[i]);
-                previousStrCommand = currentStrCommand;
+                CSThreadMREvent.Reset();
+                //mCController.CommandHandle.Reset();
+                CyclePause = !CyclePause;
             }
+            else
+            {
+                CSThreadMREvent.Set();
+                //mCController.CommandHandle.Set();
+                CyclePause = !CyclePause;
+            }
+
         }
         public void Stop()//??
         {
@@ -98,7 +115,26 @@ namespace CommandSend
 
             stopCycle = true;
 
+            CSThread.Abort();
+
         }
+        public void StartSycle()
+        {
+            if ((commandList == null) || (mCController == null)) return;
+
+            CycleStated = true;//---??
+            stopCycle = false;//---??
+
+            mCController.commandHandle.Set();//можно начинать
+
+            for (int i = pauseItem; i < commandList.Length; i++)
+            {
+                CSThreadMREvent.WaitOne();
+                DoCommand(commandList[i]);
+                previousStrCommand = currentStrCommand;
+            }
+        }
+
         public void DoCommand(string strCommand)
         {
             currentStrCommand = strCommand.ToUpper();
@@ -132,12 +168,15 @@ namespace CommandSend
         {
             pauseItem = 0;
 
+            CyclePause = false;
+
             currentStrCommand = "";
             previousStrCommand = "";
 
             currentGCommand = GCommand.NONE;
             previousGCommand = GCommand.NONE;
 
+            
         }
 
 
@@ -149,7 +188,7 @@ namespace CommandSend
             if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
 
             GoToRelativeCoorts(curGoalCoordts);
-            mCController.Send();            
+            mCController.Send();
 
         }
         private void DoCommandG01()
@@ -160,8 +199,6 @@ namespace CommandSend
             Vector3d VDirection;
             Vector3d Nextpoint;
 
-            bool start = true;//---
-            
             do
             {
 
@@ -174,8 +211,6 @@ namespace CommandSend
 
                 Nextpoint = Vector3d.Add(owner.CurWorkCoorts, Vector3d.Multiply(VDirection, intrpStep));
 
-
-
                 if (!Vector3d.PBetweenP1P2(Nextpoint, curGoalCoordts, owner.CurWorkCoorts))//вышла за пределы отрезка
                 {
                     //реализвать если не между точками и текущая точка не последаняя - перейти в последнюю
@@ -186,16 +221,10 @@ namespace CommandSend
 
                 GoToRelativeCoorts(Nextpoint);
 
-                if (start)
-                {
-                    mCController.Send();
-                    start = false;
-                }
-                else
-                {
-                    mCController.CommandHandle.WaitOne();//следующая команда будет отправлена тогда, когда завершится предыдущая операция
-                    mCController.Send();
-            }
+                //А если робот передвинется раньше, чем ПК посчитает следующию точку??
+                mCController.CommandHandle.WaitOne();//следующая команда будет отправлена тогда, когда завершится предыдущая операция
+                mCController.Send();
+
 
             } while (true);
 

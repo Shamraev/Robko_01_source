@@ -688,35 +688,35 @@
             this.labelZ.AutoSize = true;
             this.labelZ.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelZ.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelZ.Location = new System.Drawing.Point(87, 99);
+            this.labelZ.Location = new System.Drawing.Point(61, 99);
             this.labelZ.Name = "labelZ";
             this.labelZ.Size = new System.Drawing.Size(28, 15);
             this.labelZ.TabIndex = 28;
             this.labelZ.Text = "368";
-            this.labelZ.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelZ.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelY
             // 
             this.labelY.AutoSize = true;
             this.labelY.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelY.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelY.Location = new System.Drawing.Point(87, 70);
+            this.labelY.Location = new System.Drawing.Point(61, 70);
             this.labelY.Name = "labelY";
             this.labelY.Size = new System.Drawing.Size(28, 15);
             this.labelY.TabIndex = 27;
             this.labelY.Text = "257";
-            this.labelY.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelY.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelX
             // 
             this.labelX.AutoSize = true;
             this.labelX.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelX.Location = new System.Drawing.Point(101, 41);
+            this.labelX.Location = new System.Drawing.Point(61, 41);
             this.labelX.Name = "labelX";
             this.labelX.Size = new System.Drawing.Size(14, 15);
             this.labelX.TabIndex = 26;
             this.labelX.Text = "0";
-            this.labelX.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelX.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label9
             // 
@@ -972,6 +972,7 @@
             this.buttonGCodePause.Size = new System.Drawing.Size(30, 29);
             this.buttonGCodePause.TabIndex = 22;
             this.buttonGCodePause.UseVisualStyleBackColor = true;
+            this.buttonGCodePause.Click += new System.EventHandler(this.buttonGCodePause_Click);
             // 
             // buttonGCodeStart
             // 

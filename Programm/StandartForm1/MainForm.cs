@@ -10,6 +10,7 @@ using InverseKinematics;
 using VecLib;
 using MCControl;
 using CommandSend;
+using System.Threading;
 
 namespace RobotSpace
 {
@@ -65,6 +66,12 @@ namespace RobotSpace
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
+        }
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            aTimer.Enabled = false;
+            SaveRobotPortName();
+            Environment.Exit(0);//??
         }
 
         protected void LoadSettings()
@@ -153,11 +160,6 @@ namespace RobotSpace
             printDialog1.ShowDialog();
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            aTimer.Enabled = false;
-            SaveRobotPortName();
-        }
         private void button6_Click(object sender, EventArgs e)
         {
             SendAngles(0);
@@ -380,17 +382,21 @@ namespace RobotSpace
             Invoke(new Action(() =>
             {
 
-                labelX.Text = Convert.ToString(Math.Round(AbsWorkCoorts.x, 2)).Replace(',', '.');
-                labelY.Text = Convert.ToString(Math.Round(AbsWorkCoorts.y, 2)).Replace(',', '.');
-                labelZ.Text = Convert.ToString(Math.Round(AbsWorkCoorts.z, 2)).Replace(',', '.');
+                labelX.Text = CoortToString(AbsWorkCoorts.x);
+                labelY.Text = CoortToString(AbsWorkCoorts.y);
+                labelZ.Text = CoortToString(AbsWorkCoorts.z);
 
                 AbsWorkCoortsToCur();
 
-                buttonCurWorkX.Text = Convert.ToString(CurWorkCoorts.x);
-                buttonCurWorkY.Text = Convert.ToString(CurWorkCoorts.y);
-                buttonCurWorkZ.Text = Convert.ToString(CurWorkCoorts.z);
+                buttonCurWorkX.Text = CoortToString(CurWorkCoorts.x);
+                buttonCurWorkY.Text = CoortToString(CurWorkCoorts.y);
+                buttonCurWorkZ.Text = CoortToString(CurWorkCoorts.z);
 
             }));
+        }
+        protected string CoortToString(double coordt)
+        {
+            return Convert.ToString(Math.Round(coordt, 2)).Replace(',', '.');
         }
 
         public void AbsWorkCoortsToCur()
@@ -585,9 +591,15 @@ namespace RobotSpace
         {
             commandSender.CommandList = richTextBoxGCode.Text.Split('\n');
             commandSender.IntrpStep = 1;
-            Task.Factory.StartNew(() => {
-                commandSender.Start();
-            });
+            commandSender.Start();
+        }
+        private void buttonGCodePause_Click(object sender, EventArgs e)
+        {
+            commandSender.Pause();
+        }
+        private void buttonGCodeStop_Click(object sender, EventArgs e)
+        {
+            commandSender.Stop();
         }
         protected void MCControllerCreate()
         {
@@ -605,10 +617,7 @@ namespace RobotSpace
             StatusLabel.Text = str;
         }
 
-        private void buttonGCodeStop_Click(object sender, EventArgs e)
-        {
-            Invoke(new Action(() => { commandSender.Stop(); }));
-        }
+
 
         private void ToolStripMenuItemParameters_Click(object sender, EventArgs e)
         {
@@ -633,6 +642,9 @@ namespace RobotSpace
                 robotPortName = Properties.Settings.Default.RobotPortName;
             }
         }
+
+
+
         private void SaveRobotPortName()
         {
             //set the new value of RobotPortName 

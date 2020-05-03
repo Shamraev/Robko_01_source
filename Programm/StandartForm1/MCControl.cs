@@ -16,7 +16,7 @@ namespace MCControl
 
         private bool taskCompleted;
         public bool TaskCompleted { get { return taskCompleted; } set { taskCompleted = value; } }
-        
+
         private byte[] curByteArr;
 
         public EventWaitHandle commandHandle;
@@ -31,7 +31,7 @@ namespace MCControl
         {
             this.serialPort = aSerialPort;
             this.owner = aOwner;
-            commandHandle = new AutoResetEvent(false);
+            commandHandle = new AutoResetEvent(true);
             PortTurnOn(owner.RobotPortName); //включить порт
         }
         ~MCController()
@@ -43,9 +43,21 @@ namespace MCControl
         /// Отправить уже созданный пакет
         /// </summary>
         public void Send()
-        {            
-            serialPort.Write(curByteArr, 0, curByteArr.Length);
-            taskCompleted = false;
+        {
+            if (!SerialPortIsOpen())
+            {
+                ErrPort();
+                return;
+            }
+
+
+            if (curByteArr != null)
+            {
+                serialPort.Write(curByteArr, 0, curByteArr.Length);
+                taskCompleted = false;
+            }
+
+
         }
 
         public void TaskAngles(double a1, double a2, double a3)
