@@ -201,10 +201,7 @@ namespace CommandSend
 
             do
             {
-
-                //if (stopCycle == true)//??
-                //    break;
-
+                CSThreadMREvent.WaitOne();
 
                 VDirection = Vector3d.Subtract(curGoalCoordts, owner.CurWorkCoorts);
                 VDirection.Norm();

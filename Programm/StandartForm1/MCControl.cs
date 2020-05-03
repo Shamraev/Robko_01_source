@@ -113,7 +113,7 @@ namespace MCControl
                 {
                     serialPort.PortName = aPortName;
                     serialPort.Open();
-                    Thread.Sleep(1000);//---------
+                    Thread.Sleep(100);//?? сколько лучше всего ??
                                        // SendAngles();
                                        // SendAngelesToRobot(0, 0, 0);//-----??
                     OkPort();
