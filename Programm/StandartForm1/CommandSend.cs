@@ -114,11 +114,10 @@ namespace CommandSend
             if (!CycleStated) return;
 
             stopCycle = true;
-
             CSThread.Abort();
 
         }
-        public void StartSycle()
+        public void StartSycle()//при запуске потока CSThread
         {
             if ((commandList == null) || (mCController == null)) return;
 
@@ -176,7 +175,7 @@ namespace CommandSend
             currentGCommand = GCommand.NONE;
             previousGCommand = GCommand.NONE;
 
-            
+
         }
 
 
@@ -286,7 +285,7 @@ namespace CommandSend
 
             if ((strXYZ[0] == "") && (strXYZ[1] == "") && (strXYZ[2] == "")) return false;
 
-            //System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");//??
             if (strXYZ[0] != "")
                 refV.x = Math.Round(Convert.ToDouble(strXYZ[0]), 2);
             if (strXYZ[1] != "")
