@@ -4,28 +4,38 @@ using ArrayHelp;
 namespace CurveLib
 {
     /// <summary>
-    /// Структура - отрезок
+    /// Класс - участок кривой
     /// </summary>
-    public struct Cut
+    public class Segment
     {
-        private ArrayHelper<Vector3d> _endPoint;
+        protected ArrayHelper<Vector3d> _endPoint;
 
-        private double _length;
+        /// <summary>
+        /// Точки начала и конца сегмента; [true] - начало, [false] - конец, 
+        /// </summary>
+        public ArrayHelper<Vector3d> EndPoint { get { return _endPoint; } set { } }
 
+        protected double _length;
+
+        public double Length()
+        {
+            return _length;
+        }        
+    }
+
+    /// <summary>
+    /// Класс - отрезок
+    /// </summary>
+    public class Cut: Segment
+    {     
         private Vector3d _vDirect;//вектор направление отрезка в полную длину
         public Vector3d VDirect { get { return _vDirect; } set { } }
 
         private Vector3d _vDirectNorm;//вектор направление отрезка нормированный
         public Vector3d VDirectNorm { get { return _vDirectNorm; } set { } }
 
-
         /// <summary>
-        /// Точки начала и конца отрезка; [true] - начало, [false] - конец, 
-        /// </summary>
-        public ArrayHelper<Vector3d> EndPoint { get { return _endPoint; } set { } }
-
-        /// <summary>
-        /// Точка начала отрезка - A, точка конца отрезка - B
+        /// Точка начала отрезка - a, точка конца отрезка - b
         /// </summary>
         /// <param name="a">начало отрезка</param>
         /// <param name="b">конец отрезка</param>
@@ -44,10 +54,6 @@ namespace CurveLib
 
         }
 
-        public double Length()
-        {
-            return _length;
-        }
         /// <summary>
         /// Возвращает точку отрезка по параметру t: 0 - начало, 1 - конец
         /// </summary>
@@ -83,9 +89,9 @@ namespace CurveLib
     }
 
     /// <summary>
-    /// Структура - дуга
+    /// Класс - дуга
     /// </summary>
-    public struct Arc
+    public class Arc: Segment
     {
 
     }
