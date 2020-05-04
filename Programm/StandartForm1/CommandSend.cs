@@ -6,6 +6,7 @@ using RobotSpace;
 using MCControl;
 using InverseKinematics;
 using VecLib;
+using static VecLib.Methods;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
@@ -206,15 +207,15 @@ namespace CommandSend
             {
                 CSThreadMREvent.WaitOne();
 
-                VDirection = Vector3d.Subtract(curGoalCoordts, owner.CurWorkCoorts);
+                VDirection = curGoalCoordts - owner.CurWorkCoorts;
                 VDirection.Norm();
 
-                Nextpoint = Vector3d.Add(owner.CurWorkCoorts, Vector3d.Multiply(VDirection, intrpStep));
+                Nextpoint = owner.CurWorkCoorts + intrpStep * VDirection;
 
-                if (!Vector3d.PBetweenP1P2(Nextpoint, curGoalCoordts, owner.CurWorkCoorts))//вышла за пределы отрезка
+                if (!PBetweenP1P2(Nextpoint, curGoalCoordts, owner.CurWorkCoorts))//вышла за пределы отрезка
                 {
                     //реализвать если не между точками и текущая точка не последаняя - перейти в последнюю
-                    if (Vector3d.VEC_MUL_Scalar(Vector3d.Subtract(Nextpoint, owner.CurWorkCoorts), VDirection) >= 0)//находятся в одном направлении
+                    if (VEC_MUL_Scalar(Nextpoint - owner.CurWorkCoorts, VDirection) >= 0)//находятся в одном направлении
                         Nextpoint = curGoalCoordts;
                     else break; //Прерываем цикл
                 }
