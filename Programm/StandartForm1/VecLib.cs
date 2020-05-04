@@ -46,6 +46,20 @@ namespace VecLib
 
             return res;
         }
+
+        public static bool Equal_V1_V2(Vector3d v1, Vector3d v2, double precision = 1.0e-9)
+        {
+            return (Equal_Double(v1.x, v2.x, precision) && Equal_Double(v1.y, v2.y, precision) && Equal_Double(v1.z, v2.z, precision));
+        }
+        public static bool Equal_V1_V2(Vector2d v1, Vector2d v2, double precision = 1.0e-9)
+        {
+            return (Equal_Double(v1.x, v2.x, precision) && Equal_Double(v1.y, v2.y, precision));
+        }
+
+        public static bool Equal_Double(double a, double b, double precision = 1.0e-9)
+        {
+            return (Abs(a - b) <= precision);
+        }
     }
     public struct Vector3d
     {
@@ -73,6 +87,14 @@ namespace VecLib
         public static Vector3d operator *(double a, Vector3d v)
         {
             return Multiply(a, v);
+        }
+        public static bool operator !=(Vector3d v1, Vector3d v2)
+        {
+            return !Equal_V1_V2(v1, v2, 0);
+        }
+        public static bool operator ==(Vector3d v1, Vector3d v2)
+        {
+            return Equal_V1_V2(v1, v2, 0);
         }
 
 
@@ -159,6 +181,14 @@ namespace VecLib
         public static Vector2d operator *(double a, Vector2d v)
         {
             return Multiply(a, v);
+        }
+        public static bool operator !=(Vector2d v1, Vector2d v2)
+        {
+            return !Equal_V1_V2(v1, v2, 0);
+        }
+        public static bool operator ==(Vector2d v1, Vector2d v2)
+        {
+            return Equal_V1_V2(v1, v2, 0);
         }
 
         public static Vector2d Add(Vector2d v1, Vector2d v2)

@@ -10,6 +10,7 @@ using static VecLib.Methods;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using CurveLib;
 
 namespace CommandSend
 {
@@ -125,7 +126,7 @@ namespace CommandSend
             CycleStated = true;//---??
             stopCycle = false;//---??
 
-            mCController.commandHandle.Set();//можно начинать
+            mCController.commandHandle.Set();//задание mCController: можно начинать
 
             for (int i = pauseItem; i < commandList.Length; i++)
             {
@@ -200,32 +201,32 @@ namespace CommandSend
             if ((owner == null) || (mCController == null) || (mCController.CommandHandle == null)) return;
             if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
 
-            Vector3d VDirection;
-            Vector3d Nextpoint;
+            Vector3d nextPoint = owner.CurWorkCoorts;
+
+            Cut ct = new Cut(owner.CurWorkCoorts, curGoalCoordts);
+            double len = 0;
 
             do
             {
-                CSThreadMREvent.WaitOne();
+                CSThreadMREvent.WaitOne();//для паузы потока
 
-                VDirection = curGoalCoordts - owner.CurWorkCoorts;
-                VDirection.Norm();
-
-                Nextpoint = owner.CurWorkCoorts + intrpStep * VDirection;
-
-                if (!PBetweenP1P2(Nextpoint, curGoalCoordts, owner.CurWorkCoorts))//вышла за пределы отрезка
+                if (len > ct.Length())//возможно прошли весь отрезок
                 {
-                    //реализвать если не между точками и текущая точка не последаняя - перейти в последнюю
-                    if (VEC_MUL_Scalar(Nextpoint - owner.CurWorkCoorts, VDirection) >= 0)//находятся в одном направлении
-                        Nextpoint = curGoalCoordts;
-                    else break; //Прерываем цикл
+                    if (nextPoint == ct.EndPoint[false])
+                        break; //прошли весь отрезок
+                    else
+                        nextPoint = curGoalCoordts;
                 }
+                else
+                    nextPoint = ct.GetPointLen(len);
 
-                TaskGoToRelativeCoorts(Nextpoint);
+                TaskGoToRelativeCoorts(nextPoint);
 
                 //А если робот передвинется раньше, чем ПК посчитает следующию точку??
                 mCController.CommandHandle.WaitOne();//следующая команда будет отправлена тогда, когда завершится предыдущая операция
                 SendTask();
 
+                len = len + intrpStep;
 
             } while (true);
 

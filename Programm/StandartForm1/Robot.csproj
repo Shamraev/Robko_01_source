@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayHelp.cs" />
+    <Compile Include="CurveLib.cs" />
     <Compile Include="CommandSend.cs" />
     <Compile Include="MCControl.cs" />
     <Compile Include="FormSetCurWorkCoordts.cs">
