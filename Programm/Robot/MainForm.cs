@@ -17,7 +17,7 @@ namespace RobotSpace
 
     public partial class MainForm : Form
     {
-        IKSolver3DOF iKSolver3DOF = new IKSolver3DOF(0, 190, 178, 177, 80);//d4 = 178; d5 = 82;
+        IKSolver3DOF iKSolver3DOF;
         public Vector3d AbsWorkCoorts = new Vector3d(0, 257, 368);//абсолютные координаты
         public Vector3d CurWorkCoorts = new Vector3d(0, 257, 368);//относительные координаты
         public Vector3d CoortsOffset = new Vector3d(0, 0, 0);    // смещение для перевода из относительных координат в абсолютные и наоборот
@@ -54,8 +54,7 @@ namespace RobotSpace
         {
             LoadSettings();
 
-
-
+            IKSolverCreate();
             MCControllerCreate();
             СommandSenderCreate();
 
@@ -66,7 +65,29 @@ namespace RobotSpace
             aTimer.Elapsed += OnTimedEvent;
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
+
         }
+
+        private Plane CreateCorrectPlane()
+        {
+            //M0, M1, M2 - точки, полученные в реальности; координата z от плоскости стола 
+            //(не важно откуда, важно для всех точек координата z считалась относительно одного и того же)
+            //в глобальных координатах z~190
+            Vector3d M0 = new Vector3d(0, 200, 5);
+            Vector3d M1 = new Vector3d(-100, 400, 5);
+            Vector3d M2 = new Vector3d(100, 400, 7.5);
+
+            Plane pl = new Plane(M0, M1, M2);
+
+            return pl;
+        }
+        protected void IKSolverCreate()
+        {
+            iKSolver3DOF = new IKSolver3DOF(0, 190, 178, 177, 80);//d4 = 178; d5 = 82; 
+            iKSolver3DOF.DoCorrect = true;
+            iKSolver3DOF.CorrectPlane = CreateCorrectPlane();
+        }
+
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             aTimer.Enabled = false;

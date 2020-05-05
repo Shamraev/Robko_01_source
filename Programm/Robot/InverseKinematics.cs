@@ -44,6 +44,11 @@ namespace InverseKinematics
         private double[] qDeg;
         public double[] QDeg { get { return qDeg; } set { qDeg = value; } }
 
+        protected Plane _CorrectPlane;
+        public Plane CorrectPlane { get { return _CorrectPlane; } set { _CorrectPlane = value; /*??изменять ее можно только при создании??*/ } }
+
+        protected bool _DoCorrect;
+        public bool DoCorrect { get { return _DoCorrect; } set { _DoCorrect = value; } }
 
         /*-----------------------------------реализация-------------------------------------------*/
 
@@ -60,6 +65,13 @@ namespace InverseKinematics
             this.x = aX;
             this.y = aY;
             this.z = aZ;
+
+            if (_DoCorrect) CorrectOperationCoordts();
+        }
+        protected void CorrectOperationCoordts()
+        {
+            double Z_OnPlane = (_CorrectPlane.A* this.x + _CorrectPlane.B * this.y) /(-_CorrectPlane.C);
+            this.z = z - Z_OnPlane;
         }
         virtual public IKSolverType GetType()
         {

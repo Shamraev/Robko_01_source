@@ -7,7 +7,7 @@ namespace VecLib
 {
     public static class Methods
     {
-        public static Vector2d Y2dAxes = new Vector2d(0,1);
+        public static Vector2d Y2dAxes = new Vector2d(0, 1);
         public static Vector2d X2dAxes = new Vector2d(1, 0);
 
         /// <summary>
@@ -281,7 +281,41 @@ namespace VecLib
             this.y = y;
         }
 
-
     }
+
+    public struct Plane
+    {
+        private double _A;
+        public double A { get { return _A; } set { } }
+        private double _B;
+        public double B { get { return _B; } set { } }
+        private double _C;
+        public double C { get { return _C; } set { } }
+        private double _D;
+        public double D { get { return _D; } set { } }
+
+
+        /// <summary>
+        /// Плоскость по коэффициентам A, B, C, D
+        /// </summary>
+        public Plane(double A, double B, double C, double D) : this()
+        {
+            this._A = A;
+            this._B = B;
+            this._C = C;
+            this._D = D;
+        }
+        /// <summary>
+        /// Плоскость по трем точкам
+        /// </summary>
+        public Plane(Vector3d M0, Vector3d M1, Vector3d M2) : this()
+        {
+            this._A = (M1.y - M0.y) * (M2.z - M0.z) - (M2.y - M0.y) * (M1.z - M0.z);
+            this._B = -((M1.x - M0.x) * (M2.z - M0.z) - (M2.x - M0.x) * (M1.z - M0.z));
+            this._C = (M1.x - M0.x) * (M2.y - M0.y) - (M2.x - M0.x) * (M1.y - M0.y);
+            this._D = -M0.x * A - M0.y * B - M0.z * C;
+        }
+    }
+
 
 }

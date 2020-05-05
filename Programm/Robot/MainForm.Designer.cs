@@ -113,6 +113,7 @@
             this.buttonGCodeStop = new System.Windows.Forms.Button();
             this.buttonGCodePause = new System.Windows.Forms.Button();
             this.buttonGCodeStart = new System.Windows.Forms.Button();
+            this.корректирующаяПлоскостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -253,7 +254,8 @@
             // ToolStripMenuItemParameters
             // 
             this.ToolStripMenuItemParameters.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PortNames});
+            this.PortNames,
+            this.корректирующаяПлоскостьToolStripMenuItem});
             this.ToolStripMenuItemParameters.Name = "ToolStripMenuItemParameters";
             this.ToolStripMenuItemParameters.Size = new System.Drawing.Size(83, 19);
             this.ToolStripMenuItemParameters.Text = "Параметры";
@@ -262,7 +264,7 @@
             // PortNames
             // 
             this.PortNames.Name = "PortNames";
-            this.PortNames.Size = new System.Drawing.Size(102, 22);
+            this.PortNames.Size = new System.Drawing.Size(232, 22);
             this.PortNames.Text = "Порт";
             this.PortNames.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.PortNames_DropDownItemClicked);
             // 
@@ -985,6 +987,12 @@
             this.buttonGCodeStart.UseVisualStyleBackColor = true;
             this.buttonGCodeStart.Click += new System.EventHandler(this.buttonGCodeStart_Click);
             // 
+            // корректирующаяПлоскостьToolStripMenuItem
+            // 
+            this.корректирующаяПлоскостьToolStripMenuItem.Name = "корректирующаяПлоскостьToolStripMenuItem";
+            this.корректирующаяПлоскостьToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.корректирующаяПлоскостьToolStripMenuItem.Text = "Корректирующая плоскость";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -1121,6 +1129,7 @@
         private System.Windows.Forms.Button buttonGCodeStart;
         private System.Windows.Forms.Button buttonGCodeStop;
         private System.Windows.Forms.Button buttonGCodePause;
+        private System.Windows.Forms.ToolStripMenuItem корректирующаяПлоскостьToolStripMenuItem;
     }
 }
 
