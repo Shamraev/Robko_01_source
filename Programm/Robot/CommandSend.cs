@@ -245,7 +245,8 @@ namespace CommandSend
         private void DoCommandG03_G03(bool isG03)
         {
             if ((owner == null) || (mCController == null) || (mCController.CommandHandle == null)) return;
-            if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
+
+            GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts);//??если желаемая точка совпадает с начальной точкой??
 
             Vector3d a = owner.CurWorkCoorts;
             Vector3d b = curGoalCoordts;
