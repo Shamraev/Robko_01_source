@@ -11,6 +11,7 @@ using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using CurveLib;
+using static CurveLib.Methods;
 
 namespace CommandSend
 {
@@ -199,18 +200,17 @@ namespace CommandSend
         private void DoCommandG01()
         {
             if ((owner == null) || (mCController == null) || (mCController.CommandHandle == null)) return;
-            if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
-
-            Vector3d nextPoint = owner.CurWorkCoorts;
+            if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;            
 
             Cut ct = new Cut(owner.CurWorkCoorts, curGoalCoordts);
             double len = 0;
+            Vector3d nextPoint = owner.CurWorkCoorts;
 
             do
             {
                 CSThreadMREvent.WaitOne();//для паузы потока
 
-                if (len > ct.Length())//возможно прошли весь отрезок
+                if (len > ct.Length)//возможно прошли весь отрезок
                 {
                     if (nextPoint == ct.EndPoint[false])
                         break; //прошли весь отрезок
@@ -233,12 +233,69 @@ namespace CommandSend
         }
         private void DoCommandG02()
         {
-
+            DoCommandG03_G03(false);
         }
         private void DoCommandG03()
         {
-
+            DoCommandG03_G03(true);
         }
+        /// <summary>
+        /// Круговая интерполяция в плоскости (x, y)
+        /// </summary>
+        private void DoCommandG03_G03(bool isG03)
+        {
+            if ((owner == null) || (mCController == null) || (mCController.CommandHandle == null)) return;
+            if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
+
+            Vector3d a = owner.CurWorkCoorts;
+            Vector3d b = curGoalCoordts;
+            Vector3d cp = a;
+
+            double[] IJK_D = new double[3];
+            double[] R_D = new double[1];
+            if (GetNumbers_FromStr(currentStrCommand, new char[] {'I', 'J', 'K'}, ref IJK_D))
+            {
+                cp.x = a.x + IJK_D[0];
+                cp.y = a.y + IJK_D[1];
+                cp.z = a.z + IJK_D[2];
+            }
+            else if (GetNumbers_FromStr(currentStrCommand, new char[] {'R'}, ref R_D))
+            {
+                Vector2d cp2d;
+                if (!GetCP_FromArc(p2d(a), p2d(b), R_D[0], isG03, out cp2d)) return;//в плоскости (x, y) получаем центр дуги
+                cp = p3d(cp2d, a.z);
+            }
+            else return;
+
+            Arc arc = new Arc(p2d(a), p2d(b), p2d(cp), isG03);//в плоскости (x, y)
+            double len = 0;
+            Vector3d nextPoint = owner.CurWorkCoorts;
+
+            do
+            {
+                CSThreadMREvent.WaitOne();//для паузы потока
+
+                if (len > arc.Length)//возможно прошли весь отрезок
+                {
+                    if (nextPoint == p3d(arc.EndPoint[false], nextPoint.z))
+                        break; //прошли всю дугу
+                    else
+                        nextPoint = curGoalCoordts;
+                }
+                else
+                    nextPoint = p3d(arc.GetPointLen(len), nextPoint.z);
+
+                TaskGoToRelativeCoorts(nextPoint);
+
+                //А если робот передвинется раньше, чем ПК посчитает следующию точку??
+                mCController.CommandHandle.WaitOne();//следующая команда будет отправлена тогда, когда завершится предыдущая операция
+                SendTask();
+
+                len = len + intrpStep;
+
+            } while (true);
+        }
+
 
 
         /*-----------------------------------реализация прочих методов и функций-------------------------------------------*/
@@ -257,7 +314,7 @@ namespace CommandSend
 
         }
 
-        private bool GetXYZ_FromStr(string str, ref Vector3d refV)
+        private bool GetXYZ_FromStr(string str, ref Vector3d refV)//??----??
         {
             if (str == "") return false;
 
@@ -293,13 +350,58 @@ namespace CommandSend
 
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");//??
             if (strXYZ[0] != "")
-                refV.x = Math.Round(Convert.ToDouble(strXYZ[0]), 2);
+                refV.x = Convert.ToDouble(strXYZ[0]);
             if (strXYZ[1] != "")
-                refV.y = Math.Round(Convert.ToDouble(strXYZ[1]), 2);
+                refV.y = Convert.ToDouble(strXYZ[1]);
             if (strXYZ[2] != "")
-                refV.z = Math.Round(Convert.ToDouble(strXYZ[2]), 2);
+                refV.z = Convert.ToDouble(strXYZ[2]);
 
             return true;
+        }
+        private bool GetNumbers_FromStr(string str, char[] charNumbers, ref double[] refNumbers)
+        {
+            if (str == "") return false;
+            if (refNumbers.Length != charNumbers.Length) return false;
+
+            string[] strNumbers = new string[charNumbers.Length];
+            int[] indNumbers = new int[charNumbers.Length];
+
+            for (int j = 0; j < indNumbers.Length; j++)
+            {
+                indNumbers[j] = str.IndexOf(charNumbers[j]);
+            }
+
+            for (int j = 0; j < indNumbers.Length; j++)
+            {
+                if (indNumbers[j] >= 0)
+                {
+                    if ((indNumbers[j] + 1) > str.Length - 1) break;
+
+                    for (int i = indNumbers[j] + 1; i < str.Length; i++)
+                    {
+                        if (str[i] == ',')
+                        {
+                            Error("В G коде не допустим символ ',' !");//??
+                            return false;
+                        }
+                        if (Char.IsDigit(str[i]) || (str[i] == '.') || (str[i] == '-'))
+                            strNumbers[j] += str[i];
+                        else break;
+                    }
+                }
+            }
+
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");//??
+            bool AllNumbrsNull = true;
+            for (int j = 0; j < refNumbers.Length; j++)
+            {
+                AllNumbrsNull = AllNumbrsNull && (strNumbers[j] == null);
+
+                if (strNumbers[j] != "")
+                    refNumbers[j] = Convert.ToDouble(strNumbers[j]);
+            }        
+  
+            return !AllNumbrsNull;
         }
 
         private void Error(string strErr)
