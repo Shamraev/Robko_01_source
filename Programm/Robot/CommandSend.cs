@@ -70,6 +70,7 @@ namespace CommandSend
 
         Vector3d curGoalCoordts;//координаты текущей точки, в которую надо переместиться
 
+        System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 
 
 
@@ -124,6 +125,10 @@ namespace CommandSend
         {
             if ((commandList == null) || (mCController == null)) return;
 
+
+            UpdateStatus("выполнение G команд");
+            StartTime();//?? в Start()??
+
             CycleStated = true;//---??
             stopCycle = false;//---??
 
@@ -132,13 +137,34 @@ namespace CommandSend
             for (int i = pauseItem; i < commandList.Length; i++)
             {
                 CSThreadMREvent.WaitOne();
-                DoCommand(commandList[i]);
+                DoCommand(i);
                 previousStrCommand = currentStrCommand;
             }
+
+            EndTime();//?? в Stop()??
+        }
+        protected void StartTime()
+        {
+            if (stopwatch == null) return;
+
+            stopwatch.Reset();
+            stopwatch.Start();
+        }
+        protected void EndTime()
+        {
+            if (stopwatch == null) return;
+
+            stopwatch.Stop();
+            UpdateStatus("G код выполнен за такое время: " + stopwatch.Elapsed);
         }
 
-        public void DoCommand(string strCommand)
+        public void DoCommand(int i)
         {
+            string strCommand = commandList[i];
+            if ((strCommand == null) || (strCommand == "")) return;
+            
+            DesplayCurGCodeStr(i + 1 + ": " + strCommand);
+
             currentStrCommand = strCommand.ToUpper();
 
             currentGCommand = GetGCommandInStr(currentStrCommand);
@@ -166,6 +192,11 @@ namespace CommandSend
 
         }
 
+        protected void DesplayCurGCodeStr(string str)
+        {
+            owner.DesplayCurGCodeStr(str);
+        }
+
         public void Reset()
         {
             pauseItem = 0;
@@ -190,17 +221,17 @@ namespace CommandSend
             if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
 
             TaskGoToRelativeCoorts(curGoalCoordts);
-            SendTask();            
+            SendTask();
 
         }
-       protected void SendTask()
+        protected void SendTask()
         {
             mCController.Send();
         }
         private void DoCommandG01()
         {
             if ((owner == null) || (mCController == null) || (mCController.CommandHandle == null)) return;
-            if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;            
+            if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
 
             Cut ct = new Cut(owner.CurWorkCoorts, curGoalCoordts);
             double len = 0;
@@ -254,13 +285,13 @@ namespace CommandSend
 
             double[] IJK_D = new double[3];
             double[] R_D = new double[1];
-            if (GetNumbers_FromStr(currentStrCommand, new char[] {'I', 'J', 'K'}, ref IJK_D))
+            if (GetNumbers_FromStr(currentStrCommand, new char[] { 'I', 'J', 'K' }, ref IJK_D))
             {
                 cp.x = a.x + IJK_D[0];
                 cp.y = a.y + IJK_D[1];
                 cp.z = a.z + IJK_D[2];
             }
-            else if (GetNumbers_FromStr(currentStrCommand, new char[] {'R'}, ref R_D))
+            else if (GetNumbers_FromStr(currentStrCommand, new char[] { 'R' }, ref R_D))
             {
                 Vector2d cp2d;
                 if (!GetCP_FromArc(p2d(a), p2d(b), R_D[0], isG03, out cp2d)) return;//в плоскости (x, y) получаем центр дуги
@@ -400,8 +431,8 @@ namespace CommandSend
 
                 if (strNumbers[j] != "")
                     refNumbers[j] = Convert.ToDouble(strNumbers[j]);
-            }        
-  
+            }
+
             return !AllNumbrsNull;
         }
 
@@ -409,6 +440,11 @@ namespace CommandSend
         {
             owner.Error(strErr);
             stopCycle = true;
+        }
+
+        private void UpdateStatus(string str)
+        {
+            owner.UpdateStatus(str);
         }
 
         private GCommand GetGCommandInStr(string strCmd)

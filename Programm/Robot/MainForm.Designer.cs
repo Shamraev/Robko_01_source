@@ -47,6 +47,7 @@
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemParameters = new System.Windows.Forms.ToolStripMenuItem();
             this.PortNames = new System.Windows.Forms.ToolStripMenuItem();
+            this.корректирующаяПлоскостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -113,7 +114,10 @@
             this.buttonGCodeStop = new System.Windows.Forms.Button();
             this.buttonGCodePause = new System.Windows.Forms.Button();
             this.buttonGCodeStart = new System.Windows.Forms.Button();
-            this.корректирующаяПлоскостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.labelCurGcode = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.labelGcodeTime = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -267,6 +271,12 @@
             this.PortNames.Size = new System.Drawing.Size(232, 22);
             this.PortNames.Text = "Порт";
             this.PortNames.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.PortNames_DropDownItemClicked);
+            // 
+            // корректирующаяПлоскостьToolStripMenuItem
+            // 
+            this.корректирующаяПлоскостьToolStripMenuItem.Name = "корректирующаяПлоскостьToolStripMenuItem";
+            this.корректирующаяПлоскостьToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.корректирующаяПлоскостьToolStripMenuItem.Text = "Корректирующая плоскость";
             // 
             // printDialog1
             // 
@@ -941,6 +951,10 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.labelGcodeTime);
+            this.splitContainer2.Panel1.Controls.Add(this.label10);
+            this.splitContainer2.Panel1.Controls.Add(this.label1);
+            this.splitContainer2.Panel1.Controls.Add(this.labelCurGcode);
             this.splitContainer2.Panel1.Controls.Add(this.buttonGCodeStop);
             this.splitContainer2.Panel1.Controls.Add(this.buttonGCodePause);
             this.splitContainer2.Panel1.Controls.Add(this.buttonGCodeStart);
@@ -987,11 +1001,47 @@
             this.buttonGCodeStart.UseVisualStyleBackColor = true;
             this.buttonGCodeStart.Click += new System.EventHandler(this.buttonGCodeStart_Click);
             // 
-            // корректирующаяПлоскостьToolStripMenuItem
+            // labelCurGcode
             // 
-            this.корректирующаяПлоскостьToolStripMenuItem.Name = "корректирующаяПлоскостьToolStripMenuItem";
-            this.корректирующаяПлоскостьToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.корректирующаяПлоскостьToolStripMenuItem.Text = "Корректирующая плоскость";
+            this.labelCurGcode.AutoSize = true;
+            this.labelCurGcode.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCurGcode.Location = new System.Drawing.Point(261, 22);
+            this.labelCurGcode.Name = "labelCurGcode";
+            this.labelCurGcode.Size = new System.Drawing.Size(17, 19);
+            this.labelCurGcode.TabIndex = 24;
+            this.labelCurGcode.Text = "0";
+            this.labelCurGcode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(261, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(164, 19);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Текущая строка G кода";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(261, 44);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(193, 19);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Время выполнения G кода";
+            // 
+            // labelGcodeTime
+            // 
+            this.labelGcodeTime.AutoSize = true;
+            this.labelGcodeTime.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelGcodeTime.Location = new System.Drawing.Point(261, 69);
+            this.labelGcodeTime.Name = "labelGcodeTime";
+            this.labelGcodeTime.Size = new System.Drawing.Size(17, 19);
+            this.labelGcodeTime.TabIndex = 27;
+            this.labelGcodeTime.Text = "0";
+            this.labelGcodeTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
@@ -1036,6 +1086,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
@@ -1130,6 +1181,10 @@
         private System.Windows.Forms.Button buttonGCodeStop;
         private System.Windows.Forms.Button buttonGCodePause;
         private System.Windows.Forms.ToolStripMenuItem корректирующаяПлоскостьToolStripMenuItem;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelCurGcode;
+        private System.Windows.Forms.Label labelGcodeTime;
+        private System.Windows.Forms.Label label10;
     }
 }
 

@@ -675,6 +675,12 @@ namespace RobotSpace
             Properties.Settings.Default.Save();
         }
 
+        public void DesplayCurGCodeStr(string str)
+        {
+            Invoke(new Action(() => { labelCurGcode.Text = str; }));
+            
+        }
+
     }
 
 
