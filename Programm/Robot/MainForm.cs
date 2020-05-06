@@ -603,7 +603,7 @@ namespace RobotSpace
 
         private void data_coordinates_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsNumber(e.KeyChar) | (e.KeyChar == Convert.ToChar(",")) | (e.KeyChar == Convert.ToChar(".")) | e.KeyChar == '\b') return;
+            if (Char.IsNumber(e.KeyChar) | (e.KeyChar == Convert.ToChar("-")) | (e.KeyChar == Convert.ToChar(",")) | (e.KeyChar == Convert.ToChar(".")) | e.KeyChar == '\b') return;
             else
                 e.Handled = true;
         }

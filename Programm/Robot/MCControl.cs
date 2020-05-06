@@ -19,7 +19,7 @@ namespace MCControl
 
         private byte[] curByteArr;
 
-        public EventWaitHandle commandHandle;
+        public ManualResetEvent commandHandle;
 
         public EventWaitHandle CommandHandle { get { return commandHandle; } set { } }
 
@@ -31,7 +31,7 @@ namespace MCControl
         {
             this.serialPort = aSerialPort;
             this.owner = aOwner;
-            commandHandle = new AutoResetEvent(true);
+            commandHandle = new ManualResetEvent(true);
             PortTurnOn(owner.RobotPortName); //включить порт
         }
         ~MCController()
@@ -54,6 +54,7 @@ namespace MCControl
             {
                 serialPort.Write(curByteArr, 0, curByteArr.Length);
                 taskCompleted = false;
+                commandHandle.Reset();
             }
 
 

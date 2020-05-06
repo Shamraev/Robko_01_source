@@ -111,13 +111,13 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.labelGcodeTime = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelCurGcode = new System.Windows.Forms.Label();
             this.buttonGCodeStop = new System.Windows.Forms.Button();
             this.buttonGCodePause = new System.Windows.Forms.Button();
             this.buttonGCodeStart = new System.Windows.Forms.Button();
-            this.labelCurGcode = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.labelGcodeTime = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -916,16 +916,16 @@
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(441, 405);
             this.tabPage4.TabIndex = 0;
-            this.tabPage4.Text = "tabPage4";
+            this.tabPage4.Text = "Визуализация";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.groupBox2);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Location = new System.Drawing.Point(4, 32);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(441, 426);
+            this.tabPage5.Size = new System.Drawing.Size(441, 405);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Порт";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -968,6 +968,48 @@
             this.splitContainer2.SplitterDistance = 129;
             this.splitContainer2.TabIndex = 23;
             // 
+            // labelGcodeTime
+            // 
+            this.labelGcodeTime.AutoSize = true;
+            this.labelGcodeTime.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelGcodeTime.Location = new System.Drawing.Point(261, 69);
+            this.labelGcodeTime.Name = "labelGcodeTime";
+            this.labelGcodeTime.Size = new System.Drawing.Size(17, 19);
+            this.labelGcodeTime.TabIndex = 27;
+            this.labelGcodeTime.Text = "0";
+            this.labelGcodeTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label10.Location = new System.Drawing.Point(261, 44);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(193, 19);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Время выполнения G кода";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(261, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(164, 19);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Текущая строка G кода";
+            // 
+            // labelCurGcode
+            // 
+            this.labelCurGcode.AutoSize = true;
+            this.labelCurGcode.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCurGcode.Location = new System.Drawing.Point(261, 22);
+            this.labelCurGcode.Name = "labelCurGcode";
+            this.labelCurGcode.Size = new System.Drawing.Size(17, 19);
+            this.labelCurGcode.TabIndex = 24;
+            this.labelCurGcode.Text = "0";
+            this.labelCurGcode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // buttonGCodeStop
             // 
             this.buttonGCodeStop.BackgroundImage = global::RobotSpace.Properties.Resources.stop;
@@ -1000,48 +1042,6 @@
             this.buttonGCodeStart.TabIndex = 21;
             this.buttonGCodeStart.UseVisualStyleBackColor = true;
             this.buttonGCodeStart.Click += new System.EventHandler(this.buttonGCodeStart_Click);
-            // 
-            // labelCurGcode
-            // 
-            this.labelCurGcode.AutoSize = true;
-            this.labelCurGcode.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCurGcode.Location = new System.Drawing.Point(261, 22);
-            this.labelCurGcode.Name = "labelCurGcode";
-            this.labelCurGcode.Size = new System.Drawing.Size(17, 19);
-            this.labelCurGcode.TabIndex = 24;
-            this.labelCurGcode.Text = "0";
-            this.labelCurGcode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(261, 3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(164, 19);
-            this.label1.TabIndex = 25;
-            this.label1.Text = "Текущая строка G кода";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(261, 44);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(193, 19);
-            this.label10.TabIndex = 26;
-            this.label10.Text = "Время выполнения G кода";
-            // 
-            // labelGcodeTime
-            // 
-            this.labelGcodeTime.AutoSize = true;
-            this.labelGcodeTime.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelGcodeTime.Location = new System.Drawing.Point(261, 69);
-            this.labelGcodeTime.Name = "labelGcodeTime";
-            this.labelGcodeTime.Size = new System.Drawing.Size(17, 19);
-            this.labelGcodeTime.TabIndex = 27;
-            this.labelGcodeTime.Text = "0";
-            this.labelGcodeTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MainForm
             // 
