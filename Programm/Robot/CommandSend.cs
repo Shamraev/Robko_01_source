@@ -54,7 +54,7 @@ namespace CommandSend
         public IKSolver IKSolver { get { return iKSolver; } set { iKSolver = value; } }
 
         private bool stopCycle;//??
-        private bool CycleStated;
+        private bool CycleStarted;
         private bool CyclePause;
         private int pauseItem;//??
 
@@ -90,15 +90,21 @@ namespace CommandSend
         public void Start()
         {
             Reset();
+            GC.Collect();
 
             if ((CSThread != null) && (CSThread.IsAlive)) CSThread.Abort();
 
             CSThread = new Thread(new ThreadStart(this.StartSycle));
+
+            stopCycle = false;//---??--
+            CycleStarted = true;//---??
             CSThread.IsBackground = true;
             CSThread.Start(); // запускаем поток  
         }
         public void Pause()
         {
+            if (!CycleStarted) return;
+
             if (!CyclePause)//предыдущее состояние 
             {
                 CSThreadMREvent.Reset();
@@ -115,11 +121,12 @@ namespace CommandSend
         }
         public void Stop()//??
         {
-            if (!CycleStated) return;
+            if (!CycleStarted) return;
 
             stopCycle = true;
-            CSThread.Abort();
-
+            EndTime();//?? в Stop()??
+            CycleStarted = false;//---??
+            CSThread.Abort();   //??
         }
         public void StartSycle()//при запуске потока CSThread
         {
@@ -127,10 +134,8 @@ namespace CommandSend
 
 
             UpdateStatus("выполнение G команд");
-            StartTime();//?? в Start()??
-
-            CycleStated = true;//---??
-            stopCycle = false;//---??
+            StartTime();//?? в Start()??          
+            
 
             mCController.commandHandle.Set();//задание mCController: можно начинать
 
@@ -141,7 +146,7 @@ namespace CommandSend
                 previousStrCommand = currentStrCommand;
             }
 
-            EndTime();//?? в Stop()??
+            Stop();
         }
         protected void StartTime()
         {
@@ -156,6 +161,12 @@ namespace CommandSend
 
             stopwatch.Stop();
             UpdateStatus("G код выполнен за такое время: " + stopwatch.Elapsed);
+            if (owner.DoLog)
+            {
+                AddLog("********************************");
+                AddLog("G код выполнен за такое время: " + stopwatch.Elapsed);
+            }
+                
         }
 
         public void DoCommand(int i)

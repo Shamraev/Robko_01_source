@@ -112,6 +112,7 @@ namespace RobotSpace
             aTimer.Enabled = false;
             SaveSettings();
             LogClose();
+            commandSender.Stop();
             Environment.Exit(0);//??
         }
         protected void LoadSettings()
