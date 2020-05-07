@@ -346,49 +346,15 @@ namespace CommandSend
 
         }
 
-        private bool GetXYZ_FromStr(string str, ref Vector3d refV)//??----??
+        private bool GetXYZ_FromStr(string str, ref Vector3d refV)
         {
-            if (str == "") return false;
+            double[] XYZ_D = new double[] {refV.x, refV.y, refV.z};
+            bool res = GetNumbers_FromStr(str, new char[] {'X', 'Y', 'Z'}, ref XYZ_D);
+            refV.x = XYZ_D[0];
+            refV.y = XYZ_D[1];
+            refV.z = XYZ_D[2];
 
-            string[] strXYZ = { "", "", "" };
-            int[] indXYZ = new int[3];
-
-            indXYZ[0] = str.IndexOf('X');
-            indXYZ[1] = str.IndexOf('Y');
-            indXYZ[2] = str.IndexOf('Z');
-
-
-            for (int j = 0; j < indXYZ.Length; j++)
-            {
-                if (indXYZ[j] >= 0)
-                {
-                    if ((indXYZ[j] + 1) > str.Length - 1) break;
-
-                    for (int i = indXYZ[j] + 1; i < str.Length; i++)
-                    {
-                        if (str[i] == ',')
-                        {
-                            Error("В G коде не допустим символ ',' !");
-                            return false;
-                        }
-                        if (Char.IsDigit(str[i]) || (str[i] == '.') || (str[i] == '-'))
-                            strXYZ[j] += str[i];
-                        else break;
-                    }
-                }
-            }
-
-            if ((strXYZ[0] == "") && (strXYZ[1] == "") && (strXYZ[2] == "")) return false;
-
-            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");//??
-            if (strXYZ[0] != "")
-                refV.x = Convert.ToDouble(strXYZ[0]);
-            if (strXYZ[1] != "")
-                refV.y = Convert.ToDouble(strXYZ[1]);
-            if (strXYZ[2] != "")
-                refV.z = Convert.ToDouble(strXYZ[2]);
-
-            return true;
+            return res;
         }
         private bool GetNumbers_FromStr(string str, char[] charNumbers, ref double[] refNumbers)
         {
@@ -429,7 +395,7 @@ namespace CommandSend
             {
                 AllNumbrsNull = AllNumbrsNull && (strNumbers[j] == null);
 
-                if (strNumbers[j] != "")
+                if ((strNumbers[j] != null) && (strNumbers[j] != ""))
                     refNumbers[j] = Convert.ToDouble(strNumbers[j]);
             }
 
