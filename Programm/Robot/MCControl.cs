@@ -52,12 +52,17 @@ namespace MCControl
 
             if ((SerialPortIsOpen()) && (curByteArr != null))
             {
+                if (owner.DoLog) AddLog("MCControl.Send(): curByteArr = " + string.Join(" ", curByteArr));//??----
                 serialPort.Write(curByteArr, 0, curByteArr.Length);
                 taskCompleted = false;
                 commandHandle.Reset();
             }
 
 
+        }
+        private void AddLog(string str)
+        {
+            owner.AddLog(str);
         }
 
         public void TaskAngles(double a1, double a2, double a3)
@@ -73,6 +78,8 @@ namespace MCControl
             var byteArray = new byte[floatArray.Length * 4];
 
             Buffer.BlockCopy(floatArray, 0, byteArray, 0, byteArray.Length);
+
+            if (owner.DoLog) AddLog("MCControl.TaskAngles(): floatArray = " + string.Join(" ", floatArray));//??----
 
             curByteArr = byteArray;
         }

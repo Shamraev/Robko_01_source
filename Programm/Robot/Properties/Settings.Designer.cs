@@ -34,5 +34,17 @@ namespace RobotSpace.Properties {
                 this["RobotPortName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DoLog {
+            get {
+                return ((bool)(this["DoLog"]));
+            }
+            set {
+                this["DoLog"] = value;
+            }
+        }
     }
 }

@@ -48,6 +48,7 @@
             this.ToolStripMenuItemParameters = new System.Windows.Forms.ToolStripMenuItem();
             this.PortNames = new System.Windows.Forms.ToolStripMenuItem();
             this.корректирующаяПлоскостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemDoLog = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -259,7 +260,8 @@
             // 
             this.ToolStripMenuItemParameters.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.PortNames,
-            this.корректирующаяПлоскостьToolStripMenuItem});
+            this.корректирующаяПлоскостьToolStripMenuItem,
+            this.ToolStripMenuItemDoLog});
             this.ToolStripMenuItemParameters.Name = "ToolStripMenuItemParameters";
             this.ToolStripMenuItemParameters.Size = new System.Drawing.Size(83, 19);
             this.ToolStripMenuItemParameters.Text = "Параметры";
@@ -277,6 +279,13 @@
             this.корректирующаяПлоскостьToolStripMenuItem.Name = "корректирующаяПлоскостьToolStripMenuItem";
             this.корректирующаяПлоскостьToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.корректирующаяПлоскостьToolStripMenuItem.Text = "Корректирующая плоскость";
+            // 
+            // ToolStripMenuItemDoLog
+            // 
+            this.ToolStripMenuItemDoLog.CheckOnClick = true;
+            this.ToolStripMenuItemDoLog.Name = "ToolStripMenuItemDoLog";
+            this.ToolStripMenuItemDoLog.Size = new System.Drawing.Size(232, 22);
+            this.ToolStripMenuItemDoLog.Text = "Логгирование";
             // 
             // printDialog1
             // 
@@ -922,10 +931,10 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.groupBox2);
-            this.tabPage5.Location = new System.Drawing.Point(4, 32);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(441, 405);
+            this.tabPage5.Size = new System.Drawing.Size(441, 426);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Порт";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -1185,6 +1194,7 @@
         private System.Windows.Forms.Label labelCurGcode;
         private System.Windows.Forms.Label labelGcodeTime;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemDoLog;
     }
 }
 

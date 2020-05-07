@@ -162,8 +162,13 @@ namespace CommandSend
         {
             string strCommand = commandList[i];
             if ((strCommand == null) || (strCommand == "")) return;
-            
+
             DesplayCurGCodeStr(i + 1 + ": " + strCommand);
+            if (owner.DoLog)
+            {
+                AddLog("-----------------------------------");
+                AddLog("CommandSender.DoCommand(): Command: " + (i + 1) + " : " + strCommand);//??----
+            }
 
             currentStrCommand = strCommand.ToUpper();
 
@@ -190,6 +195,10 @@ namespace CommandSend
             }
             previousGCommand = currentGCommand;
 
+        }
+        private void AddLog(string str)
+        {
+            owner.AddLog(str);
         }
 
         protected void DesplayCurGCodeStr(string str)
@@ -335,21 +344,28 @@ namespace CommandSend
         private void TaskGoToRelativeCoorts(Vector3d goalCoordts)
         {
             if ((owner == null) || (iKSolver == null) || (mCController == null)) return;
+            if (IKSolverType.IK3DOF != iKSolver.GetType()) return;
 
             owner.CurWorkCoorts = goalCoordts;
             owner.CurWorkCoortsToAbs();
 
             iKSolver.SolveIK(owner.AbsWorkCoorts.x, owner.AbsWorkCoorts.y, owner.AbsWorkCoorts.z);
 
-            if (IKSolverType.IK3DOF == iKSolver.GetType())
-                mCController.TaskAngles(iKSolver.QDeg[0], iKSolver.QDeg[1], iKSolver.QDeg[2]);
+            if (owner.DoLog)
+            {
+                AddLog("----");
+                AddLog(String.Format("CommandSender.TaskGoToRelativeCoorts(): owner.CurWorkCoorts: ({0}, {1}, {2})", owner.CurWorkCoorts.x, owner.CurWorkCoorts.y, owner.CurWorkCoorts.z));//---??----
+                AddLog(String.Format("CommandSender.TaskGoToRelativeCoorts(): iKSolver.QDeg: ({0}, {1}, {2})", iKSolver.QDeg[0], iKSolver.QDeg[1], iKSolver.QDeg[2]));
+            }
+
+            mCController.TaskAngles(iKSolver.QDeg[0], iKSolver.QDeg[1], iKSolver.QDeg[2]);
 
         }
 
         private bool GetXYZ_FromStr(string str, ref Vector3d refV)
         {
-            double[] XYZ_D = new double[] {refV.x, refV.y, refV.z};
-            bool res = GetNumbers_FromStr(str, new char[] {'X', 'Y', 'Z'}, ref XYZ_D);
+            double[] XYZ_D = new double[] { refV.x, refV.y, refV.z };
+            bool res = GetNumbers_FromStr(str, new char[] { 'X', 'Y', 'Z' }, ref XYZ_D);
             refV.x = XYZ_D[0];
             refV.y = XYZ_D[1];
             refV.z = XYZ_D[2];

@@ -33,8 +33,8 @@ namespace RobotSpace
         MCController mCController;
         CommandSender commandSender;
 
-        static string path = Directory.GetCurrentDirectory();
-        string report = path + @"\report.txt";//файл отчета        
+        static string AppPath = Directory.GetCurrentDirectory();
+        string report = AppPath + @"\report.txt";//файл отчета        
 
         Boolean TuskComplited, TuskSend;
 
@@ -45,6 +45,11 @@ namespace RobotSpace
 
         string PortText;
 
+        private bool _DoLog;
+        public bool DoLog { get { return _DoLog; } set { } }
+        static string _PathToLog = AppPath + @"\Logs";
+        static string _LogFileName = String.Format("Log_{0}.txt", DateTime.Now.Ticks);
+        TextWriter tw;
 
         public MainForm()
         {
@@ -54,6 +59,7 @@ namespace RobotSpace
         {
             LoadSettings();
 
+            if (DoLog) LogCreate();
             IKSolverCreate();
             MCControllerCreate();
             СommandSenderCreate();
@@ -66,6 +72,19 @@ namespace RobotSpace
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
 
+        }
+        private void LogCreate()
+        {
+            if (!Directory.Exists(_PathToLog)) Directory.CreateDirectory(_PathToLog);
+            tw = new StreamWriter(Path.Combine(_PathToLog, _LogFileName), true);
+            AddLog("Log file Date: " + DateTime.Now);
+            AddLog("********************************");
+        }
+        public void AddLog(string str)
+        {
+            if (tw == null) return;
+
+            tw.WriteLine(str + "\n");
         }
 
         private Plane CreateCorrectPlane()
@@ -91,17 +110,42 @@ namespace RobotSpace
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             aTimer.Enabled = false;
-            SaveRobotPortName();
+            SaveSettings();
+            LogClose();
             Environment.Exit(0);//??
         }
-
         protected void LoadSettings()
         {
-            LoadRobotPortName();
+            if (Properties.Settings.Default.RobotPortName != null)
+            {
+                robotPortName = Properties.Settings.Default.RobotPortName;
+            }
+
+            ToolStripMenuItemDoLog.Checked = Properties.Settings.Default.DoLog;
+            _DoLog = ToolStripMenuItemDoLog.Checked;
         }
+        private void SaveSettings()
+        {
+            Properties.Settings.Default.RobotPortName = robotPortName;
+            Properties.Settings.Default.DoLog = ToolStripMenuItemDoLog.Checked;
+
+            //apply the changes to the settings file  
+            Properties.Settings.Default.Save();
+        }
+
+        private void LogClose()
+        {
+            if (tw == null) return;
+
+            tw.Close();
+        }
+
+
 
         protected void GetPortNames()
         {
+            if (PortNames == null) return;
+
             portnames = null;//---            
             PortNames.DropDown.Items.Clear();
 
@@ -116,10 +160,12 @@ namespace RobotSpace
                 foreach (string portName in portnames)
                 {
                     //добавляем доступные COM порты в список
-                    if (portName == robotPortName)//выбранный ранее порт
-                        PortNames.DropDown.Items.Add(portName + " (V)");
-                    else
-                        PortNames.DropDown.Items.Add(portName);
+                    PortNames.DropDown.Items.Add(portName);
+                    if (portName == robotPortName)
+                        (PortNames.DropDown.Items[PortNames.DropDown.Items.Count - 1] as ToolStripMenuItem).Checked = true;
+
+                    (PortNames.DropDown.Items[PortNames.DropDown.Items.Count - 1] as ToolStripMenuItem).CheckOnClick = true;
+
                 }
 
         }
@@ -647,6 +693,7 @@ namespace RobotSpace
 
         private void PortNames_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            (e.ClickedItem as ToolStripMenuItem).Checked = true;
             robotPortName = e.ClickedItem.Text;
             if (mCController != null) mCController.PortTurnOn(robotPortName);
         }
@@ -656,29 +703,10 @@ namespace RobotSpace
             MessageBox.Show(strErr);
         }
 
-        private void LoadRobotPortName()
-        {
-            if (Properties.Settings.Default.RobotPortName != null)
-            {
-                robotPortName = Properties.Settings.Default.RobotPortName;
-            }
-        }
-
-
-
-        private void SaveRobotPortName()
-        {
-            //set the new value of RobotPortName 
-            Properties.Settings.Default.RobotPortName = robotPortName;
-
-            //apply the changes to the settings file  
-            Properties.Settings.Default.Save();
-        }
-
         public void DesplayCurGCodeStr(string str)
         {
             Invoke(new Action(() => { labelCurGcode.Text = str; }));
-            
+
         }
 
     }
