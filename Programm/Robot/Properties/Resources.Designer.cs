@@ -63,9 +63,9 @@ namespace RobotSpace.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap music_pause_button_pair_of_lines {
+        internal static System.Drawing.Bitmap pause_button {
             get {
-                object obj = ResourceManager.GetObject("music-pause-button-pair-of-lines", resourceCulture);
+                object obj = ResourceManager.GetObject("pause-button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace RobotSpace.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap play_button_arrowhead {
+        internal static System.Drawing.Bitmap start_button {
             get {
-                object obj = ResourceManager.GetObject("play-button-arrowhead", resourceCulture);
+                object obj = ResourceManager.GetObject("start-button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace RobotSpace.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap stop {
+        internal static System.Drawing.Bitmap stop_button {
             get {
-                object obj = ResourceManager.GetObject("stop", resourceCulture);
+                object obj = ResourceManager.GetObject("stop-button", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

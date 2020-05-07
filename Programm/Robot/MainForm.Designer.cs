@@ -117,7 +117,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.labelCurGcode = new System.Windows.Forms.Label();
             this.buttonGCodeStop = new System.Windows.Forms.Button();
-            this.buttonGCodePause = new System.Windows.Forms.Button();
             this.buttonGCodeStart = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
@@ -965,7 +964,6 @@
             this.splitContainer2.Panel1.Controls.Add(this.label1);
             this.splitContainer2.Panel1.Controls.Add(this.labelCurGcode);
             this.splitContainer2.Panel1.Controls.Add(this.buttonGCodeStop);
-            this.splitContainer2.Panel1.Controls.Add(this.buttonGCodePause);
             this.splitContainer2.Panel1.Controls.Add(this.buttonGCodeStart);
             this.splitContainer2.Panel1.Controls.Add(this.groupBox4);
             this.splitContainer2.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
@@ -1021,29 +1019,18 @@
             // 
             // buttonGCodeStop
             // 
-            this.buttonGCodeStop.BackgroundImage = global::RobotSpace.Properties.Resources.stop;
+            this.buttonGCodeStop.BackgroundImage = global::RobotSpace.Properties.Resources.stop_button;
             this.buttonGCodeStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonGCodeStop.Location = new System.Drawing.Point(789, 8);
+            this.buttonGCodeStop.Location = new System.Drawing.Point(753, 8);
             this.buttonGCodeStop.Name = "buttonGCodeStop";
             this.buttonGCodeStop.Size = new System.Drawing.Size(30, 29);
             this.buttonGCodeStop.TabIndex = 23;
             this.buttonGCodeStop.UseVisualStyleBackColor = true;
             this.buttonGCodeStop.Click += new System.EventHandler(this.buttonGCodeStop_Click);
             // 
-            // buttonGCodePause
-            // 
-            this.buttonGCodePause.BackgroundImage = global::RobotSpace.Properties.Resources.music_pause_button_pair_of_lines;
-            this.buttonGCodePause.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonGCodePause.Location = new System.Drawing.Point(753, 8);
-            this.buttonGCodePause.Name = "buttonGCodePause";
-            this.buttonGCodePause.Size = new System.Drawing.Size(30, 29);
-            this.buttonGCodePause.TabIndex = 22;
-            this.buttonGCodePause.UseVisualStyleBackColor = true;
-            this.buttonGCodePause.Click += new System.EventHandler(this.buttonGCodePause_Click);
-            // 
             // buttonGCodeStart
             // 
-            this.buttonGCodeStart.BackgroundImage = global::RobotSpace.Properties.Resources.play_button_arrowhead;
+            this.buttonGCodeStart.BackgroundImage = global::RobotSpace.Properties.Resources.start_button;
             this.buttonGCodeStart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonGCodeStart.Location = new System.Drawing.Point(717, 8);
             this.buttonGCodeStart.Name = "buttonGCodeStart";
@@ -1188,7 +1175,6 @@
         private System.Windows.Forms.Button buttonCurWorkY;
         private System.Windows.Forms.Button buttonGCodeStart;
         private System.Windows.Forms.Button buttonGCodeStop;
-        private System.Windows.Forms.Button buttonGCodePause;
         private System.Windows.Forms.ToolStripMenuItem корректирующаяПлоскостьToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelCurGcode;

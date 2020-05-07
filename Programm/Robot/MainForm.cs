@@ -112,7 +112,7 @@ namespace RobotSpace
             aTimer.Enabled = false;
             SaveSettings();
             LogClose();
-            commandSender.Stop();
+            //commandSender.Stop();
             Environment.Exit(0);//??
         }
         protected void LoadSettings()
@@ -657,13 +657,33 @@ namespace RobotSpace
 
         private void buttonGCodeStart_Click(object sender, EventArgs e)
         {
-            commandSender.CommandList = richTextBoxGCode.Text.Split('\n');
-            commandSender.IntrpStep = 1;
-            commandSender.Start();
+            if (commandSender.CycleStarted)//уже запущен цикл работает, значит пауза цикла
+            {
+                commandSender.Pause();//при вызывании этого метода приостанавливает либо продолжает
+
+                if (commandSender.CyclePause)                
+                    buttonGCodeStart.BackgroundImage = Properties.Resources.start_button;
+                else
+                    buttonGCodeStart.BackgroundImage = Properties.Resources.pause_button;
+
+            }
+            else//цикл не запущен - запустим цикл
+            {
+                commandSender.CommandList = richTextBoxGCode.Text.Split('\n');
+                commandSender.IntrpStep = 1;
+                commandSender.Start();
+                buttonGCodeStart.BackgroundImage = Properties.Resources.pause_button;
+            }
+
         }
-        private void buttonGCodePause_Click(object sender, EventArgs e)
+
+        public void CommandSenderStopped()
         {
-            commandSender.Pause();
+            buttonGCodeStart.BackgroundImage = Properties.Resources.start_button;
+        }
+        private void buttonGCodePause_Click(object sender, EventArgs e)//---
+        {
+
         }
         private void buttonGCodeStop_Click(object sender, EventArgs e)
         {

@@ -54,8 +54,13 @@ namespace CommandSend
         public IKSolver IKSolver { get { return iKSolver; } set { iKSolver = value; } }
 
         private bool stopCycle;//??
-        private bool CycleStarted;
-        private bool CyclePause;
+
+        private bool _CycleStarted;
+        public bool CycleStarted { get { return _CycleStarted; } set { } }
+
+        private bool _CyclePause;
+        public bool CyclePause { get { return _CyclePause; } set { } }
+
         private int pauseItem;//??
 
         Thread CSThread;
@@ -97,35 +102,37 @@ namespace CommandSend
             CSThread = new Thread(new ThreadStart(this.StartSycle));
 
             stopCycle = false;//---??--
-            CycleStarted = true;//---??
+            _CycleStarted = true;//---??
             CSThread.IsBackground = true;
             CSThread.Start(); // запускаем поток  
         }
         public void Pause()
         {
-            if (!CycleStarted) return;
+            if (!_CycleStarted) return;
 
-            if (!CyclePause)//предыдущее состояние 
+            if (!_CyclePause)//предыдущее состояние 
             {
                 CSThreadMREvent.Reset();
                 //mCController.CommandHandle.Reset();
-                CyclePause = !CyclePause;
+                _CyclePause = !_CyclePause;
             }
             else
             {
                 CSThreadMREvent.Set();
                 //mCController.CommandHandle.Set();
-                CyclePause = !CyclePause;
+                _CyclePause = !_CyclePause;
             }
 
         }
         public void Stop()//??
         {
-            if (!CycleStarted) return;
+            if (!_CycleStarted) return;
 
             stopCycle = true;
             EndTime();//?? в Stop()??
-            CycleStarted = false;//---??
+            _CycleStarted = false;//---??
+
+            owner.CommandSenderStopped();
             CSThread.Abort();   //??
         }
         public void StartSycle()//при запуске потока CSThread
@@ -135,7 +142,7 @@ namespace CommandSend
 
             UpdateStatus("выполнение G команд");
             StartTime();//?? в Start()??          
-            
+
 
             mCController.commandHandle.Set();//задание mCController: можно начинать
 
@@ -166,7 +173,7 @@ namespace CommandSend
                 AddLog("********************************");
                 AddLog("G код выполнен за такое время: " + stopwatch.Elapsed);
             }
-                
+
         }
 
         public void DoCommand(int i)
@@ -221,7 +228,7 @@ namespace CommandSend
         {
             pauseItem = 0;
 
-            CyclePause = false;
+            _CyclePause = false;
 
             currentStrCommand = "";
             previousStrCommand = "";
