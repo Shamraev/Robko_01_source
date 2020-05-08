@@ -397,6 +397,7 @@ namespace CommandSend
 
             string[] strNumbers = new string[charNumbers.Length];
             int[] indNumbers = new int[charNumbers.Length];
+            //int[] indComment = { str.IndexOf('('), str.IndexOf(')') };//индексы скобок - открывающей и закрывающей комментарий
 
             for (int j = 0; j < indNumbers.Length; j++)
             {
@@ -405,22 +406,25 @@ namespace CommandSend
 
             for (int j = 0; j < indNumbers.Length; j++)
             {
-                if (indNumbers[j] >= 0)
-                {
-                    if ((indNumbers[j] + 1) > str.Length - 1) break;
+                if (indNumbers[j] < 0) continue; //нет такого символа в строке 
 
-                    for (int i = indNumbers[j] + 1; i < str.Length; i++)
+                //if (SymbolInCommentSection(indNumbers[j], indComment[0], indComment[1])) break;//символ в комментарии//?? --- optimization --- ??
+
+
+                if ((indNumbers[j] + 1) > str.Length - 1) break;//??
+
+                for (int i = indNumbers[j] + 1; i < str.Length; i++)
+                {
+                    if (str[i] == ',')
                     {
-                        if (str[i] == ',')
-                        {
-                            Error("В G коде не допустим символ ',' !");//??
-                            return false;
-                        }
-                        if (Char.IsDigit(str[i]) || (str[i] == '.') || (str[i] == '-'))
-                            strNumbers[j] += str[i];
-                        else break;
+                        Error("В G коде не допустим символ ',' !");//??
+                        return false;
                     }
+                    if (Char.IsDigit(str[i]) || (str[i] == '.') || (str[i] == '-'))
+                        strNumbers[j] += str[i];
+                    else break;
                 }
+
             }
 
             System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");//??
@@ -451,7 +455,10 @@ namespace CommandSend
         {
             GCommand res = GCommand.NONE;
 
-            if (strCmd == "") return res;
+            if ((strCmd == null) || (strCmd == "")) return res;
+
+            int[] indComment = { strCmd.IndexOf('('), strCmd.IndexOf(')') };//индексы скобок - открывающей и закрывающей комментарий            
+            if ((indComment[0] == 0) && (indComment[1] == strCmd.Count() - 1)) return res; // скобочки в начале и в конце строки  - вся строка в комментарии 
 
             //проверим есть ли поддерживаемая  G команда
             if (strCmd.IndexOf("G00") >= 0)
@@ -475,6 +482,19 @@ namespace CommandSend
             else if ((strCmd.IndexOf('G') < 0) && ((strCmd.IndexOf('X') >= 0) || (strCmd.IndexOf('Y') >= 0) || (strCmd.IndexOf('Z') >= 0)))
                 res = previousGCommand;
 
+            return res;
+        }
+
+        protected bool SymbolInCommentSection(int symbolIndex, int CommentSectionStartIndex, int CommentSectionStopIndex)
+        {
+            bool res = true;
+
+            if (symbolIndex < 0) return res; //не существует символа
+            if ((CommentSectionStartIndex >= 0) && (CommentSectionStartIndex < symbolIndex))//'(' существует и стоит перед символом - возможно символ в комментарии
+                if (CommentSectionStopIndex < 0) return res;                           //')' не существует, значит символ точно в комментарии
+                else if (CommentSectionStopIndex > symbolIndex) return res;          //')' существует и она после символа, значит символ в комментарии
+
+            res = false;
             return res;
         }
 
