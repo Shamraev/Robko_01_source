@@ -160,7 +160,13 @@ namespace CommandSend
             if (stopwatch == null) return;
 
             stopwatch.Reset();
+            //stopwatch.Elapsed += timer_Tick;
             stopwatch.Start();
+            
+        }
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            owner.UpdateTimerState(stopwatch.Elapsed.Seconds.ToString());            
         }
         protected void EndTime()
         {
@@ -168,12 +174,6 @@ namespace CommandSend
 
             stopwatch.Stop();
             UpdateStatus("G код выполнен за такое время: " + stopwatch.Elapsed);
-            if (owner.DoLog)
-            {
-                AddLog("********************************");
-                AddLog("G код выполнен за такое время: " + stopwatch.Elapsed);
-            }
-
         }
 
         public void DoCommand(int i)

@@ -703,6 +703,16 @@ namespace RobotSpace
         public void UpdateStatus(string str)
         {
             StatusLabel.Text = str;
+            if (DoLog)
+            {
+                AddLog("********************************");
+                AddLog(str);
+            }
+        }
+
+        public void UpdateTimerState(string str)
+        {
+            labelGcodeTime.Text = str;
         }
 
 
