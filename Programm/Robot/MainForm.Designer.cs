@@ -47,7 +47,8 @@
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemParameters = new System.Windows.Forms.ToolStripMenuItem();
             this.PortNames = new System.Windows.Forms.ToolStripMenuItem();
-            this.корректирующаяПлоскостьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemCorrectPlane = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemSetCorrectPlane = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemDoLog = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
@@ -259,7 +260,7 @@
             // 
             this.ToolStripMenuItemParameters.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.PortNames,
-            this.корректирующаяПлоскостьToolStripMenuItem,
+            this.ToolStripMenuItemCorrectPlane,
             this.ToolStripMenuItemDoLog});
             this.ToolStripMenuItemParameters.Name = "ToolStripMenuItemParameters";
             this.ToolStripMenuItemParameters.Size = new System.Drawing.Size(83, 19);
@@ -273,11 +274,21 @@
             this.PortNames.Text = "Порт";
             this.PortNames.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.PortNames_DropDownItemClicked);
             // 
-            // корректирующаяПлоскостьToolStripMenuItem
+            // ToolStripMenuItemCorrectPlane
             // 
-            this.корректирующаяПлоскостьToolStripMenuItem.Name = "корректирующаяПлоскостьToolStripMenuItem";
-            this.корректирующаяПлоскостьToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
-            this.корректирующаяПлоскостьToolStripMenuItem.Text = "Корректирующая плоскость";
+            this.ToolStripMenuItemCorrectPlane.CheckOnClick = true;
+            this.ToolStripMenuItemCorrectPlane.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItemSetCorrectPlane});
+            this.ToolStripMenuItemCorrectPlane.Name = "ToolStripMenuItemCorrectPlane";
+            this.ToolStripMenuItemCorrectPlane.Size = new System.Drawing.Size(232, 22);
+            this.ToolStripMenuItemCorrectPlane.Text = "Корректирующая плоскость";
+            // 
+            // ToolStripMenuItemSetCorrectPlane
+            // 
+            this.ToolStripMenuItemSetCorrectPlane.Name = "ToolStripMenuItemSetCorrectPlane";
+            this.ToolStripMenuItemSetCorrectPlane.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItemSetCorrectPlane.Text = "Задать";
+            this.ToolStripMenuItemSetCorrectPlane.Click += new System.EventHandler(this.ToolStripMenuItemSetCorrectPlane_Click);
             // 
             // ToolStripMenuItemDoLog
             // 
@@ -852,10 +863,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.richTextBoxGCode);
-            this.tabPage2.Location = new System.Drawing.Point(4, 32);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(400, 405);
+            this.tabPage2.Size = new System.Drawing.Size(400, 426);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "G Code";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -868,7 +879,7 @@
             this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxGCode.Name = "richTextBoxGCode";
             this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 399);
+            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 420);
             this.richTextBoxGCode.TabIndex = 21;
             this.richTextBoxGCode.Text = "";
             this.richTextBoxGCode.WordWrap = false;
@@ -1175,12 +1186,13 @@
         private System.Windows.Forms.Button buttonCurWorkY;
         private System.Windows.Forms.Button buttonGCodeStart;
         private System.Windows.Forms.Button buttonGCodeStop;
-        private System.Windows.Forms.ToolStripMenuItem корректирующаяПлоскостьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemCorrectPlane;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelCurGcode;
         private System.Windows.Forms.Label labelGcodeTime;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemDoLog;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemSetCorrectPlane;
     }
 }
 

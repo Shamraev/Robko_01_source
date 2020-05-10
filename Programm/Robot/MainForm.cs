@@ -51,6 +51,13 @@ namespace RobotSpace
         static string _LogFileName = String.Format("Log_{0}.txt", DateTime.Now.Ticks);
         TextWriter tw;
 
+        private bool _DoCorrect;
+        /// <summary>
+        /// включить корректирование по корректирующей плоскости
+        /// </summary>
+        public bool DoCorrect { get { return _DoCorrect; } set { _DoCorrect = value; } }
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -103,7 +110,7 @@ namespace RobotSpace
         protected void IKSolverCreate()
         {
             iKSolver3DOF = new IKSolver3DOF(0, 190, 178, 177, 80);//d4 = 178; d5 = 82; 
-            iKSolver3DOF.DoCorrect = true;
+            iKSolver3DOF.DoCorrect = DoCorrect;
             iKSolver3DOF.CorrectPlane = CreateCorrectPlane();
         }
 
@@ -118,17 +125,17 @@ namespace RobotSpace
         protected void LoadSettings()
         {
             if (Properties.Settings.Default.RobotPortName != null)
-            {
                 robotPortName = Properties.Settings.Default.RobotPortName;
-            }
-
             ToolStripMenuItemDoLog.Checked = Properties.Settings.Default.DoLog;
+            ToolStripMenuItemCorrectPlane.Checked = Properties.Settings.Default.DoCorrect;
+            DoCorrect = ToolStripMenuItemCorrectPlane.Checked;//??убрать DoCorrect??
             _DoLog = ToolStripMenuItemDoLog.Checked;
         }
         private void SaveSettings()
         {
             Properties.Settings.Default.RobotPortName = robotPortName;
             Properties.Settings.Default.DoLog = ToolStripMenuItemDoLog.Checked;
+            Properties.Settings.Default.DoCorrect = ToolStripMenuItemCorrectPlane.Checked;
 
             //apply the changes to the settings file  
             Properties.Settings.Default.Save();
@@ -613,6 +620,15 @@ namespace RobotSpace
             fm.ShowDialog();
         }
 
+        private void ShowFormCorrectPlane()
+        {
+            FormCorrectPlane fm = new FormCorrectPlane();
+
+            fm.mf = this;
+            fm.StartPosition = FormStartPosition.CenterParent;
+            fm.Show();
+        }
+
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //  bool received;
@@ -732,6 +748,11 @@ namespace RobotSpace
         public void Error(string strErr)
         {
             MessageBox.Show(strErr);
+        }
+
+        private void ToolStripMenuItemSetCorrectPlane_Click(object sender, EventArgs e)
+        {
+            ShowFormCorrectPlane();
         }
 
         public void DesplayCurGCodeStr(string str)

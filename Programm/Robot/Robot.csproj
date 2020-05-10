@@ -51,6 +51,12 @@
     <Compile Include="ArrayHelp.cs" />
     <Compile Include="CurveLib.cs" />
     <Compile Include="CommandSend.cs" />
+    <Compile Include="FormCorrectPlane.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCorrectPlane.Designer.cs">
+      <DependentUpon>FormCorrectPlane.cs</DependentUpon>
+    </Compile>
     <Compile Include="MCControl.cs" />
     <Compile Include="FormSetCurWorkCoordts.cs">
       <SubType>Form</SubType>
@@ -68,6 +74,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormCorrectPlane.resx">
+      <DependentUpon>FormCorrectPlane.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormSetCurWorkCoordts.resx">
       <DependentUpon>FormSetCurWorkCoordts.cs</DependentUpon>
     </EmbeddedResource>

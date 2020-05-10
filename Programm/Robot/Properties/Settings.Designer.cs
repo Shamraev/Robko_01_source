@@ -46,5 +46,17 @@ namespace RobotSpace.Properties {
                 this["DoLog"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool DoCorrect {
+            get {
+                return ((bool)(this["DoCorrect"]));
+            }
+            set {
+                this["DoCorrect"] = value;
+            }
+        }
     }
 }
