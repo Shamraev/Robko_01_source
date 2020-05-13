@@ -8,6 +8,8 @@
 
 #include "RobkoPinOut.h"
 #include "RobkoTypes.h"
+#include "FrameFormer.h"
+#include "BusController.h"
 
 class Robko
 {
@@ -18,7 +20,9 @@ public:
 	void doTask(); //clear and focussed
 	void doCommand();
 	void transmitReply();
+
 protected:
+	void move_To_Absolute_Angles_q1q2q3(float *q);
 	void sendAngelsFromStartToEndSensor();
 	void initLimits();
 	float getFloatNumber();
@@ -27,7 +31,7 @@ protected:
 	void checkLimit(byte i);
 	void steppersRun();
 	void steppersRunStartPos();
-	void steppersRunZeros();	
+	void steppersRunZeros();
 	void steppersRunStandart();
 	void gripperResetAndOpenTo(float a5);
 	void gripperFindZeroAndOpenTo(float a5);
@@ -46,14 +50,15 @@ protected:
 	MultiStepper steppers;
 
 private:
+	BusController busController_;
 	MLimitType mLimit_[6];
 	TaskType task_;
 	StatusSteppers statusSteppers_;
 
 	float motorSpeed_[4];
-	float a5_offset_a2_a3_;	
-	
-	float oldA2, oldA3;		  //----------
+	float a5_offset_a2_a3_;
+
+	float oldA2, oldA3; //----------
 
 	long positions_[4];
 	long tmpQ1, tmpQ2, tmpQ3; //------

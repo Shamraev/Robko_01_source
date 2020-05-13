@@ -283,7 +283,7 @@ namespace RobotSpace
         private void SendBtn_Click(object sender, EventArgs e)
         {
             if (mCController == null) return;
-            if (!mCController.SerialPortIsOpen()) return;
+            //if (!mCController.SerialPortIsOpen()) return;
 
             bool angls = (data_angels.Text != "");//углы заданы
             bool coords = (data_coordinates.Text != "");//координаты заданы
@@ -377,10 +377,10 @@ namespace RobotSpace
             SendAngles(10);
         }
 
-        public void SendAngles(int XyzDelta)
+        public void SendAngles(int XyzDelta)//??
         {
             if (mCController == null) return;
-            if (!mCController.SerialPortIsOpen()) return;
+            //if (!mCController.SerialPortIsOpen()) return;//??
 
             double xForStraightZero = AbsWorkCoorts.x;
 
@@ -658,7 +658,16 @@ namespace RobotSpace
 
             //XyzDisplay();//??----
 
-            Invoke(new Action(() => { mCController.TaskComplete(); }));
+            //----
+            //string PortText = serialPort1.ReadExisting();//----
+            //byte[] buf = new byte[12];
+            //serialPort1.Read(buf, 0, 12);
+            //----
+
+
+
+                Invoke(new Action(() => { mCController.GetResponse(); }));
+            //Invoke(new Action(() => { mCController.TaskComplete(); }));
 
 
         }

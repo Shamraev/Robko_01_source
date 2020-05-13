@@ -286,7 +286,7 @@
             // ToolStripMenuItemSetCorrectPlane
             // 
             this.ToolStripMenuItemSetCorrectPlane.Name = "ToolStripMenuItemSetCorrectPlane";
-            this.ToolStripMenuItemSetCorrectPlane.Size = new System.Drawing.Size(180, 22);
+            this.ToolStripMenuItemSetCorrectPlane.Size = new System.Drawing.Size(110, 22);
             this.ToolStripMenuItemSetCorrectPlane.Text = "Задать";
             this.ToolStripMenuItemSetCorrectPlane.Click += new System.EventHandler(this.ToolStripMenuItemSetCorrectPlane_Click);
             // 

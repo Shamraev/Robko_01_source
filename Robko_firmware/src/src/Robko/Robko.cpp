@@ -9,13 +9,16 @@ Robko::Robko(/*byte color = 5, byte bright = 30*/)
   stepper4 = *(new AccelStepper(1, M4_STEP_P, M4_DIR_P));
   stepper5 = *(new AccelStepper(1, M5_STEP_P, M5_DIR_P));
   stepper6 = *(new AccelStepper(1, M6_STEP_P, M6_DIR_P));
+
+  busController_ = *(new BusController);
 }
 
 void Robko::init()
 {
   oldA2 = 0;
-  oldA3 = 0;  
+  oldA3 = 0;
   Serial.begin(SERIAL_RATE);
+  busController_.setSerial(&Serial);//убрать в конструктор//??----
 
   stepper1.setAcceleration(10000); //--------------
   stepper2.setAcceleration(10000); //--------------
@@ -49,7 +52,8 @@ void Robko::init()
 
   pinMode(NOT_ENABLE, OUTPUT); //?? сократить время
   digitalWrite(NOT_ENABLE, 1);
-  delay(2000);
+  delay(2000);//tmp??
+  // if (!DEBUG) delay(2000);//---
   digitalWrite(NOT_ENABLE, 0);
 
   //-----------только для проверки
@@ -62,41 +66,57 @@ void Robko::init()
   //goToStartPositions(); //-------------
 }
 
-void Robko::reciveCommand()
-{
-  if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning)) //if ((DATA_LENGTH <= Serial.available()))
-  {
-    float a1 = getFloatNumber();
-    float a2 = getFloatNumber();
-    float a3 = getFloatNumber();
-
-    
-    //task_.;
-    float a5 = A5_ZERO;
-    sendTaskToSteppers(a1, a2, a3, a5);
-  }
-}
-
 void Robko::doTask()
 {
-  if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning)) //if ((DATA_LENGTH <= Serial.available()))
-  {
-    float a1 = getFloatNumber();
-    float a2 = getFloatNumber();
-    float a3 = getFloatNumber();
+  reciveCommand();
 
-    //task_.;
-    float a5 = A5_ZERO;    
-    sendTaskToSteppers(a1, a2, a3, a5);    
-  }
-  
-  
-  
   doCommand();
 
-  steppersRun(); //здесь происходит шаг двигателей
+  steppersRun(); //здесь происходит шаг двигателей 
 
   transmitReply();
+}
+
+void Robko::reciveCommand()
+{
+  
+  if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning)) //if ((DATA_LENGTH <= Serial.available()))
+  { 
+    busController_.getFrame();      
+    if (!busController_.Validate_frame())//при приеме пакета произошла ошибка 
+    {
+      while(Serial.available()){Serial.read();}//??
+      busController_.SendError();      
+      return;
+    }  
+    busController_.getOpCode();//??
+    busController_.getPayload();//??
+    if (busController_.opCode == OPERATION_CODE::MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3)
+    {
+      float q[3];//??
+      busController_.getAbsolute_Angles_q1q2q3(q);//??      
+      move_To_Absolute_Angles_q1q2q3(q);
+    }
+    else if (busController_.opCode == OPERATION_CODE::FIND_AND_GO_TO_ZEROS)
+    {
+      
+    }
+    else if (busController_.opCode == OPERATION_CODE::GRIPPER_GRIP)
+    {
+
+    }
+    else if (busController_.opCode == OPERATION_CODE::GRIPPER_GRIP_TO_ABSOLUTE_DISTANCE)
+    {
+      
+    }  
+
+  }
+}
+void Robko::move_To_Absolute_Angles_q1q2q3(float *q)
+{
+    // //task_.;
+    float a5 = A5_ZERO;//??
+    sendTaskToSteppers(q[0], q[1], q[2], a5);
 }
 
 void Robko::doCommand()
@@ -135,6 +155,7 @@ void Robko::doCommand()
 void Robko::sendAngelsFromStartToEndSensor()
 {
   //?? только для отладки - нахождения нулей
+  if (!DEBUG) return;
   Serial.print("tmpQ1, tmpQ2, tmpQ3 in deg: ");
   Serial.print(tmpQ1 / S1);
   Serial.print(" ");
@@ -163,7 +184,8 @@ void Robko::transmitReply()
     {
       task_.isDoing = false;
       task_.Received = false;
-      Serial.write(33);
+      busController_.SendResponse_Done();
+      // Serial.write(33);
     }
   }
 }
@@ -190,19 +212,6 @@ void Robko::initLimits()
       pinMode(mLimit_[i].pin, INPUT);
     }
   }
-}
-
-float Robko::getFloatNumber()
-{
-  float number = 0;
-  byte byteArray[4];
-
-  for (int i = 0; i < sizeof(byteArray); i++)
-  {
-    byteArray[i] = Serial.read();
-  }
-  number = *((float *)(byteArray));
-  return number;
 }
 
 void Robko::sendTaskToSteppers(float a1, float a2, float a3, float a5)
@@ -323,7 +332,7 @@ void Robko::steppersRunStartPos()
 
     oldA2 = 0;
     oldA3 = 0;
-    a5_offset_a2_a3_ = 0;//??
+    a5_offset_a2_a3_ = 0; //??
     sendTaskToSteppers(0, 0, a3, 0);
   }
   if (mLimit_[1].currentValue) //q3 сработал концевик

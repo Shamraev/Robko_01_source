@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayHelp.cs" />
+    <Compile Include="BusControl.cs" />
     <Compile Include="CurveLib.cs" />
     <Compile Include="CommandSend.cs" />
     <Compile Include="FormCorrectPlane.cs">
