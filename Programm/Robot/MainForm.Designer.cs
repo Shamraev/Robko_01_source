@@ -52,8 +52,6 @@
             this.ToolStripMenuItemDoLog = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
@@ -76,8 +74,6 @@
             this.chkRecievPrt = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.button10 = new System.Windows.Forms.Button();
-            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
-            this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.button9 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -112,7 +108,13 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.buttonGripperUngrip = new System.Windows.Forms.Button();
+            this.buttonGripperGrip = new System.Windows.Forms.Button();
+            this.buttonRobot_FindAndGoToZeros = new System.Windows.Forms.Button();
             this.labelGcodeTime = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -121,10 +123,8 @@
             this.buttonGCodeStart = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.statusStrip2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -137,6 +137,7 @@
             this.tabControl2.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -300,24 +301,6 @@
             // printDialog1
             // 
             this.printDialog1.UseEXDialog = true;
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.IsBalloon = true;
-            this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 597);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 24, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(867, 34);
-            this.statusStrip1.TabIndex = 2;
-            this.statusStrip1.Text = "statusStrip1";
-            this.statusStrip1.Visible = false;
             // 
             // toolStripStatusLabel1
             // 
@@ -548,22 +531,6 @@
             this.button10.Text = "очистить";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
-            // 
-            // statusStrip2
-            // 
-            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel});
-            this.statusStrip2.Location = new System.Drawing.Point(3, 446);
-            this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
-            this.statusStrip2.Size = new System.Drawing.Size(861, 22);
-            this.statusStrip2.TabIndex = 16;
-            this.statusStrip2.Text = "statusStrip2";
-            // 
-            // StatusLabel
-            // 
-            this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // button9
             // 
@@ -951,7 +918,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.statusStrip2);
+            this.groupBox3.Controls.Add(this.statusStrip);
             this.groupBox3.Controls.Add(this.splitContainer1);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
@@ -959,6 +926,30 @@
             this.groupBox3.Size = new System.Drawing.Size(867, 471);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel,
+            this.toolStripProgressBar});
+            this.statusStrip.Location = new System.Drawing.Point(3, 446);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Padding = new System.Windows.Forms.Padding(1, 0, 13, 0);
+            this.statusStrip.Size = new System.Drawing.Size(861, 22);
+            this.statusStrip.TabIndex = 16;
+            this.statusStrip.Text = "statusStrip";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(112, 17);
+            this.toolStripStatusLabel.Text = "toolStripStatusLabel";
+            // 
+            // toolStripProgressBar
+            // 
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.Size = new System.Drawing.Size(100, 16);
+            this.toolStripProgressBar.Visible = false;
             // 
             // splitContainer2
             // 
@@ -970,6 +961,9 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.buttonGripperUngrip);
+            this.splitContainer2.Panel1.Controls.Add(this.buttonGripperGrip);
+            this.splitContainer2.Panel1.Controls.Add(this.buttonRobot_FindAndGoToZeros);
             this.splitContainer2.Panel1.Controls.Add(this.labelGcodeTime);
             this.splitContainer2.Panel1.Controls.Add(this.label10);
             this.splitContainer2.Panel1.Controls.Add(this.label1);
@@ -985,6 +979,39 @@
             this.splitContainer2.Size = new System.Drawing.Size(867, 604);
             this.splitContainer2.SplitterDistance = 129;
             this.splitContainer2.TabIndex = 23;
+            // 
+            // buttonGripperUngrip
+            // 
+            this.buttonGripperUngrip.BackgroundImage = global::RobotSpace.Properties.Resources.gripper_ungrip;
+            this.buttonGripperUngrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGripperUngrip.Location = new System.Drawing.Point(668, 8);
+            this.buttonGripperUngrip.Name = "buttonGripperUngrip";
+            this.buttonGripperUngrip.Size = new System.Drawing.Size(30, 29);
+            this.buttonGripperUngrip.TabIndex = 29;
+            this.buttonGripperUngrip.UseVisualStyleBackColor = true;
+            this.buttonGripperUngrip.Click += new System.EventHandler(this.buttonGripperUngrip_Click);
+            // 
+            // buttonGripperGrip
+            // 
+            this.buttonGripperGrip.BackgroundImage = global::RobotSpace.Properties.Resources.gripper_grip_2;
+            this.buttonGripperGrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGripperGrip.Location = new System.Drawing.Point(632, 7);
+            this.buttonGripperGrip.Name = "buttonGripperGrip";
+            this.buttonGripperGrip.Size = new System.Drawing.Size(30, 30);
+            this.buttonGripperGrip.TabIndex = 28;
+            this.buttonGripperGrip.UseVisualStyleBackColor = true;
+            this.buttonGripperGrip.Click += new System.EventHandler(this.buttonGripperGrip_Click);
+            // 
+            // buttonRobot_FindAndGoToZeros
+            // 
+            this.buttonRobot_FindAndGoToZeros.BackgroundImage = global::RobotSpace.Properties.Resources.robot_go_to_zeros1;
+            this.buttonRobot_FindAndGoToZeros.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonRobot_FindAndGoToZeros.Location = new System.Drawing.Point(596, 8);
+            this.buttonRobot_FindAndGoToZeros.Name = "buttonRobot_FindAndGoToZeros";
+            this.buttonRobot_FindAndGoToZeros.Size = new System.Drawing.Size(30, 29);
+            this.buttonRobot_FindAndGoToZeros.TabIndex = 28;
+            this.buttonRobot_FindAndGoToZeros.UseVisualStyleBackColor = true;
+            this.buttonRobot_FindAndGoToZeros.Click += new System.EventHandler(this.buttonRobot_FindAndGoToZeros_Click);
             // 
             // labelGcodeTime
             // 
@@ -1056,9 +1083,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 631);
             this.Controls.Add(this.splitContainer2);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "MainForm";
@@ -1068,14 +1096,10 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.statusStrip2.ResumeLayout(false);
-            this.statusStrip2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1092,6 +1116,8 @@
             this.tabPage5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
@@ -1121,8 +1147,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem скопироватьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem вырезатьToolStripMenuItem;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.Button button1;
@@ -1151,9 +1175,7 @@
         private System.Windows.Forms.CheckBox chkRecievPrt;
         private System.Windows.Forms.TextBox data_coordinates;
         private System.Windows.Forms.TextBox data_angels;
-        private System.Windows.Forms.CheckBox CycleChkBox;
-        private System.Windows.Forms.StatusStrip statusStrip2;
-        private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
+        private System.Windows.Forms.CheckBox CycleChkBox;        
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemParameters;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.RichTextBox richTextBox3;
@@ -1193,6 +1215,12 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemDoLog;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemSetCorrectPlane;
+        private System.Windows.Forms.Button buttonRobot_FindAndGoToZeros;
+        private System.Windows.Forms.Button buttonGripperGrip;
+        private System.Windows.Forms.Button buttonGripperUngrip;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
     }
 }
 

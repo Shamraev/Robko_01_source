@@ -1,5 +1,9 @@
 #include "FrameFormer.h"
 
+byte FrameFormer::getLength_Fromframe(byte *frame) {
+     return frame[FrameIndexes::LENGTH];
+}
+
 byte FrameFormer::getOpCode_Fromframe(byte *frame)
 {
     return frame[FrameIndexes::OPERATION_CODE];
@@ -22,6 +26,9 @@ void FrameFormer::getAbsolute_Angles_q1q2q3_FromPayload(byte *payload, float *q)
     q[0] = getFloatNumberFromByteArray(payload, 0);
     q[1] = getFloatNumberFromByteArray(payload, 4);
     q[2] = getFloatNumberFromByteArray(payload, 8);
+}
+float FrameFormer::getGripperAbsoluteDistance_FromPayload(byte *payload) {
+    return getFloatNumberFromByteArray(payload, 0);
 }
 
 float FrameFormer::getFloatNumberFromByteArray(byte *byteArr, byte startByteIndex)
@@ -84,7 +91,7 @@ bool FrameFormer::Validate_CRC(byte *frame, byte length)
     Calculate_CRC(frame, length - FRAME_CRC_LEN, CRC_);
 
     // Check odd byte and even bytes.
-    return (frame[DATA_LENGTH - 2] == CRC_[0]) && (frame[DATA_LENGTH - 1] == CRC_[1]);
+    return (frame[length - 2] == CRC_[0]) && (frame[length - 1] == CRC_[1]);
 }
 
 void FrameFormer::Calculate_CRC(byte *frame, byte length, byte *crc)
@@ -109,14 +116,15 @@ void FrameFormer::Calculate_CRC(byte *frame, byte length, byte *crc)
     }
 }
 
-void FrameFormer::DoResponseFrame_Done(byte *frame, byte length)
+void FrameFormer::DoResponseFrame_Done(byte *frame, byte length, byte opCode)
 {
     // memset(frame, 0, sizeof(frame));//??--??
     frame[FrameIndexes::BEGIN] = FRAME_BEGIN_VALUE;
     frame[FrameIndexes::REQUEST_RESPONSE] = REQUEST_RESPONSE::RESPONSE;
     frame[FrameIndexes::LENGTH] = length;
-    frame[FrameIndexes::OPERATION_CODE] = OPERATION_CODE::NONE;
-    frame[FrameIndexes::PAYLOAD] = 1;//!!done
+    frame[FrameIndexes::OPERATION_CODE] = opCode;
+    frame[FrameIndexes::STATUS_CODE] = STATUS_CODE::DONE;//!!done
+    frame[FrameIndexes::PAYLOAD] = 0;
     frame[(FrameIndexes::PAYLOAD) + 1] = 0;
 
     Calculate_CRC(frame, length, CRC_);
@@ -124,13 +132,14 @@ void FrameFormer::DoResponseFrame_Done(byte *frame, byte length)
     frame[length - 1] = CRC_[1];
 }
 
-void FrameFormer::DoResponseFrame_Error(byte *frame, byte length) {
+void FrameFormer::DoResponseFrame_Error(byte *frame, byte length, byte opCode) {
     // memset(frame, 0, sizeof(frame));//??--??
     frame[FrameIndexes::BEGIN] = FRAME_BEGIN_VALUE;
     frame[FrameIndexes::REQUEST_RESPONSE] = REQUEST_RESPONSE::RESPONSE;
     frame[FrameIndexes::LENGTH] = length;
-    frame[FrameIndexes::OPERATION_CODE] = OPERATION_CODE::NONE;
-    frame[FrameIndexes::PAYLOAD] = 2;//!!error
+    frame[FrameIndexes::OPERATION_CODE] = opCode;
+    frame[FrameIndexes::STATUS_CODE] = STATUS_CODE::ERROR;//!!error
+    frame[FrameIndexes::PAYLOAD] = 0;
     frame[(FrameIndexes::PAYLOAD) + 1] = 0;
 
     Calculate_CRC(frame, length, CRC_);

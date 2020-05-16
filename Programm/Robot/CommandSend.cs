@@ -140,7 +140,7 @@ namespace CommandSend
             if ((commandList == null) || (mCController == null)) return;
 
 
-            UpdateStatus("выполнение G команд");
+            UpdateStatus("выполнение G команд: " + "старт");
             StartTime();//?? в Start()??          
 
 
@@ -149,6 +149,7 @@ namespace CommandSend
             for (int i = pauseItem; i < commandList.Length; i++)
             {
                 CSThreadMREvent.WaitOne();
+                UpdateStatus("выполнение G команд");//??
                 DoCommand(i);
                 previousStrCommand = currentStrCommand;
             }

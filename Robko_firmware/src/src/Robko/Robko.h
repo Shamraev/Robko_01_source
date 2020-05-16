@@ -25,6 +25,7 @@ protected:
 	void move_To_Absolute_Angles_q1q2q3(float *q);
 	void sendAngelsFromStartToEndSensor();
 	void initLimits();
+	void ResetGripper();
 	float getFloatNumber();
 	void sendTaskToSteppers(float a1, float a2, float a3, float a5);
 	void checkLimits();
@@ -36,6 +37,8 @@ protected:
 	void gripperResetAndOpenTo(float a5);
 	void gripperFindZeroAndOpenTo(float a5);
 	void gripperOpenTo(float a5);
+	void gripperGrip();
+	void gripperUngrip();
 	void goToStartPositions(); //??
 	void setMotorsSpeed(float motorSpeed_[]);
 	void setMotorsSpeed(enum MSpeedState mSpeedState);

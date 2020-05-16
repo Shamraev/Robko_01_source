@@ -25,7 +25,7 @@ namespace MCControl
 
         public EventWaitHandle CommandHandle { get { return commandHandle; } set { } }
 
-        protected FrameFormer frameFormer; 
+        protected FrameFormer frameFormer;
 
 
         /*-----------------------------------реализация-------------------------------------------*/
@@ -51,29 +51,12 @@ namespace MCControl
         /// </summary>
         public void Send()
         {
-            //if (!SerialPortIsOpen())
-            //{
-            //   if (!PortTurnOn(owner.RobotPortName)) return;
-            //}
-
-
-            //---
-            //byte[] frame = new byte[18];
-            //string str = "1 0 18 1 10 215 35 192 123 20 244 65 41 92 99 66 255 93";
-            //string[] nmStr = str.Split(' ');
-
-            //for (int i = 0; i < 18; i++)
-            //{
-            //    frame[i] = Convert.ToByte(nmStr[i]);
-            //}
-            //bool bl = frameFormer.Validate_frame(frame, 18);
-            //curByteFrame = frame;
-            //---
 
             if ((SerialPortIsOpen()) && (curByteFrame != null))
             {
                 if (owner.DoLog) AddLog("MCControl.Send(): curByteArr = " + string.Join(" ", curByteFrame));//??----
-                serialPort.Write(curByteFrame, 0, curByteFrame.Length);
+                UpdateStatus_Operation(curByteFrame);//??время для G01 G02/G03 ??
+                serialPort.Write(curByteFrame, 0, curByteFrame.Length);//try catch??
                 prevByteFrame = curByteFrame;
                 taskCompleted = false;
                 commandHandle.Reset();//можно продолжать отправку
@@ -91,15 +74,33 @@ namespace MCControl
             }
         }
 
-            private void AddLog(string str)
+        private void AddLog(string str)
         {
             owner.AddLog(str);
         }
+        public void TaskGripperGrip()
+        {
+            curByteFrame = frameFormer.DoFrame_Request_GripperGrip();
+        }
+        public void TaskGripperUngrip()
+        {
+            curByteFrame = frameFormer.DoFrame_Request_GripperUngrip();
+        }
 
+        public void TaskGripperOpenToAbsoluteDistance(double a)
+        {
+            curByteFrame = frameFormer.DoFrame_Request_GripperOpenToAbsoluteDistance(a);
+        }
+        public void TaskFindAndGoToZeros()
+        {
+            curByteFrame = frameFormer.DoFrame_Request_FindAndGoToZeros();
+        }
         public void TaskAngles(double q1, double q2, double q3)
         {
             curByteFrame = frameFormer.DoFrame_Request_MoveToAbsoluteAngles(q1, q2, q3);
         }
+
+
         public void SendAngles(double q1, double q2, double q3)//---убрать---
         {
             curByteFrame = frameFormer.DoFrame_Request_MoveToAbsoluteAngles(q1, q2, q3);
@@ -110,26 +111,77 @@ namespace MCControl
         }
         public void GetResponse()
         {
-            byte[] buf = new byte[FrameFormer.RESPONSE_FRAME_LENGTH];//--
-            serialPort.Read(buf, 0, FrameFormer.RESPONSE_FRAME_LENGTH);//--
-             
+            //string str = serialPort.ReadExisting();//-----------------
+            byte[] buf = new byte[serialPort.BytesToRead];//--
+            serialPort.Read(buf, 0, serialPort.BytesToRead);//--
+
+            UpdateStatus_Operation(buf);//??
             //Validate_frame проверка????
-            if (buf[(int)FrameFormer.FrameIndexes.PAYLOAD] == 1)
+            if (buf[(int)FrameFormer.FrameIndexes.STATUS_CODE] == (byte)FrameFormer.STATUS_CODE.DONE)
+            {
                 TaskComplete();
-            else
+            }
+            else//error//?? сколько раз ??
             {
                 if (owner.DoLog) AddLog("!!!!!!!!!!!!!");
                 if (owner.DoLog) AddLog("Error in MCControl.GetResponse(): " + "данные переданы МК некорректно, отправить данные заново");
                 SendPreviousFrame();//произошел сбой при передаче сообщения, отправим повторно
             }
-                
+
         }
         public void TaskComplete()
         {
+            //if (prevByteFrame[(int)FrameFormer.FrameIndexes.OPERATION_CODE] == (byte)FrameFormer.OPERATION_CODE.FIND_AND_GO_TO_ZEROS)
+            //owner.FIND_AND_GO_TO_ZEROS_DONE();//----
+
             owner.XyzDisplay();
             taskCompleted = true;
             commandHandle.Set();
         }
+
+        public void UpdateStatus_Operation(byte[] frame)
+        {
+            //if (frame[(byte)FrameFormer.FrameIndexes.REQUEST_RESPONSE] != (byte)FrameFormer.REQUEST_RESPONSE.RESPONSE) return;//обновляем только для ответов
+            if (frame[(byte)FrameFormer.FrameIndexes.OPERATION_CODE] == (byte)FrameFormer.OPERATION_CODE.MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3) return;//не нужно тратить время на вывод операции перемещение в углы
+
+            string str_Operation = "none";
+            string str_Status = "none";
+
+            switch (frame[(byte)FrameFormer.FrameIndexes.OPERATION_CODE])
+            {
+                case (byte)FrameFormer.OPERATION_CODE.MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3://сюда он не должен заходить
+                    str_Operation = "Переместиться в углы";
+                    break;
+                case (byte)FrameFormer.OPERATION_CODE.FIND_AND_GO_TO_ZEROS:
+                    str_Operation = "Найти нули робота";
+                    owner.ResetCoordnts();
+                    owner.XyzDisplay();
+                    break;
+                case (byte)FrameFormer.OPERATION_CODE.GRIPPER_GRIP:
+                    str_Operation = "Сжать схват";
+                    break;
+                case (byte)FrameFormer.OPERATION_CODE.GRIPPER_UNGRIP:
+                    str_Operation = "Разжать схват";
+                    break;
+                case (byte)FrameFormer.OPERATION_CODE.GRIPPER_OPEN_TO_ABSOLUTE_DISTANCE:
+                    str_Operation = "Открыть схват на расстояние между губками";
+                    break;
+            }
+            switch (frame[(byte)FrameFormer.FrameIndexes.STATUS_CODE])
+            {
+                case (byte)FrameFormer.STATUS_CODE.DONE:
+                    str_Status = "выполнено";
+                    break;
+                case (byte)FrameFormer.STATUS_CODE.ERROR:
+                    str_Status = "ошибка";
+                    break;
+            }
+            if (frame[(byte)FrameFormer.FrameIndexes.REQUEST_RESPONSE] == (byte)FrameFormer.REQUEST_RESPONSE.REQUEST)
+                str_Status = "старт";
+
+            owner.UpdateStatus(str_Operation + ": " + str_Status);
+        }
+
         public bool PortTurnOn(string aPortName)//включить порт
         {
             bool res = false;

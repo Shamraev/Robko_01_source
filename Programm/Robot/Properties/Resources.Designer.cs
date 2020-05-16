@@ -63,9 +63,59 @@ namespace RobotSpace.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap gripper_grip {
+            get {
+                object obj = ResourceManager.GetObject("gripper_grip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gripper_grip_2 {
+            get {
+                object obj = ResourceManager.GetObject("gripper_grip_2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gripper_ungrip {
+            get {
+                object obj = ResourceManager.GetObject("gripper_ungrip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon main {
+            get {
+                object obj = ResourceManager.GetObject("main", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pause_button {
             get {
                 object obj = ResourceManager.GetObject("pause-button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap robot_go_to_zeros1 {
+            get {
+                object obj = ResourceManager.GetObject("robot_go_to_zeros1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -5,39 +5,47 @@ namespace BusControl
 {
     class FrameFormer
     {
-        enum OPERATION_CODE
+        public enum FrameIndexes
         {
-            NONE = 0,
-            MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3 = 1,
-            FIND_AND_GO_TO_ZEROS = 2,
-            GRIPPER_GRIP = 3,                       //схват сжать до срабатывания датчика
-            GRIPPER_GRIP_TO_ABSOLUTE_DISTANCE = 4   //схват сжать губки на определенное расстояние между ними 
+            BEGIN,              //стартовый байт, 1 байт
+            REQUEST_RESPONSE,   //байт запроса (ответа), 1 байт
+            LENGTH,             //байт длины payload, 1 байт;
+            OPERATION_CODE,     //байт кода операции, 1 байт;
+            STATUS_CODE,        //байт кода статуса, 1 байт;
+            PAYLOAD,            //байты полезной информации, байт;
+            CRC                 //байты контрольной суммы, 2 байта.
         }
-        enum REQUEST_RESPONSE
+        public enum REQUEST_RESPONSE
         {
             REQUEST = 0,
             RESPONSE = 1
         }
-
-        public enum FrameIndexes
+        public enum OPERATION_CODE
         {
-            BEGIN = 0,              //стартовый байт, 1 байт
-            REQUEST_RESPONSE = 1,   //байт запроса (ответа), 1 байт
-            LENGTH = 2,             //байт длины payload, 1 байт;
-            OPERATION_CODE = 3,     //байт кода операции, 1 байт;
-            PAYLOAD = 4,            //байты полезной информации, байт;
-            CRC = 5                 //байты контрольной суммы, 2 байта.
+            NONE,
+            MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3,
+            FIND_AND_GO_TO_ZEROS,
+            GRIPPER_GRIP,                       //схват сжать до срабатывания датчика
+            GRIPPER_UNGRIP,                     //схват разжать до срабатывания датчика + еще немного ??
+            GRIPPER_OPEN_TO_ABSOLUTE_DISTANCE  //схват сжать губки на определенное расстояние между ними 
         }
+        public enum STATUS_CODE
+        {
+            NONE,
+            ERROR,
+            DONE
+        }
+
         public const byte FRAME_CRC_LEN = 2;
-        public const byte FRAME_MIN_LEN = 6;
+        public const byte FRAME_MIN_LEN = 7;
         public const byte FRAME_MAX_LEN = 32; //??
-        public const byte DATA_LENGTH = 18;
-        public const byte FRAME_LENGTH_WITHOUT_PAYLOAD = 6; //длина фрейма без полезной информации
+        public const byte DATA_LENGTH = 19;
+        public const byte FRAME_LENGTH_WITHOUT_PAYLOAD = 7; //длина фрейма без полезной информации
                                                             // const byte FRAME_LENGTH_WITHOUT_CRC = DATA_LENGTH - FRAME_CRC_LEN;
         public const byte PAYLOAD_LENGTH = DATA_LENGTH - FRAME_LENGTH_WITHOUT_PAYLOAD;
         public const byte FRAME_BEGIN_VALUE = 1;
-        public const byte FRAME_REQUEST_PAYLOAD_OFFSET = 4; //??
-        public const byte RESPONSE_FRAME_LENGTH = 8;        //??6??
+        public const byte FRAME_REQUEST_PAYLOAD_OFFSET = (byte)FrameIndexes.PAYLOAD; //??
+        public const byte RESPONSE_FRAME_LENGTH = 9;        //??6??
 
 
         private MCController owner;
@@ -46,7 +54,7 @@ namespace BusControl
         public byte[] DoFrame_Request_MoveToAbsoluteAngles(double q1, double q2, double q3)
         {
             var floatArray = new float[] { (float)Math.Round(q1, 2), (float)Math.Round(q2, 2), (float)Math.Round(q3, 2) };
-            var Payload = new byte[floatArray.Length * 4];
+            var Payload = new byte[PAYLOAD_LENGTH];
             Buffer.BlockCopy(floatArray, 0, Payload, 0, Payload.Length);
 
             if ((owner != null) && (owner.Owner.DoLog)) AddLog("FrameFormer.DoFrame_Request_MoveToAbsoluteAngles(): floatArray = " + string.Join(" ", floatArray));//??----
@@ -56,7 +64,77 @@ namespace BusControl
             Frame[(int)FrameIndexes.REQUEST_RESPONSE] = (byte)REQUEST_RESPONSE.REQUEST;
             Frame[(int)FrameIndexes.LENGTH] = (byte)(FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length);
             Frame[(int)FrameIndexes.OPERATION_CODE] = (byte)OPERATION_CODE.MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3;
+            Frame[(int)FrameIndexes.STATUS_CODE] = (byte)STATUS_CODE.NONE;
             //Buffer.BlockCopy(Payload, 0, Frame, FRAME_REQUEST_PAYLOAD_OFFSET, Frame.Length);
+            Payload.CopyTo(Frame, FRAME_REQUEST_PAYLOAD_OFFSET);
+            Calculate_CRC(Frame, Frame.Length - FRAME_CRC_LEN).CopyTo(Frame, Frame.Length - FRAME_CRC_LEN);
+
+            return Frame;
+        }
+
+        public byte[] DoFrame_Request_FindAndGoToZeros()
+        {
+            var Payload = new byte[PAYLOAD_LENGTH];
+            if ((owner != null) && (owner.Owner.DoLog)) AddLog("FrameFormer.DoFrame_Request_FindAndGoToZeros(): ");//??----
+
+            byte[] Frame = new byte[FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length];
+            Frame[(int)FrameIndexes.BEGIN] = FRAME_BEGIN_VALUE;
+            Frame[(int)FrameIndexes.REQUEST_RESPONSE] = (byte)REQUEST_RESPONSE.REQUEST;
+            Frame[(int)FrameIndexes.LENGTH] = (byte)(FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length);
+            Frame[(int)FrameIndexes.OPERATION_CODE] = (byte)OPERATION_CODE.FIND_AND_GO_TO_ZEROS;
+            Frame[(int)FrameIndexes.STATUS_CODE] = (byte)STATUS_CODE.NONE;
+            Payload.CopyTo(Frame, FRAME_REQUEST_PAYLOAD_OFFSET);
+            Calculate_CRC(Frame, Frame.Length - FRAME_CRC_LEN).CopyTo(Frame, Frame.Length - FRAME_CRC_LEN);
+
+            return Frame;
+        }
+        public byte[] DoFrame_Request_GripperGrip()
+        {
+            var Payload = new byte[PAYLOAD_LENGTH];
+            if ((owner != null) && (owner.Owner.DoLog)) AddLog("FrameFormer.DoFrame_Request_GripperGrip(): ");//??----
+
+            byte[] Frame = new byte[FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length];
+            Frame[(int)FrameIndexes.BEGIN] = FRAME_BEGIN_VALUE;
+            Frame[(int)FrameIndexes.REQUEST_RESPONSE] = (byte)REQUEST_RESPONSE.REQUEST;
+            Frame[(int)FrameIndexes.LENGTH] = (byte)(FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length);
+            Frame[(int)FrameIndexes.OPERATION_CODE] = (byte)OPERATION_CODE.GRIPPER_GRIP;
+            Frame[(int)FrameIndexes.STATUS_CODE] = (byte)STATUS_CODE.NONE;
+            Payload.CopyTo(Frame, FRAME_REQUEST_PAYLOAD_OFFSET);
+            Calculate_CRC(Frame, Frame.Length - FRAME_CRC_LEN).CopyTo(Frame, Frame.Length - FRAME_CRC_LEN);
+
+            return Frame;
+        }
+        public byte[] DoFrame_Request_GripperUngrip()
+        {
+            var Payload = new byte[PAYLOAD_LENGTH];
+            if ((owner != null) && (owner.Owner.DoLog)) AddLog("FrameFormer.DoFrame_Request_GripperUngrip(): ");//??----
+
+            byte[] Frame = new byte[FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length];
+            Frame[(int)FrameIndexes.BEGIN] = FRAME_BEGIN_VALUE;
+            Frame[(int)FrameIndexes.REQUEST_RESPONSE] = (byte)REQUEST_RESPONSE.REQUEST;
+            Frame[(int)FrameIndexes.LENGTH] = (byte)(FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length);
+            Frame[(int)FrameIndexes.OPERATION_CODE] = (byte)OPERATION_CODE.GRIPPER_UNGRIP;
+            Frame[(int)FrameIndexes.STATUS_CODE] = (byte)STATUS_CODE.NONE;
+            Payload.CopyTo(Frame, FRAME_REQUEST_PAYLOAD_OFFSET);
+            Calculate_CRC(Frame, Frame.Length - FRAME_CRC_LEN).CopyTo(Frame, Frame.Length - FRAME_CRC_LEN);
+
+            return Frame;
+        }
+        
+        public byte[] DoFrame_Request_GripperOpenToAbsoluteDistance(double a)
+        {
+            var Payload = new byte[PAYLOAD_LENGTH];
+            Payload[0] = (byte)Math.Round(a, 2);//??
+            //Buffer.BlockCopy(floatArray, 0, Payload, 0, Payload.Length);
+
+            if ((owner != null) && (owner.Owner.DoLog)) AddLog("FrameFormer.DoFrame_Request_FindAndGoToZeros(): ");//??----
+
+            byte[] Frame = new byte[FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length];
+            Frame[(int)FrameIndexes.BEGIN] = FRAME_BEGIN_VALUE;
+            Frame[(int)FrameIndexes.REQUEST_RESPONSE] = (byte)REQUEST_RESPONSE.REQUEST;
+            Frame[(int)FrameIndexes.LENGTH] = (byte)(FRAME_LENGTH_WITHOUT_PAYLOAD + Payload.Length);
+            Frame[(int)FrameIndexes.OPERATION_CODE] = (byte)OPERATION_CODE.GRIPPER_OPEN_TO_ABSOLUTE_DISTANCE;
+            Frame[(int)FrameIndexes.STATUS_CODE] = (byte)STATUS_CODE.NONE;
             Payload.CopyTo(Frame, FRAME_REQUEST_PAYLOAD_OFFSET);
             Calculate_CRC(Frame, Frame.Length - FRAME_CRC_LEN).CopyTo(Frame, Frame.Length - FRAME_CRC_LEN);
 
@@ -111,7 +189,7 @@ namespace BusControl
             CRC = Calculate_CRC(frame, length - FRAME_CRC_LEN);
 
             // Check odd byte and even bytes.
-            return (frame[DATA_LENGTH - 2] == CRC[0]) && (frame[DATA_LENGTH - 1] == CRC[1]);
+            return (frame[length - 2] == CRC[0]) && (frame[length - 1] == CRC[1]);
         }
 
         public byte getOpCode_Fromframe(byte[] frame)

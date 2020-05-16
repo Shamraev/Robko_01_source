@@ -9,11 +9,11 @@ class BusController
 {
 public:
     void getFrame();
-    void SendError();
+    void SendResponse_Error();
     bool Validate_frame();
-    void getOpCode();
-    void getPayload();
+    void parse_frame();
     void getAbsolute_Angles_q1q2q3(float *q);
+    float getGripperAbsoluteDistance();
     void SendResponse_Done();
 
     byte opCode;
@@ -24,7 +24,8 @@ private:
     Stream *_streamRef;
 
     FrameFormer frameFormer_;
-    byte frame_[DATA_LENGTH];
+    static const byte length_ = DATA_LENGTH;//??
+    byte frame_[length_];
     byte payload_[PAYLOAD_LENGTH];
 
     byte frameResponse[RESPONSE_FRAME_LENGTH];

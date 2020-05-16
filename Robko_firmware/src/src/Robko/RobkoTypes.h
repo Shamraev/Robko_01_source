@@ -4,7 +4,7 @@
 #include <Arduino.h>
 
 /*--------------------константы-------------------------------*/
-const bool DEBUG = true;//отладочный режим работы прошивки
+const bool DEBUG = false;//отладочный режим работы прошивки
 
 const long SERIAL_RATE = 115200; //??в один файл параметров?? Работает с максимальной скоростью 203000
 
@@ -31,6 +31,9 @@ const float Q3_ZERO = 37.35;
 //после обнуления на сколько разомкнуть схват
 const float A5_ZERO = 20;
 
+//расстояние между губками и объектом после разжатия
+const float A5_UNGRIP_DIST = 6;
+
 //стандартные скорости, ускореия для моторов
 const float ACCELERATION = 1E+10;
 const float MOTOR_SPEED = 1000 * 3; //100*16
@@ -51,7 +54,8 @@ enum Command
 {  
   COMMAND_NONE,
   COMMAND_GO_TO_START_POSITIONS,
-  COMMAND_GO_TO_ZEROS
+  COMMAND_GO_TO_ZEROS,
+  COMMAND_MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3
 };
 
 /*--------------------структуры-------------------------------*/

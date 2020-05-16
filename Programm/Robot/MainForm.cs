@@ -8,8 +8,10 @@ using System.Timers;
 using System.Windows.Forms;
 using InverseKinematics;
 using VecLib;
+using static VecLib.Methods;
 using MCControl;
 using CommandSend;
+using BusControl;
 using System.Threading;
 
 namespace RobotSpace
@@ -18,7 +20,7 @@ namespace RobotSpace
     public partial class MainForm : Form
     {
         IKSolver3DOF iKSolver3DOF;
-        public Vector3d AbsWorkCoorts = new Vector3d(0, 257, 368);//абсолютные координаты
+        public Vector3d AbsWorkCoorts = new Vector3d(0, 257, 368);//абсолютные координаты//??
         public Vector3d CurWorkCoorts = new Vector3d(0, 257, 368);//относительные координаты
         public Vector3d CoortsOffset = new Vector3d(0, 0, 0);    // смещение для перевода из относительных координат в абсолютные и наоборот
                                                                  //AbsWorkCoorts = CurWorkCoorts + CoortsOffset
@@ -66,6 +68,8 @@ namespace RobotSpace
         {
             LoadSettings();
 
+            ToolTipInit();
+            ResetCoordnts();
             if (DoLog) LogCreate();
             IKSolverCreate();
             MCControllerCreate();
@@ -79,6 +83,24 @@ namespace RobotSpace
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
 
+        }
+        protected void ToolTipInit()
+        {
+            ToolTip toolTip = new ToolTip();//??
+
+            // Set up the delays for the ToolTip.
+            toolTip.AutoPopDelay = 5000;
+            toolTip.InitialDelay = 1000;
+            toolTip.ReshowDelay = 500;
+            // Force the ToolTip text to be displayed whether or not the form is active.
+            toolTip.ShowAlways = true;
+
+            // Set up the ToolTip text for the Button and Checkbox.
+            toolTip.SetToolTip(this.buttonRobot_FindAndGoToZeros, "Найти нули робота");
+            toolTip.SetToolTip(this.buttonGripperGrip, "Сжать схват");
+            toolTip.SetToolTip(this.buttonGripperUngrip, "Разжать схват");
+            toolTip.SetToolTip(this.buttonGCodeStart, "Начать выполнение G кода");
+            toolTip.SetToolTip(this.buttonGCodeStop, "Остановаить выполнение G кода");
         }
         private void LogCreate()
         {
@@ -665,8 +687,8 @@ namespace RobotSpace
             //----
 
 
-
-                Invoke(new Action(() => { mCController.GetResponse(); }));
+            //?? всегда ли успеет МК отправить полный пакет??
+            Invoke(new Action(() => { mCController.GetResponse(); }));
             //Invoke(new Action(() => { mCController.TaskComplete(); }));
 
 
@@ -686,7 +708,7 @@ namespace RobotSpace
             {
                 commandSender.Pause();//при вызывании этого метода приостанавливает либо продолжает
 
-                if (commandSender.CyclePause)                
+                if (commandSender.CyclePause)
                     buttonGCodeStart.BackgroundImage = Properties.Resources.start_button;
                 else
                     buttonGCodeStart.BackgroundImage = Properties.Resources.pause_button;
@@ -727,7 +749,7 @@ namespace RobotSpace
         }
         public void UpdateStatus(string str)
         {
-            StatusLabel.Text = str;
+            toolStripStatusLabel.Text = str;
             if (DoLog)
             {
                 AddLog("********************************");
@@ -764,10 +786,47 @@ namespace RobotSpace
             ShowFormCorrectPlane();
         }
 
+        private void buttonRobot_FindAndGoToZeros_Click(object sender, EventArgs e)
+        {
+            if (mCController == null) return;
+
+            mCController.TaskFindAndGoToZeros();
+            mCController.Send();
+        }
+        private void buttonGripperGrip_Click(object sender, EventArgs e)
+        {
+            if (mCController == null) return;
+
+            mCController.TaskGripperGrip();
+            mCController.Send();
+        }
+        private void buttonGripperUngrip_Click(object sender, EventArgs e)
+        {
+            if (mCController == null) return;
+
+            mCController.TaskGripperUngrip();
+            mCController.Send();
+        }
+
         public void DesplayCurGCodeStr(string str)
         {
             Invoke(new Action(() => { labelCurGcode.Text = str; }));
 
+        }
+        
+        public Vector3d AbsWorkCoorts_ZEROS()
+        {
+            return new Vector3d(0, 257, 368);
+
+        }
+
+
+
+        public void ResetCoordnts()
+        {
+            AbsWorkCoorts = AbsWorkCoorts_ZEROS();
+            CurWorkCoorts = AbsWorkCoorts;
+            CurWorkCoorts = Vector3DZeros;
         }
 
     }

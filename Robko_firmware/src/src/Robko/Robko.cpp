@@ -15,10 +15,8 @@ Robko::Robko(/*byte color = 5, byte bright = 30*/)
 
 void Robko::init()
 {
-  oldA2 = 0;
-  oldA3 = 0;
   Serial.begin(SERIAL_RATE);
-  busController_.setSerial(&Serial);//убрать в конструктор//??----
+  busController_.setSerial(&Serial); //убрать в конструктор//??----
 
   stepper1.setAcceleration(10000); //--------------
   stepper2.setAcceleration(10000); //--------------
@@ -46,13 +44,11 @@ void Robko::init()
 
   statusSteppers_.isRunning = false;
 
-  stepper5.setCurrentPosition(A5_ZERO * S5); //схват при включении раздвинут на A5_ZERO
-  positions_[3] = A5_ZERO * S5;
-  a5_offset_a2_a3_ = 0;
+  ResetGripper();
 
   pinMode(NOT_ENABLE, OUTPUT); //?? сократить время
   digitalWrite(NOT_ENABLE, 1);
-  delay(2000);//tmp??
+  delay(2000); //tmp??
   // if (!DEBUG) delay(2000);//---
   digitalWrite(NOT_ENABLE, 0);
 
@@ -65,6 +61,14 @@ void Robko::init()
   //команда идти в ноль//убрать отсюда//temp
   //goToStartPositions(); //-------------
 }
+void Robko::ResetGripper()
+{
+  stepper5.setCurrentPosition(A5_ZERO * S5); //схват при включении раздвинут на A5_ZERO
+  positions_[3] = A5_ZERO * S5;
+  a5_offset_a2_a3_ = 0;
+  oldA2 = 0;
+  oldA3 = 0;
+}
 
 void Robko::doTask()
 {
@@ -72,51 +76,58 @@ void Robko::doTask()
 
   doCommand();
 
-  steppersRun(); //здесь происходит шаг двигателей 
+  steppersRun(); //здесь происходит шаг двигателей
 
   transmitReply();
 }
 
 void Robko::reciveCommand()
 {
-  
   if ((DATA_LENGTH <= Serial.available()) and (not statusSteppers_.isRunning)) //if ((DATA_LENGTH <= Serial.available()))
-  { 
-    busController_.getFrame();      
-    if (!busController_.Validate_frame())//при приеме пакета произошла ошибка 
+  {
+    busController_.getFrame();
+    if (!busController_.Validate_frame()) //при приеме пакета произошла ошибка
     {
-      while(Serial.available()){Serial.read();}//??
-      busController_.SendError();      
+      while (Serial.available()) //очистить буффер приема сообщений
+      {
+        Serial.read();
+      } //??
+      busController_.SendResponse_Error();
       return;
-    }  
-    busController_.getOpCode();//??
-    busController_.getPayload();//??
+    }
+    busController_.parse_frame();
+
     if (busController_.opCode == OPERATION_CODE::MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3)
     {
-      float q[3];//??
-      busController_.getAbsolute_Angles_q1q2q3(q);//??      
+      float q[3];                                  //??
+      busController_.getAbsolute_Angles_q1q2q3(q); //??
       move_To_Absolute_Angles_q1q2q3(q);
     }
     else if (busController_.opCode == OPERATION_CODE::FIND_AND_GO_TO_ZEROS)
     {
-      
+      goToStartPositions();
     }
     else if (busController_.opCode == OPERATION_CODE::GRIPPER_GRIP)
     {
-
+      gripperGrip();
     }
-    else if (busController_.opCode == OPERATION_CODE::GRIPPER_GRIP_TO_ABSOLUTE_DISTANCE)
+    else if (busController_.opCode == OPERATION_CODE::GRIPPER_UNGRIP)
     {
-      
-    }  
-
+      gripperUngrip();
+    }
+    else if (busController_.opCode == OPERATION_CODE::GRIPPER_OPEN_TO_ABSOLUTE_DISTANCE)
+    {
+      float a;
+      a = busController_.getGripperAbsoluteDistance();
+      gripperOpenTo(a);
+    }
   }
 }
 void Robko::move_To_Absolute_Angles_q1q2q3(float *q)
 {
-    // //task_.;
-    float a5 = A5_ZERO;//??
-    sendTaskToSteppers(q[0], q[1], q[2], a5);
+  task_.command = COMMAND_MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3; //??---
+  float a5 = A5_ZERO;                                     //??
+  sendTaskToSteppers(q[0], q[1], q[2], a5);
 }
 
 void Robko::doCommand()
@@ -133,9 +144,7 @@ void Robko::doCommand()
   else if ((task_.command == COMMAND_GO_TO_ZEROS) && (task_.Complete == true))
   {
     gripperFindZeroAndOpenTo(A5_ZERO);
-    oldA2 = 0;
-    oldA3 = 0;
-    a5_offset_a2_a3_ = 0;
+    ResetGripper();
     //обнулим шаговики, теперь мы в нулях
     stepper4.setCurrentPosition(0); //q1
     stepper1.setCurrentPosition(0); //q2
@@ -155,7 +164,8 @@ void Robko::doCommand()
 void Robko::sendAngelsFromStartToEndSensor()
 {
   //?? только для отладки - нахождения нулей
-  if (!DEBUG) return;
+  if (!DEBUG)
+    return;
   Serial.print("tmpQ1, tmpQ2, tmpQ3 in deg: ");
   Serial.print(tmpQ1 / S1);
   Serial.print(" ");
@@ -185,7 +195,15 @@ void Robko::transmitReply()
       task_.isDoing = false;
       task_.Received = false;
       busController_.SendResponse_Done();
-      // Serial.write(33);
+    }
+  }
+  else if (task_.command == COMMAND_GO_TO_START_POSITIONS) //??
+  {
+    if (task_.Complete) //??
+    {
+      task_.isDoing = false;
+      task_.Received = false;
+      busController_.SendResponse_Done();
     }
   }
 }
@@ -253,8 +271,8 @@ void Robko::checkLimit(byte i)
   {
     // Что-то изменилось, здесь возможна зона неопределенности
     // Делаем задержку
-    if (i == 4)  //??для всех сделать??
-      delay(10); //можно убрать не для M5_LIMIT_P ??влияет ли на скорость работы run()??
+    if (i == 4)   //??для всех сделать??
+      delay(0.1); //можно убрать не для M5_LIMIT_P ??влияет ли на скорость работы run()??
     // А вот теперь спокойно считываем значение, считая, что нестабильность исчезла
     mLimit_[i].currentValue = digitalRead(mLimit_[i].pin);
 
@@ -411,7 +429,7 @@ void Robko::steppersRunStandart()
 void Robko::gripperResetAndOpenTo(float a5)
 {
   //обнулим схват и разомкнем на a5 мм
-  stepper5.setCurrentPosition(-10 * S5);
+  stepper5.setCurrentPosition(-A5_ZERO * S5);
   gripperOpenTo(a5);
 }
 void Robko::gripperFindZeroAndOpenTo(float a5)
@@ -441,6 +459,44 @@ void Robko::gripperOpenTo(float a5)
 
   stepper5.runToPosition();
   //stepper5.runSpeedToPosition();
+}
+void Robko::gripperGrip()
+{
+  checkLimit(4);
+  if (!mLimit_[4].currentValue) //схват разжат
+  {
+    stepper5.setSpeed(MOTOR_SPEED_5);
+    stepper5.setAcceleration(ACCELERATION);
+    stepper5.moveTo(-100 * S5);
+    while (!mLimit_[4].currentValue) //закончит когда: схват сомкнулся - сработал концевик
+    {
+      stepper5.run();
+      checkLimit(4);
+    }
+    stepper5.stop(); //??
+  }
+  busController_.SendResponse_Done(); //??
+}
+
+void Robko::gripperUngrip()
+{
+  checkLimit(4);
+  if (mLimit_[4].currentValue) //схват сжат
+  {
+    stepper5.setSpeed(MOTOR_SPEED_5);
+    stepper5.setAcceleration(ACCELERATION);
+    stepper5.move(100 * S5);
+    while (mLimit_[4].currentValue) //закончит когда: схват разжат
+    {
+      stepper5.run();
+      checkLimit(4);
+    }
+    stepper5.stop(); //??
+    //еще немного пусть разожмет
+    stepper5.move(A5_UNGRIP_DIST * S5);
+    stepper5.runToPosition();
+  }
+  busController_.SendResponse_Done(); //??
 }
 
 void Robko::goToStartPositions()

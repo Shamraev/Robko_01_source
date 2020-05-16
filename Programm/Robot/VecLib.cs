@@ -10,6 +10,8 @@ namespace VecLib
         public static Vector2d Y2dAxes = new Vector2d(0, 1);
         public static Vector2d X2dAxes = new Vector2d(1, 0);
 
+        public static Vector3d Vector3DZeros = new Vector3d(0, 0, 0);
+
         /// <summary>
         /// Скалярное произведение векторов v1 и v2
         /// </summary>
