@@ -467,13 +467,14 @@ void Robko::gripperGrip()
   {
     stepper5.setSpeed(MOTOR_SPEED_5);
     stepper5.setAcceleration(ACCELERATION);
-    stepper5.moveTo(-100 * S5);
+    stepper5.move(-100 * S5);
     while (!mLimit_[4].currentValue) //закончит когда: схват сомкнулся - сработал концевик
     {
       stepper5.run();
       checkLimit(4);
     }
     stepper5.stop(); //??
+    ResetGripper();  //----tmp----!!
   }
   busController_.SendResponse_Done(); //??
 }
@@ -495,6 +496,7 @@ void Robko::gripperUngrip()
     //еще немного пусть разожмет
     stepper5.move(A5_UNGRIP_DIST * S5);
     stepper5.runToPosition();
+    ResetGripper(); //----tmp----!!
   }
   busController_.SendResponse_Done(); //??
 }
