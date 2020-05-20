@@ -649,51 +649,7 @@ namespace RobotSpace
             fm.mf = this;
             fm.StartPosition = FormStartPosition.CenterParent;
             fm.Show();
-        }
-
-        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            //  bool received;
-            //  received = false;
-            //  // if ((!TuskComplited) && (serialPort1.ReadByte() == 64)) { TuskComplited = true; }
-            //  //serialPort1.DiscardInBuffer();
-
-            //  // prevent error with closed port to appears
-            //  if (!serialPort1.IsOpen)
-            //      return;
-
-            //  // if (serialPort1.BytesToRead == 2){ serialPort1.Read(buffer, 0, 2); received = true; }
-            //  // else if (serialPort1.BytesToRead == 1) { serialPort1.Read(buffer, 0, 1); received = false; }
-            //  serialPort1.Read(buffer, 0, 1);
-            ////  richTextBox1.BeginInvoke(new updateDelegate(updateTextBox),Convert.ToString(buffer[0]));
-            //  //test for termination character in buffer
-
-            //  if ((TuskSend == true) && (buffer[0] == 33) )// Синхронизирующий байт. После этого еще делаем проверку контрольной суммы.
-            //  {
-            //      // Invoke(new Action(() => { TuskComplited = true; }));
-            //      TuskComplited = true;
-            //      return;
-            //  }
-
-            //  updateTextBox("!!!!!ddd");
-            // PortText += serialPort1.ReadExisting();//------------------------------------
-
-            //XyzDisplay();//??----
-
-            //----
-            //string PortText = serialPort1.ReadExisting();//----
-            //byte[] buf = new byte[12];
-            //serialPort1.Read(buf, 0, 12);
-            //----
-
-
-            //?? всегда ли успеет МК отправить полный пакет??
-            Invoke(new Action(() => { mCController.GetResponse(); }));
-            //Invoke(new Action(() => { mCController.TaskComplete(); }));
-
-
-        }
-
+        }        
 
         private void data_coordinates_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -738,7 +694,7 @@ namespace RobotSpace
         }
         protected void MCControllerCreate()
         {
-            mCController = new MCController(serialPort1, this);
+            mCController = new MCController(this);
         }
         protected void СommandSenderCreate()
         {

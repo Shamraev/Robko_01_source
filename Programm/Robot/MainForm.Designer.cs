@@ -54,7 +54,6 @@
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.chkScrll = new System.Windows.Forms.CheckBox();
@@ -312,16 +311,6 @@
             // 
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(91, 28);
-            // 
-            // serialPort1
-            // 
-            this.serialPort1.BaudRate = 115200;
-            this.serialPort1.DtrEnable = true;
-            this.serialPort1.ReadBufferSize = 8192;
-            this.serialPort1.ReadTimeout = 60000;
-            this.serialPort1.WriteTimeout = 1000;
-            this.serialPort1.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort1_ErrorReceived);
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // button1
             // 
@@ -1177,7 +1166,6 @@
         private System.Windows.Forms.TextBox data_angels;
         private System.Windows.Forms.CheckBox CycleChkBox;        
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemParameters;
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.RichTextBox richTextBox3;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Label label5;

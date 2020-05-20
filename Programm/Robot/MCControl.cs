@@ -32,9 +32,9 @@ namespace MCControl
 
 
 
-        public MCController(SerialPort aSerialPort, MainForm aOwner)
-        {
-            this.serialPort = aSerialPort;
+        public MCController(MainForm aOwner)
+        {            
+            CreateSerialPort();
             this.owner = aOwner;
             this.frameFormer = new FrameFormer(this);
 
@@ -44,6 +44,30 @@ namespace MCControl
         ~MCController()
         {
             PortTurnOff();
+        }
+
+        protected void CreateSerialPort()
+        {
+            this.serialPort = new SerialPort();
+            this.serialPort.BaudRate = 115200;
+            this.serialPort.PortName = "COM1";
+            this.serialPort.DataBits = 8;
+            this.serialPort.DtrEnable = true;
+            this.serialPort.Parity = Parity.None;
+            this.serialPort.ReadBufferSize = 1024;
+            this.serialPort.ReadTimeout = 5000;//??
+            this.serialPort.RtsEnable = false;
+            this.serialPort.StopBits = StopBits.One;
+            this.serialPort.WriteBufferSize = 2048;
+            this.serialPort.WriteTimeout = 1000;
+
+            this.serialPort.DataReceived += serialPort_DataReceived;
+        }
+
+        private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            //Invoke(new Action(() => { mCController.GetResponse(); }));
+            GetResponse();
         }
 
         /// <summary>
