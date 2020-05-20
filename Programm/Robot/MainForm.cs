@@ -8,7 +8,7 @@ using System.Timers;
 using System.Windows.Forms;
 using InverseKinematics;
 using VecLib;
-using static VecLib.Methods;
+using static VecLib.VecLibMethods;
 using MCControl;
 using CommandSend;
 using BusControl;

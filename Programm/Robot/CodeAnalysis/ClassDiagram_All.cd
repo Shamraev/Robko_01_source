@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+  <Class Name="ArrayHelp.ArrayHelper&lt;T&gt;" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ArrayHelp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BusControl.FrameFormer" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgIgAAKAAAgBhAAIwAAAAQAAAAQABAAAACAEAAAACUA=</HashCode>
+      <FileName>BusControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandSend.CommandSender" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KQBgCy2kQCBAhWAAAAACEBAAIEAgQgBAKQAECUEAQEg=</HashCode>
+      <FileName>CommandSend.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CurveLib.CurveLibMethods" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CurveLib.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotSpace.FormCorrectPlane" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAjAAAACABBACAAAAABAAAAAAAAEABAA=</HashCode>
+      <FileName>FormCorrectPlane.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotSpace.FormSetCurWorkCoordts" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAjAAAACABBACEAAAAAAIAAgAAAEAAAA=</HashCode>
+      <FileName>FormSetCurWorkCoordts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotSpace.MainForm" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FamOaQqcAiSJSdsrhjmJoIAywui7GQii2XB/G6MrbOE=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotSpace.Program" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InverseKinematics.IKSolver" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACEAAAAhAACAAEKgAAAJIAAEAAAAAAEAAABhgQACBAA=</HashCode>
+      <FileName>InverseKinematics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InverseKinematics.IKSolver5DOF" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQQABAAAAAAAEAAAACAAIAAQgBAEEEAIAAACACAAAA=</HashCode>
+      <FileName>InverseKinematics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InverseKinematics.IKSolver3DOF" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAEAAAAAAAAAAAgAAEAEAAAAACACAAAA=</HashCode>
+      <FileName>InverseKinematics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MCControl.MCController" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BwBIAgCAEACAgAAICkAgCEAAAIAkIAACAgAEBgACABA=</HashCode>
+      <FileName>MCControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotSpace.Properties.Resources" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAgAAAAAAAAAAAAAJEAAAAQAQAIAEAAAAAAEAAIQ=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotSpace.Properties.Settings" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAAAIAAAAgABAAAAAAAAAAAABAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VecLib.VecLibMethods" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAACIAABAAAAAAAggAAAAAAAAEAAAAAAACAAUAAAAI=</HashCode>
+      <FileName>VecLib.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="CurveLib.Cut" Collapsed="true">
+    <Position X="7" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAgwAAAAEQAAAAAAAAABAAAAAIgAABAAAAAAAAAA=</HashCode>
+      <FileName>CurveLib.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CurveLib.Arc" Collapsed="true">
+    <Position X="5.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAg4AACEERQAAACAIAADACAAAIkAABAAABAAAAQA=</HashCode>
+      <FileName>CurveLib.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="InverseKinematics.GlobalCoordts" Collapsed="true">
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAgAAAAAAA=</HashCode>
+      <FileName>InverseKinematics.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="VecLib.Vector3d" Collapsed="true">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAIAIAAAAAAAAAAAYAEDAABAAAAAAAAAAABgAQAAAiA=</HashCode>
+      <FileName>VecLib.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="VecLib.Vector2d" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAIAIAQAAAAAAAAAYAEDAABAAAAAAAAAEABgAQAAAiA=</HashCode>
+      <FileName>VecLib.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="VecLib.Plane" Collapsed="true">
+    <Position X="10.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAACAQAAAAAAAAAAAAAAAAAAAAAApAkAAAA=</HashCode>
+      <FileName>VecLib.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="CommandSend.GCommand" Collapsed="true">
+    <Position X="5.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAQAAAAAIAAAACAAEAAAAAAAAAAA=</HashCode>
+      <FileName>CommandSend.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="InverseKinematics.IKSolverType" Collapsed="true">
+    <Position X="7" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>InverseKinematics.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -6,12 +6,12 @@ using RobotSpace;
 using MCControl;
 using InverseKinematics;
 using VecLib;
-using static VecLib.Methods;
+using static VecLib.VecLibMethods;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using CurveLib;
-using static CurveLib.Methods;
+using static CurveLib.CurveLibMethods;
 
 namespace CommandSend
 {

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access" MembersFormat="FullSignature">
+  <Class Name="BusControl.FrameFormer" Collapsed="true">
+    <Position X="2.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgIgAAKAAAgBhAAIwAAAAQAAAAQABAAAACAEAAAACUA=</HashCode>
+      <FileName>BusControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CommandSend.CommandSender" Collapsed="true">
+    <Position X="4.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>KQBgCy2kQCBAhWAAAAACEBAAIEAgQgBAKQAECUEAQEg=</HashCode>
+      <FileName>CommandSend.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RobotSpace.MainForm" Collapsed="true">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FamOaQqcAiSJSdsrhjmJoIAywui7GQii2XB/G6MrbOE=</HashCode>
+      <FileName>MainForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InverseKinematics.IKSolver" Collapsed="true">
+    <Position X="2.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACEAAAAhAACAAEKgAAAJIAAEAAAAAAEAAABhgQACBAA=</HashCode>
+      <FileName>InverseKinematics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MCControl.MCController" Collapsed="true">
+    <Position X="4.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BwBIAgCAEACAgAAICkAgCEAAAIAkIAACAgAEBgACABA=</HashCode>
+      <FileName>MCControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="CurveLib.Cut" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAgwAAAAEQAAAAAAAAABAAAAAIgAABAAAAAAAAAA=</HashCode>
+      <FileName>CurveLib.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="CurveLib.Arc" Collapsed="true">
+    <Position X="6.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAg4AACEERQAAACAIAADACAAAIkAABAAABAAAAQA=</HashCode>
+      <FileName>CurveLib.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

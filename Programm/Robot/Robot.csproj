@@ -114,6 +114,11 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="CodeAnalysis\ClassDiagram_All.cd" />
+    <None Include="CodeAnalysis\ClassDiagram_Light.cd" />
+    <None Include="CodeAnalysis\CodeMap_ALL.dgml" />
+    <None Include="CodeAnalysis\CodeMap_Light.dgml" />
+    <None Include="CodeAnalysis\CodeMap_Light_Classes.dgml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

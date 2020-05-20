@@ -1,11 +1,11 @@
 ﻿using System;
 using static System.Math;
-using static VecLib.Methods;
+using static VecLib.VecLibMethods;
 using VecLib;
 
 namespace VecLib
 {
-    public static class Methods
+    public static class VecLibMethods
     {
         public static Vector2d Y2dAxes = new Vector2d(0, 1);
         public static Vector2d X2dAxes = new Vector2d(1, 0);

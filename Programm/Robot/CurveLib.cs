@@ -1,11 +1,11 @@
 ﻿using static System.Math;
 using VecLib;
-using static VecLib.Methods;
+using static VecLib.VecLibMethods;
 using ArrayHelp;
 
 namespace CurveLib
 {
-    public static class Methods
+    public static class CurveLibMethods
     {
         /// <summary>
         /// Получить центр дуги cp по двум точкам (a и b), знаковому радиусу R: R>0 дуга < PI, R<0 дуга > PI
