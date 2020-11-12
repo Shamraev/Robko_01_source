@@ -15,1691 +15,1691 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Connector:Conn_01x13_Male J2
-U 1 1 5D553446
-P 12500 4450
-F 0 "J2" H 12608 5231 50  0000 C CNN
-F 1 "Conn_01x13_Male" H 12608 5140 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x13_P2.54mm_Vertical" H 12500 4450 50  0001 C CNN
-F 3 "~" H 12500 4450 50  0001 C CNN
-	1    12500 4450
+L robko_PCB_arduino_shield-rescue:ARDUINO_MEGA_SHIELD-arduino_shieldsNCL SHIELD1
+U 1 1 5D595715
+P 3800 5350
+F 0 "SHIELD1" H 3750 7987 60  0000 C CNN
+F 1 "ARDUINO_MEGA_SHIELD" H 3750 7881 60  0000 C CNN
+F 2 "sb-cnc-shield-master:ARDUINO_MEGA_SHIELD" H 3800 5350 50  0001 C CNN
+F 3 "" H 3800 5350 50  0001 C CNN
+	1    3800 5350
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector:Conn_01x13_Male J4
-U 1 1 5D556270
-P 14700 4400
-F 0 "J4" H 14808 5181 50  0000 C CNN
-F 1 "Conn_01x13_Male" H 14808 5090 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x13_P2.54mm_Vertical" H 14700 4400 50  0001 C CNN
-F 3 "~" H 14700 4400 50  0001 C CNN
-	1    14700 4400
-	1    0    0    -1  
-$EndComp
-$Comp
-L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_1
-U 1 1 5D5530B8
-P 7300 2950
-F 0 "a4988_1" H 7300 3597 60  0000 C CNN
-F 1 "POLOLU_STEPPER_DRIVER" H 7300 3491 60  0001 C CNN
-F 2 "sb-cnc-shield-master:a4988_shield" H 7300 2950 60  0001 C CNN
-F 3 "" H 7300 2950 60  0000 C CNN
-	1    7300 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Barrel_Jack_Switch J1
-U 1 1 5D55AB20
-P 3350 7950
-F 0 "J1" H 3407 8267 50  0000 C CNN
-F 1 "Barrel_Jack_Switch" H 3407 8176 50  0000 C CNN
-F 2 "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal" H 3400 7910 50  0001 C CNN
-F 3 "~" H 3400 7910 50  0001 C CNN
-	1    3350 7950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GNDA #PWR0101
-U 1 1 5D55C595
-P 3800 8050
-F 0 "#PWR0101" H 3800 7800 50  0001 C CNN
-F 1 "GNDA" H 3805 7877 50  0000 C CNN
-F 2 "" H 3800 8050 50  0001 C CNN
-F 3 "" H 3800 8050 50  0001 C CNN
-	1    3800 8050
-	1    0    0    -1  
-$EndComp
-$Comp
-L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0102
-U 1 1 5D55DE3C
-P 4650 7850
-F 0 "#PWR0102" H 4650 7700 50  0001 C CNN
-F 1 "VIN" H 4665 8023 50  0000 C CNN
-F 2 "" H 4650 7850 60  0000 C CNN
-F 3 "" H 4650 7850 60  0000 C CNN
-	1    4650 7850
-	1    0    0    -1  
-$EndComp
+NoConn ~ 2800 7600
 Wire Wire Line
-	3650 8050 3800 8050
-Wire Wire Line
-	3650 7950 3800 7950
-Wire Wire Line
-	3800 7950 3800 8050
-Connection ~ 3800 8050
-$Comp
-L Device:Jumper_NO_Small JP1
-U 1 1 5D56626F
-P 6350 2650
-F 0 "JP1" H 6350 2835 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 2744 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 2650 50  0001 C CNN
-F 3 "~" H 6350 2650 50  0001 C CNN
-	1    6350 2650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP2
-U 1 1 5D566F49
-P 6350 2750
-F 0 "JP2" H 6350 2935 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 2844 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 2750 50  0001 C CNN
-F 3 "~" H 6350 2750 50  0001 C CNN
-	1    6350 2750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP3
-U 1 1 5D5673F9
-P 6350 2850
-F 0 "JP3" H 6350 3035 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 2944 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 2850 50  0001 C CNN
-F 3 "~" H 6350 2850 50  0001 C CNN
-	1    6350 2850
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0103
-U 1 1 5D55B264
-P 2500 2950
-F 0 "#PWR0103" H 2500 2700 50  0001 C CNN
-F 1 "GND" H 2505 2777 50  0000 C CNN
-F 2 "" H 2500 2950 50  0001 C CNN
-F 3 "" H 2500 2950 50  0001 C CNN
-	1    2500 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0104
-U 1 1 5D55C21B
-P 4950 2250
-F 0 "#PWR0104" H 4950 2000 50  0001 C CNN
-F 1 "GND" H 4955 2077 50  0000 C CNN
-F 2 "" H 4950 2250 50  0001 C CNN
-F 3 "" H 4950 2250 50  0001 C CNN
-	1    4950 2250
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4650 2250 4950 2250
-Wire Wire Line
-	2750 2850 2500 2850
-Wire Wire Line
-	2500 2850 2500 2950
-Wire Wire Line
-	2750 2950 2500 2950
-Connection ~ 2500 2950
-$Comp
-L power:+5V #PWR0105
-U 1 1 5D55F6CF
-P 2500 2750
-F 0 "#PWR0105" H 2500 2600 50  0001 C CNN
-F 1 "+5V" H 2515 2923 50  0000 C CNN
-F 2 "" H 2500 2750 50  0001 C CNN
-F 3 "" H 2500 2750 50  0001 C CNN
-	1    2500 2750
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2750 2750 2500 2750
-Wire Wire Line
-	3650 7850 3900 7850
-Wire Wire Line
-	4500 7850 4650 7850
-$Comp
-L power:+5V #PWR0106
-U 1 1 5D574656
-P 5900 2500
-F 0 "#PWR0106" H 5900 2350 50  0001 C CNN
-F 1 "+5V" H 5915 2673 50  0000 C CNN
-F 2 "" H 5900 2500 50  0001 C CNN
-F 3 "" H 5900 2500 50  0001 C CNN
-	1    5900 2500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5900 2500 5900 2650
-Wire Wire Line
-	5900 2650 6250 2650
-Wire Wire Line
-	5900 2650 5900 2750
-Wire Wire Line
-	5900 2750 6250 2750
-Connection ~ 5900 2650
-Wire Wire Line
-	5900 2750 5900 2850
-Wire Wire Line
-	5900 2850 6250 2850
-Connection ~ 5900 2750
-Wire Wire Line
-	6450 2650 6850 2650
-Wire Wire Line
-	6450 2750 6850 2750
-Wire Wire Line
-	6450 2850 6850 2850
-Text GLabel 6700 2550 0    50   Input ~ 0
-notEn
-$Comp
-L power:GND #PWR0107
-U 1 1 5D579072
-P 2550 5200
-F 0 "#PWR0107" H 2550 4950 50  0001 C CNN
-F 1 "GND" H 2555 5027 50  0000 C CNN
-F 2 "" H 2550 5200 50  0001 C CNN
-F 3 "" H 2550 5200 50  0001 C CNN
-	1    2550 5200
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	2750 5100 2550 5100
-Wire Wire Line
-	2550 5100 2550 5200
-Wire Wire Line
-	2750 5200 2550 5200
-Connection ~ 2550 5200
-Text GLabel 4750 6100 2    50   Input ~ 0
-notEn
-$Comp
-L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0108
-U 1 1 5D57BFF0
-P 8850 2350
-F 0 "#PWR0108" H 8850 2200 50  0001 C CNN
-F 1 "VIN" H 8865 2523 50  0000 C CNN
-F 2 "" H 8850 2350 60  0000 C CNN
-F 3 "" H 8850 2350 60  0000 C CNN
-	1    8850 2350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0109
-U 1 1 5D580E50
-P 8200 3150
-F 0 "#PWR0109" H 8200 3000 50  0001 C CNN
-F 1 "+5V" V 8215 3278 50  0000 L CNN
-F 2 "" H 8200 3150 50  0001 C CNN
-F 3 "" H 8200 3150 50  0001 C CNN
-	1    8200 3150
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	7750 3150 8200 3150
-$Comp
-L power:GND #PWR0110
-U 1 1 5D58418C
-P 7900 3350
-F 0 "#PWR0110" H 7900 3100 50  0001 C CNN
-F 1 "GND" H 7905 3177 50  0000 C CNN
-F 2 "" H 7900 3350 50  0001 C CNN
-F 3 "" H 7900 3350 50  0001 C CNN
-	1    7900 3350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6850 2950 6750 2950
-Wire Wire Line
-	6750 2950 6750 3050
-Wire Wire Line
-	6750 3050 6850 3050
-Text GLabel 6750 3150 0    50   Input ~ 0
-M1_STEP
-Text GLabel 6750 3250 0    50   Input ~ 0
-M1_DIR
-Wire Wire Line
-	6700 2550 6850 2550
-Wire Wire Line
-	7750 3250 7900 3250
-Wire Wire Line
-	7900 3250 7900 3350
-Wire Wire Line
-	6750 3150 6850 3150
-Wire Wire Line
-	6750 3250 6850 3250
-$Comp
-L power:GNDA #PWR0111
-U 1 1 5D57ED6D
-P 8850 2650
-F 0 "#PWR0111" H 8850 2400 50  0001 C CNN
-F 1 "GNDA" H 8855 2477 50  0000 C CNN
-F 2 "" H 8850 2650 50  0001 C CNN
-F 3 "" H 8850 2650 50  0001 C CNN
-	1    8850 2650
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	7750 2650 8250 2650
-Text GLabel 7950 2750 2    50   Input ~ 0
-M1_1
-Text GLabel 7950 2850 2    50   Input ~ 0
-M1_2
-Text GLabel 7950 2950 2    50   Input ~ 0
-M1_3
-Text GLabel 7950 3050 2    50   Input ~ 0
-M1_4
-Wire Wire Line
-	7750 2750 7950 2750
-Wire Wire Line
-	7750 2850 7950 2850
-Wire Wire Line
-	7750 2950 7950 2950
-Wire Wire Line
-	7750 3050 7950 3050
-Text GLabel 2750 5350 0    50   Input ~ 0
-M1_STEP
-Text GLabel 2750 5550 0    50   Input ~ 0
-M1_DIR
-Wire Wire Line
-	2750 6000 2650 6000
-Wire Wire Line
-	2750 5800 2650 5800
-Text GLabel 12850 3850 2    50   Input ~ 0
-M1_1
-Text GLabel 12850 3950 2    50   Input ~ 0
-M1_2
-Text GLabel 12850 4050 2    50   Input ~ 0
-M1_3
-Text GLabel 12850 4150 2    50   Input ~ 0
-M1_4
-Wire Wire Line
-	12700 4150 12850 4150
-Wire Wire Line
-	12700 4050 12850 4050
-Wire Wire Line
-	12700 3950 12850 3950
-Wire Wire Line
-	12700 3850 12850 3850
-Text GLabel 13150 4250 2    50   Input ~ 0
-M2_1
-Text GLabel 13150 4350 2    50   Input ~ 0
-M2_2
-Text GLabel 13150 4450 2    50   Input ~ 0
-M2_3
-Text GLabel 13150 4550 2    50   Input ~ 0
-M2_4
-Wire Wire Line
-	12700 4250 13150 4250
-Wire Wire Line
-	12700 4350 13150 4350
-Wire Wire Line
-	12700 4450 13150 4450
-Wire Wire Line
-	12700 4550 13150 4550
-$Comp
-L Device:CP C1
-U 1 1 5D5AF314
-P 8250 2500
-F 0 "C1" H 8368 2546 50  0000 L CNN
-F 1 "100uF" H 8368 2455 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 8288 2350 50  0001 C CNN
-F 3 "~" H 8250 2500 50  0001 C CNN
-	1    8250 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_2
-U 1 1 5D5E1DD8
-P 7300 4600
-F 0 "a4988_2" H 7300 5247 60  0000 C CNN
-F 1 "POLOLU_STEPPER_DRIVER" H 7300 5141 60  0001 C CNN
-F 2 "sb-cnc-shield-master:a4988_shield" H 7300 4600 60  0001 C CNN
-F 3 "" H 7300 4600 60  0000 C CNN
-	1    7300 4600
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0113
-U 1 1 5D5E1E09
-P 8200 4800
-F 0 "#PWR0113" H 8200 4650 50  0001 C CNN
-F 1 "+5V" V 8215 4928 50  0000 L CNN
-F 2 "" H 8200 4800 50  0001 C CNN
-F 3 "" H 8200 4800 50  0001 C CNN
-	1    8200 4800
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	7750 4800 8200 4800
-$Comp
-L power:GND #PWR0114
-U 1 1 5D5E1E10
-P 7900 5000
-F 0 "#PWR0114" H 7900 4750 50  0001 C CNN
-F 1 "GND" H 7905 4827 50  0000 C CNN
-F 2 "" H 7900 5000 50  0001 C CNN
-F 3 "" H 7900 5000 50  0001 C CNN
-	1    7900 5000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6850 4600 6750 4600
-Wire Wire Line
-	6750 4600 6750 4700
-Wire Wire Line
-	6750 4700 6850 4700
-Text GLabel 6750 4800 0    50   Input ~ 0
-M2_STEP
-Text GLabel 6750 4900 0    50   Input ~ 0
-M2_DIR
-Wire Wire Line
-	7750 4900 7900 4900
-Wire Wire Line
-	7900 4900 7900 5000
-Wire Wire Line
-	6750 4800 6850 4800
-Wire Wire Line
-	6750 4900 6850 4900
-Text GLabel 7950 4400 2    50   Input ~ 0
-M2_1
-Text GLabel 7950 4500 2    50   Input ~ 0
-M2_2
-Text GLabel 7950 4600 2    50   Input ~ 0
-M2_3
-Text GLabel 7950 4700 2    50   Input ~ 0
-M2_4
-Wire Wire Line
-	7750 4400 7950 4400
-Wire Wire Line
-	7750 4500 7950 4500
-Wire Wire Line
-	7750 4600 7950 4600
-Wire Wire Line
-	7750 4700 7950 4700
-Text GLabel 4750 6300 2    50   Input ~ 0
-M2_STEP
-Text GLabel 4650 6500 2    50   Input ~ 0
-M2_DIR
-Wire Wire Line
-	4650 5450 4750 5450
-Wire Wire Line
-	4650 5550 4750 5550
-Text GLabel 12850 4650 2    50   Input ~ 0
-M3_1
-Text GLabel 12850 4750 2    50   Input ~ 0
-M3_2
-Text GLabel 12850 4850 2    50   Input ~ 0
-M3_3
-Text GLabel 12850 4950 2    50   Input ~ 0
-M3_4
-Wire Wire Line
-	12700 4950 12850 4950
-Wire Wire Line
-	12700 4850 12850 4850
-Wire Wire Line
-	12700 4750 12850 4750
-Wire Wire Line
-	12700 4650 12850 4650
-Wire Wire Line
-	7750 2550 7900 2550
-Wire Wire Line
-	7900 2550 7900 2350
-Wire Wire Line
-	7900 2350 8250 2350
-Wire Wire Line
-	8250 2350 8850 2350
-Connection ~ 8250 2350
-Wire Wire Line
-	8250 2650 8850 2650
-Connection ~ 8250 2650
-$Comp
-L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0115
-U 1 1 5D61E88D
-P 8850 4000
-F 0 "#PWR0115" H 8850 3850 50  0001 C CNN
-F 1 "VIN" H 8865 4173 50  0000 C CNN
-F 2 "" H 8850 4000 60  0000 C CNN
-F 3 "" H 8850 4000 60  0000 C CNN
-	1    8850 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GNDA #PWR0116
-U 1 1 5D61E893
-P 8850 4300
-F 0 "#PWR0116" H 8850 4050 50  0001 C CNN
-F 1 "GNDA" H 8855 4127 50  0000 C CNN
-F 2 "" H 8850 4300 50  0001 C CNN
-F 3 "" H 8850 4300 50  0001 C CNN
-	1    8850 4300
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	7750 4300 8250 4300
-$Comp
-L Device:CP C2
-U 1 1 5D61E89A
-P 8250 4150
-F 0 "C2" H 8368 4196 50  0000 L CNN
-F 1 "100uF" H 8368 4105 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 8288 4000 50  0001 C CNN
-F 3 "~" H 8250 4150 50  0001 C CNN
-	1    8250 4150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7750 4200 7900 4200
-Wire Wire Line
-	7900 4200 7900 4000
-Wire Wire Line
-	7900 4000 8250 4000
-Wire Wire Line
-	8250 4000 8850 4000
-Connection ~ 8250 4000
-Wire Wire Line
-	8250 4300 8850 4300
-Connection ~ 8250 4300
-$Comp
-L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_3
-U 1 1 5D6276C6
-P 7300 6150
-F 0 "a4988_3" H 7300 6797 60  0000 C CNN
-F 1 "POLOLU_STEPPER_DRIVER" H 7300 6691 60  0001 C CNN
-F 2 "sb-cnc-shield-master:a4988_shield" H 7300 6150 60  0001 C CNN
-F 3 "" H 7300 6150 60  0000 C CNN
-	1    7300 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0118
-U 1 1 5D6276F0
-P 8200 6350
-F 0 "#PWR0118" H 8200 6200 50  0001 C CNN
-F 1 "+5V" V 8215 6478 50  0000 L CNN
-F 2 "" H 8200 6350 50  0001 C CNN
-F 3 "" H 8200 6350 50  0001 C CNN
-	1    8200 6350
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	7750 6350 8200 6350
-$Comp
-L power:GND #PWR0119
-U 1 1 5D6276F7
-P 7900 6550
-F 0 "#PWR0119" H 7900 6300 50  0001 C CNN
-F 1 "GND" H 7905 6377 50  0000 C CNN
-F 2 "" H 7900 6550 50  0001 C CNN
-F 3 "" H 7900 6550 50  0001 C CNN
-	1    7900 6550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	6850 6150 6750 6150
-Wire Wire Line
-	6750 6150 6750 6250
-Wire Wire Line
-	6750 6250 6850 6250
-Text GLabel 6750 6350 0    50   Input ~ 0
-M3_STEP
-Text GLabel 6750 6450 0    50   Input ~ 0
-M3_DIR
-Wire Wire Line
-	7750 6450 7900 6450
-Wire Wire Line
-	7900 6450 7900 6550
-Wire Wire Line
-	6750 6350 6850 6350
-Wire Wire Line
-	6750 6450 6850 6450
-Text GLabel 7950 5950 2    50   Input ~ 0
-M3_1
-Text GLabel 7950 6050 2    50   Input ~ 0
-M3_2
-Text GLabel 7950 6150 2    50   Input ~ 0
-M3_3
-Text GLabel 7950 6250 2    50   Input ~ 0
-M3_4
-Wire Wire Line
-	7750 5950 7950 5950
-Wire Wire Line
-	7750 6050 7950 6050
-Wire Wire Line
-	7750 6150 7950 6150
-Wire Wire Line
-	7750 6250 7950 6250
-$Comp
-L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0120
-U 1 1 5D62770F
-P 8850 5550
-F 0 "#PWR0120" H 8850 5400 50  0001 C CNN
-F 1 "VIN" H 8865 5723 50  0000 C CNN
-F 2 "" H 8850 5550 60  0000 C CNN
-F 3 "" H 8850 5550 60  0000 C CNN
-	1    8850 5550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GNDA #PWR0121
-U 1 1 5D627715
-P 8850 5850
-F 0 "#PWR0121" H 8850 5600 50  0001 C CNN
-F 1 "GNDA" H 8855 5677 50  0000 C CNN
-F 2 "" H 8850 5850 50  0001 C CNN
-F 3 "" H 8850 5850 50  0001 C CNN
-	1    8850 5850
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	7750 5850 8250 5850
-$Comp
-L Device:CP C3
-U 1 1 5D62771C
-P 8250 5700
-F 0 "C3" H 8368 5746 50  0000 L CNN
-F 1 "100uF" H 8368 5655 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 8288 5550 50  0001 C CNN
-F 3 "~" H 8250 5700 50  0001 C CNN
-	1    8250 5700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7750 5750 7900 5750
-Wire Wire Line
-	7900 5750 7900 5550
-Wire Wire Line
-	7900 5550 8250 5550
-Wire Wire Line
-	8250 5550 8850 5550
-Connection ~ 8250 5550
-Wire Wire Line
-	8250 5850 8850 5850
-Connection ~ 8250 5850
-Text GLabel 4650 4650 2    50   Input ~ 0
-M3_STEP
-Text GLabel 4650 4550 2    50   Input ~ 0
-M3_DIR
-Wire Wire Line
-	4650 5650 4750 5650
-Wire Wire Line
-	4650 5750 4750 5750
-Text GLabel 15050 3800 2    50   Input ~ 0
-M4_1
-Text GLabel 15050 3900 2    50   Input ~ 0
-M4_2
-Text GLabel 15050 4000 2    50   Input ~ 0
-M4_3
-Text GLabel 15050 4100 2    50   Input ~ 0
-M4_4
-Wire Wire Line
-	14900 4100 15050 4100
-Wire Wire Line
-	14900 4000 15050 4000
-Wire Wire Line
-	14900 3900 15050 3900
-Wire Wire Line
-	14900 3800 15050 3800
-Text GLabel 15350 4500 2    50   Input ~ 0
-M5_1
-Text GLabel 15350 4400 2    50   Input ~ 0
-M5_2
-Text GLabel 15350 4300 2    50   Input ~ 0
-M5_3
-Text GLabel 15350 4200 2    50   Input ~ 0
-M5_4
-Wire Wire Line
-	14900 4500 15350 4500
-Wire Wire Line
-	14900 4400 15350 4400
-Wire Wire Line
-	14900 4300 15350 4300
-Wire Wire Line
-	14900 4200 15350 4200
-Text GLabel 15050 4900 2    50   Input ~ 0
-M6_1
-Text GLabel 15050 4800 2    50   Input ~ 0
-M6_2
-Text GLabel 15050 4700 2    50   Input ~ 0
-M6_3
-Text GLabel 15050 4600 2    50   Input ~ 0
-M6_4
-Wire Wire Line
-	14900 4600 15050 4600
-Wire Wire Line
-	14900 4700 15050 4700
-Wire Wire Line
-	14900 4800 15050 4800
-Wire Wire Line
-	14900 4900 15050 4900
-$Comp
-L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_4
-U 1 1 5D662963
-P 10600 2950
-F 0 "a4988_4" H 10600 3597 60  0000 C CNN
-F 1 "POLOLU_STEPPER_DRIVER" H 10600 3491 60  0001 C CNN
-F 2 "sb-cnc-shield-master:a4988_shield" H 10600 2950 60  0001 C CNN
-F 3 "" H 10600 2950 60  0000 C CNN
-	1    10600 2950
-	1    0    0    -1  
-$EndComp
-$Comp
-L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0123
-U 1 1 5D66298D
-P 12150 2350
-F 0 "#PWR0123" H 12150 2200 50  0001 C CNN
-F 1 "VIN" H 12165 2523 50  0000 C CNN
-F 2 "" H 12150 2350 60  0000 C CNN
-F 3 "" H 12150 2350 60  0000 C CNN
-	1    12150 2350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0124
-U 1 1 5D662993
-P 11500 3150
-F 0 "#PWR0124" H 11500 3000 50  0001 C CNN
-F 1 "+5V" V 11515 3278 50  0000 L CNN
-F 2 "" H 11500 3150 50  0001 C CNN
-F 3 "" H 11500 3150 50  0001 C CNN
-	1    11500 3150
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	11050 3150 11500 3150
-$Comp
-L power:GND #PWR0125
-U 1 1 5D66299A
-P 11200 3350
-F 0 "#PWR0125" H 11200 3100 50  0001 C CNN
-F 1 "GND" H 11205 3177 50  0000 C CNN
-F 2 "" H 11200 3350 50  0001 C CNN
-F 3 "" H 11200 3350 50  0001 C CNN
-	1    11200 3350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10150 2950 10050 2950
-Wire Wire Line
-	10050 2950 10050 3050
-Wire Wire Line
-	10050 3050 10150 3050
-Text GLabel 10050 3150 0    50   Input ~ 0
-M4_STEP
-Text GLabel 10050 3250 0    50   Input ~ 0
-M4_DIR
-Wire Wire Line
-	11050 3250 11200 3250
-Wire Wire Line
-	11200 3250 11200 3350
-Wire Wire Line
-	10050 3150 10150 3150
-Wire Wire Line
-	10050 3250 10150 3250
-$Comp
-L power:GNDA #PWR0126
-U 1 1 5D6629AA
-P 12150 2650
-F 0 "#PWR0126" H 12150 2400 50  0001 C CNN
-F 1 "GNDA" H 12155 2477 50  0000 C CNN
-F 2 "" H 12150 2650 50  0001 C CNN
-F 3 "" H 12150 2650 50  0001 C CNN
-	1    12150 2650
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	11050 2650 11550 2650
-Text GLabel 11250 2750 2    50   Input ~ 0
-M4_1
-Text GLabel 11250 2850 2    50   Input ~ 0
-M4_2
-Text GLabel 11250 2950 2    50   Input ~ 0
-M4_3
-Text GLabel 11250 3050 2    50   Input ~ 0
-M4_4
-Wire Wire Line
-	11050 2750 11250 2750
-Wire Wire Line
-	11050 2850 11250 2850
-Wire Wire Line
-	11050 2950 11250 2950
-Wire Wire Line
-	11050 3050 11250 3050
-$Comp
-L Device:CP C4
-U 1 1 5D6629B9
-P 11550 2500
-F 0 "C4" H 11668 2546 50  0000 L CNN
-F 1 "100uF" H 11668 2455 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 11588 2350 50  0001 C CNN
-F 3 "~" H 11550 2500 50  0001 C CNN
-	1    11550 2500
-	1    0    0    -1  
-$EndComp
-$Comp
-L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_5
-U 1 1 5D6629BF
-P 10600 4600
-F 0 "a4988_5" H 10600 5247 60  0000 C CNN
-F 1 "POLOLU_STEPPER_DRIVER" H 10600 5141 60  0001 C CNN
-F 2 "sb-cnc-shield-master:a4988_shield" H 10600 4600 60  0001 C CNN
-F 3 "" H 10600 4600 60  0000 C CNN
-	1    10600 4600
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0128
-U 1 1 5D6629E9
-P 11500 4800
-F 0 "#PWR0128" H 11500 4650 50  0001 C CNN
-F 1 "+5V" V 11515 4928 50  0000 L CNN
-F 2 "" H 11500 4800 50  0001 C CNN
-F 3 "" H 11500 4800 50  0001 C CNN
-	1    11500 4800
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	11050 4800 11500 4800
-$Comp
-L power:GND #PWR0129
-U 1 1 5D6629F0
-P 11200 5000
-F 0 "#PWR0129" H 11200 4750 50  0001 C CNN
-F 1 "GND" H 11205 4827 50  0000 C CNN
-F 2 "" H 11200 5000 50  0001 C CNN
-F 3 "" H 11200 5000 50  0001 C CNN
-	1    11200 5000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10150 4600 10050 4600
-Wire Wire Line
-	10050 4600 10050 4700
-Wire Wire Line
-	10050 4700 10150 4700
-Text GLabel 10050 4800 0    50   Input ~ 0
+	1600 7050 1600 8000
+Text GLabel 2800 7800 0    50   Input ~ 0
 M5_STEP
-Text GLabel 10050 4900 0    50   Input ~ 0
-M5_DIR
 Wire Wire Line
-	11050 4900 11200 4900
+	1350 8300 1350 8450
+Connection ~ 1600 8450
 Wire Wire Line
-	11200 4900 11200 5000
+	1350 8450 1600 8450
+Connection ~ 1850 8450
 Wire Wire Line
-	10050 4800 10150 4800
+	1600 8450 1850 8450
 Wire Wire Line
-	10050 4900 10150 4900
-Text GLabel 11250 4400 2    50   Input ~ 0
-M5_1
-Text GLabel 11250 4500 2    50   Input ~ 0
-M5_2
-Text GLabel 11250 4600 2    50   Input ~ 0
-M5_3
-Text GLabel 11250 4700 2    50   Input ~ 0
-M5_4
+	1350 6950 2800 6950
+Connection ~ 1350 6950
 Wire Wire Line
-	11050 4400 11250 4400
+	1150 6950 1350 6950
 Wire Wire Line
-	11050 4500 11250 4500
+	1350 8000 1350 6950
 Wire Wire Line
-	11050 4600 11250 4600
+	1600 7050 2800 7050
+Connection ~ 1600 7050
 Wire Wire Line
-	11050 4700 11250 4700
+	1150 7050 1600 7050
 Wire Wire Line
-	11050 2550 11200 2550
+	1850 7150 2800 7150
+Connection ~ 1850 7150
 Wire Wire Line
-	11200 2550 11200 2350
+	1150 7150 1850 7150
 Wire Wire Line
-	11200 2350 11550 2350
+	1850 8000 1850 7150
 Wire Wire Line
-	11550 2350 12150 2350
-Connection ~ 11550 2350
+	2100 7250 2800 7250
+Connection ~ 2100 7250
 Wire Wire Line
-	11550 2650 12150 2650
-Connection ~ 11550 2650
-$Comp
-L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0130
-U 1 1 5D662A0F
-P 12150 4000
-F 0 "#PWR0130" H 12150 3850 50  0001 C CNN
-F 1 "VIN" H 12165 4173 50  0000 C CNN
-F 2 "" H 12150 4000 60  0000 C CNN
-F 3 "" H 12150 4000 60  0000 C CNN
-	1    12150 4000
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GNDA #PWR0131
-U 1 1 5D662A15
-P 12150 4300
-F 0 "#PWR0131" H 12150 4050 50  0001 C CNN
-F 1 "GNDA" H 12155 4127 50  0000 C CNN
-F 2 "" H 12150 4300 50  0001 C CNN
-F 3 "" H 12150 4300 50  0001 C CNN
-	1    12150 4300
-	1    0    0    1   
-$EndComp
+	1150 7250 2100 7250
 Wire Wire Line
-	11050 4300 11550 4300
-$Comp
-L Device:CP C5
-U 1 1 5D662A1C
-P 11550 4150
-F 0 "C5" H 11668 4196 50  0000 L CNN
-F 1 "100uF" H 11668 4105 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 11588 4000 50  0001 C CNN
-F 3 "~" H 11550 4150 50  0001 C CNN
-	1    11550 4150
-	1    0    0    -1  
-$EndComp
+	2100 8000 2100 7250
 Wire Wire Line
-	11050 4200 11200 4200
+	2350 7350 2800 7350
+Connection ~ 2350 7350
 Wire Wire Line
-	11200 4200 11200 4000
+	2350 8000 2350 7350
 Wire Wire Line
-	11200 4000 11550 4000
+	1150 7500 2650 7500
 Wire Wire Line
-	11550 4000 12150 4000
-Connection ~ 11550 4000
+	2650 7500 2800 7500
+Connection ~ 2650 7500
 Wire Wire Line
-	11550 4300 12150 4300
-Connection ~ 11550 4300
-$Comp
-L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_6
-U 1 1 5D662A29
-P 10600 6150
-F 0 "a4988_6" H 10600 6797 60  0000 C CNN
-F 1 "POLOLU_STEPPER_DRIVER" H 10600 6691 60  0001 C CNN
-F 2 "sb-cnc-shield-master:a4988_shield" H 10600 6150 60  0001 C CNN
-F 3 "" H 10600 6150 60  0000 C CNN
-	1    10600 6150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0133
-U 1 1 5D662A53
-P 11500 6350
-F 0 "#PWR0133" H 11500 6200 50  0001 C CNN
-F 1 "+5V" V 11515 6478 50  0000 L CNN
-F 2 "" H 11500 6350 50  0001 C CNN
-F 3 "" H 11500 6350 50  0001 C CNN
-	1    11500 6350
-	0    1    1    0   
-$EndComp
+	2650 8000 2650 7500
 Wire Wire Line
-	11050 6350 11500 6350
-$Comp
-L power:GND #PWR0134
-U 1 1 5D662A5A
-P 11200 6550
-F 0 "#PWR0134" H 11200 6300 50  0001 C CNN
-F 1 "GND" H 11205 6377 50  0000 C CNN
-F 2 "" H 11200 6550 50  0001 C CNN
-F 3 "" H 11200 6550 50  0001 C CNN
-	1    11200 6550
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	10150 6150 10050 6150
-Wire Wire Line
-	10050 6150 10050 6250
-Wire Wire Line
-	10050 6250 10150 6250
-Text GLabel 10050 6350 0    50   Input ~ 0
-M6_STEP
-Text GLabel 10050 6450 0    50   Input ~ 0
-M6_DIR
-Wire Wire Line
-	11050 6450 11200 6450
-Wire Wire Line
-	11200 6450 11200 6550
-Wire Wire Line
-	10050 6350 10150 6350
-Wire Wire Line
-	10050 6450 10150 6450
-Text GLabel 11250 5950 2    50   Input ~ 0
-M6_1
-Text GLabel 11250 6050 2    50   Input ~ 0
-M6_2
-Text GLabel 11250 6150 2    50   Input ~ 0
-M6_3
-Text GLabel 11250 6250 2    50   Input ~ 0
-M6_4
-Wire Wire Line
-	11050 5950 11250 5950
-Wire Wire Line
-	11050 6050 11250 6050
-Wire Wire Line
-	11050 6150 11250 6150
-Wire Wire Line
-	11050 6250 11250 6250
-$Comp
-L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0135
-U 1 1 5D662A72
-P 12150 5550
-F 0 "#PWR0135" H 12150 5400 50  0001 C CNN
-F 1 "VIN" H 12165 5723 50  0000 C CNN
-F 2 "" H 12150 5550 60  0000 C CNN
-F 3 "" H 12150 5550 60  0000 C CNN
-	1    12150 5550
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GNDA #PWR0136
-U 1 1 5D662A78
-P 12150 5850
-F 0 "#PWR0136" H 12150 5600 50  0001 C CNN
-F 1 "GNDA" H 12155 5677 50  0000 C CNN
-F 2 "" H 12150 5850 50  0001 C CNN
-F 3 "" H 12150 5850 50  0001 C CNN
-	1    12150 5850
-	1    0    0    1   
-$EndComp
-Wire Wire Line
-	11050 5850 11550 5850
-$Comp
-L Device:CP C6
-U 1 1 5D662A7F
-P 11550 5700
-F 0 "C6" H 11668 5746 50  0000 L CNN
-F 1 "100uF" H 11668 5655 50  0000 L CNN
-F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 11588 5550 50  0001 C CNN
-F 3 "~" H 11550 5700 50  0001 C CNN
-	1    11550 5700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	11050 5750 11200 5750
-Wire Wire Line
-	11200 5750 11200 5550
-Wire Wire Line
-	11200 5550 11550 5550
-Wire Wire Line
-	11550 5550 12150 5550
-Connection ~ 11550 5550
-Wire Wire Line
-	11550 5850 12150 5850
-Connection ~ 11550 5850
-Text GLabel 2650 5800 0    50   Input ~ 0
-M4_STEP
-Text GLabel 2650 6000 0    50   Input ~ 0
-M4_DIR
-Wire Wire Line
-	4650 6000 4750 6000
-Text GLabel 2750 6850 0    50   Input ~ 0
-M5_DIR
-Wire Wire Line
-	4650 6100 4750 6100
-Wire Wire Line
-	4650 6200 4750 6200
-Text GLabel 4650 6600 2    50   Input ~ 0
-M6_STEP
-Text GLabel 4650 6700 2    50   Input ~ 0
-M6_DIR
-Wire Wire Line
-	4650 6300 4750 6300
-Wire Wire Line
-	4650 6400 4750 6400
-Wire Wire Line
-	4650 5850 4750 5850
-NoConn ~ 2750 2550
-NoConn ~ 2750 2650
-NoConn ~ 2750 3050
-NoConn ~ 2750 3250
-NoConn ~ 2750 3350
-NoConn ~ 2750 3450
-NoConn ~ 2750 3550
-NoConn ~ 2750 3650
-NoConn ~ 2750 3750
-NoConn ~ 2750 3850
-NoConn ~ 2750 3950
-NoConn ~ 2750 4150
-NoConn ~ 2750 4250
-NoConn ~ 2750 4350
-NoConn ~ 2750 4450
-NoConn ~ 2750 4550
-NoConn ~ 2750 4650
-NoConn ~ 2750 4750
-NoConn ~ 2750 4850
-NoConn ~ 2750 5450
-NoConn ~ 2750 5650
-NoConn ~ 2750 5900
-NoConn ~ 4650 4450
-NoConn ~ 4650 4350
-NoConn ~ 4650 4250
-NoConn ~ 4650 4150
-NoConn ~ 4650 4050
-NoConn ~ 4650 3950
-NoConn ~ 4650 3750
-NoConn ~ 4650 3650
-NoConn ~ 4650 3550
-NoConn ~ 4650 3450
-NoConn ~ 4650 3350
-NoConn ~ 4650 3250
-NoConn ~ 4650 3150
-NoConn ~ 4650 3050
-NoConn ~ 4650 2850
-NoConn ~ 4650 2750
-NoConn ~ 4650 2650
-NoConn ~ 4650 2550
-NoConn ~ 4650 2450
-NoConn ~ 4650 2350
-NoConn ~ 4650 2150
-$Comp
-L power:+5V #PWR0137
-U 1 1 5DB630B5
-P 5300 5000
-F 0 "#PWR0137" H 5300 4850 50  0001 C CNN
-F 1 "+5V" H 5315 5173 50  0000 C CNN
-F 2 "" H 5300 5000 50  0001 C CNN
-F 3 "" H 5300 5000 50  0001 C CNN
-	1    5300 5000
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4650 5000 4750 5000
-Wire Wire Line
-	4650 4900 4750 4900
-Wire Wire Line
-	4750 4900 4750 5000
-NoConn ~ 12700 5050
-NoConn ~ 13850 5050
-NoConn ~ 14900 5000
-$Comp
-L Device:Jumper_NO_Small JP4
-U 1 1 5DCBE1D1
-P 6350 4300
-F 0 "JP4" H 6350 4485 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 4394 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 4300 50  0001 C CNN
-F 3 "~" H 6350 4300 50  0001 C CNN
-	1    6350 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP5
-U 1 1 5DCBE1D7
-P 6350 4400
-F 0 "JP5" H 6350 4585 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 4494 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 4400 50  0001 C CNN
-F 3 "~" H 6350 4400 50  0001 C CNN
-	1    6350 4400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP6
-U 1 1 5DCBE1DD
-P 6350 4500
-F 0 "JP6" H 6350 4685 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 4594 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 4500 50  0001 C CNN
-F 3 "~" H 6350 4500 50  0001 C CNN
-	1    6350 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0112
-U 1 1 5DCBE1E3
-P 5900 4150
-F 0 "#PWR0112" H 5900 4000 50  0001 C CNN
-F 1 "+5V" H 5915 4323 50  0000 C CNN
-F 2 "" H 5900 4150 50  0001 C CNN
-F 3 "" H 5900 4150 50  0001 C CNN
-	1    5900 4150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5900 4150 5900 4300
-Wire Wire Line
-	5900 4300 6250 4300
-Wire Wire Line
-	5900 4300 5900 4400
-Wire Wire Line
-	5900 4400 6250 4400
-Connection ~ 5900 4300
-Wire Wire Line
-	5900 4400 5900 4500
-Wire Wire Line
-	5900 4500 6250 4500
-Connection ~ 5900 4400
-Wire Wire Line
-	6450 4300 6850 4300
-Wire Wire Line
-	6450 4400 6850 4400
-Wire Wire Line
-	6450 4500 6850 4500
-Text GLabel 6700 4200 0    50   Input ~ 0
-notEn
-Wire Wire Line
-	6700 4200 6850 4200
-$Comp
-L Device:Jumper_NO_Small JP7
-U 1 1 5DCE06CB
-P 6350 5850
-F 0 "JP7" H 6350 6035 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 5944 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 5850 50  0001 C CNN
-F 3 "~" H 6350 5850 50  0001 C CNN
-	1    6350 5850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP8
-U 1 1 5DCE06D1
-P 6350 5950
-F 0 "JP8" H 6350 6135 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 6044 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 5950 50  0001 C CNN
-F 3 "~" H 6350 5950 50  0001 C CNN
-	1    6350 5950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP9
-U 1 1 5DCE06D7
-P 6350 6050
-F 0 "JP9" H 6350 6235 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 6350 6144 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6350 6050 50  0001 C CNN
-F 3 "~" H 6350 6050 50  0001 C CNN
-	1    6350 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0117
-U 1 1 5DCE06DD
-P 5900 5700
-F 0 "#PWR0117" H 5900 5550 50  0001 C CNN
-F 1 "+5V" H 5915 5873 50  0000 C CNN
-F 2 "" H 5900 5700 50  0001 C CNN
-F 3 "" H 5900 5700 50  0001 C CNN
-	1    5900 5700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	5900 5700 5900 5850
-Wire Wire Line
-	5900 5850 6250 5850
-Wire Wire Line
-	5900 5850 5900 5950
-Wire Wire Line
-	5900 5950 6250 5950
-Connection ~ 5900 5850
-Wire Wire Line
-	5900 5950 5900 6050
-Wire Wire Line
-	5900 6050 6250 6050
-Connection ~ 5900 5950
-Wire Wire Line
-	6450 5850 6850 5850
-Wire Wire Line
-	6450 5950 6850 5950
-Wire Wire Line
-	6450 6050 6850 6050
-Text GLabel 6700 5750 0    50   Input ~ 0
-notEn
-Wire Wire Line
-	6700 5750 6850 5750
-$Comp
-L Device:Jumper_NO_Small JP16
-U 1 1 5DD03F6C
-P 9650 5850
-F 0 "JP16" H 9650 6035 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 5944 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 5850 50  0001 C CNN
-F 3 "~" H 9650 5850 50  0001 C CNN
-	1    9650 5850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP17
-U 1 1 5DD03F72
-P 9650 5950
-F 0 "JP17" H 9650 6135 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 6044 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 5950 50  0001 C CNN
-F 3 "~" H 9650 5950 50  0001 C CNN
-	1    9650 5950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP18
-U 1 1 5DD03F78
-P 9650 6050
-F 0 "JP18" H 9650 6235 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 6144 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 6050 50  0001 C CNN
-F 3 "~" H 9650 6050 50  0001 C CNN
-	1    9650 6050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0122
-U 1 1 5DD03F7E
-P 9200 5700
-F 0 "#PWR0122" H 9200 5550 50  0001 C CNN
-F 1 "+5V" H 9215 5873 50  0000 C CNN
-F 2 "" H 9200 5700 50  0001 C CNN
-F 3 "" H 9200 5700 50  0001 C CNN
-	1    9200 5700
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9200 5700 9200 5850
-Wire Wire Line
-	9200 5850 9550 5850
-Wire Wire Line
-	9200 5850 9200 5950
-Wire Wire Line
-	9200 5950 9550 5950
-Connection ~ 9200 5850
-Wire Wire Line
-	9200 5950 9200 6050
-Wire Wire Line
-	9200 6050 9550 6050
-Connection ~ 9200 5950
-Wire Wire Line
-	9750 5850 10150 5850
-Wire Wire Line
-	9750 5950 10150 5950
-Wire Wire Line
-	9750 6050 10150 6050
-Text GLabel 10000 5750 0    50   Input ~ 0
-notEn
-Wire Wire Line
-	10000 5750 10150 5750
-$Comp
-L Device:Jumper_NO_Small JP13
-U 1 1 5DD279EE
-P 9650 4300
-F 0 "JP13" H 9650 4485 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 4394 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 4300 50  0001 C CNN
-F 3 "~" H 9650 4300 50  0001 C CNN
-	1    9650 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP14
-U 1 1 5DD279F4
-P 9650 4400
-F 0 "JP14" H 9650 4585 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 4494 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 4400 50  0001 C CNN
-F 3 "~" H 9650 4400 50  0001 C CNN
-	1    9650 4400
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP15
-U 1 1 5DD279FA
-P 9650 4500
-F 0 "JP15" H 9650 4685 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 4594 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 4500 50  0001 C CNN
-F 3 "~" H 9650 4500 50  0001 C CNN
-	1    9650 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0127
-U 1 1 5DD27A00
-P 9200 4150
-F 0 "#PWR0127" H 9200 4000 50  0001 C CNN
-F 1 "+5V" H 9215 4323 50  0000 C CNN
-F 2 "" H 9200 4150 50  0001 C CNN
-F 3 "" H 9200 4150 50  0001 C CNN
-	1    9200 4150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9200 4150 9200 4300
-Wire Wire Line
-	9200 4300 9550 4300
-Wire Wire Line
-	9200 4300 9200 4400
-Wire Wire Line
-	9200 4400 9550 4400
-Connection ~ 9200 4300
-Wire Wire Line
-	9200 4400 9200 4500
-Wire Wire Line
-	9200 4500 9550 4500
-Connection ~ 9200 4400
-Wire Wire Line
-	9750 4300 10150 4300
-Wire Wire Line
-	9750 4400 10150 4400
-Wire Wire Line
-	9750 4500 10150 4500
-Text GLabel 10000 4200 0    50   Input ~ 0
-notEn
-Wire Wire Line
-	10000 4200 10150 4200
-$Comp
-L Device:Jumper_NO_Small JP10
-U 1 1 5DD4B51C
-P 9650 2650
-F 0 "JP10" H 9650 2835 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 2744 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 2650 50  0001 C CNN
-F 3 "~" H 9650 2650 50  0001 C CNN
-	1    9650 2650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP11
-U 1 1 5DD4B522
-P 9650 2750
-F 0 "JP11" H 9650 2935 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 2844 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 2750 50  0001 C CNN
-F 3 "~" H 9650 2750 50  0001 C CNN
-	1    9650 2750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Jumper_NO_Small JP12
-U 1 1 5DD4B528
-P 9650 2850
-F 0 "JP12" H 9650 3035 50  0001 C CNN
-F 1 "Jumper_NO_Small" H 9650 2944 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9650 2850 50  0001 C CNN
-F 3 "~" H 9650 2850 50  0001 C CNN
-	1    9650 2850
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0132
-U 1 1 5DD4B52E
-P 9200 2500
-F 0 "#PWR0132" H 9200 2350 50  0001 C CNN
-F 1 "+5V" H 9215 2673 50  0000 C CNN
-F 2 "" H 9200 2500 50  0001 C CNN
-F 3 "" H 9200 2500 50  0001 C CNN
-	1    9200 2500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9200 2500 9200 2650
-Wire Wire Line
-	9200 2650 9550 2650
-Wire Wire Line
-	9200 2650 9200 2750
-Wire Wire Line
-	9200 2750 9550 2750
-Connection ~ 9200 2650
-Wire Wire Line
-	9200 2750 9200 2850
-Wire Wire Line
-	9200 2850 9550 2850
-Connection ~ 9200 2750
-Wire Wire Line
-	9750 2650 10150 2650
-Wire Wire Line
-	9750 2750 10150 2750
-Wire Wire Line
-	9750 2850 10150 2850
-Text GLabel 10000 2550 0    50   Input ~ 0
-notEn
-Wire Wire Line
-	10000 2550 10150 2550
-$Comp
-L power:+5V #PWR0138
-U 1 1 5D5AC2CB
-P 14000 3650
-F 0 "#PWR0138" H 14000 3500 50  0001 C CNN
-F 1 "+5V" H 14015 3823 50  0000 C CNN
-F 2 "" H 14000 3650 50  0001 C CNN
-F 3 "" H 14000 3650 50  0001 C CNN
-	1    14000 3650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	13850 3850 14000 3850
-Wire Wire Line
-	14000 3650 14000 3850
-Wire Wire Line
-	13850 3950 14000 3950
-Wire Wire Line
-	14000 3950 14000 3850
-Connection ~ 14000 3850
-$Comp
-L Connector:Conn_01x13_Male J3
-U 1 1 5D554968
-P 13650 4450
-F 0 "J3" H 13758 5231 50  0000 C CNN
-F 1 "Conn_01x13_Male" H 13758 5140 50  0001 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x13_P2.54mm_Vertical" H 13650 4450 50  0001 C CNN
-F 3 "~" H 13650 4450 50  0001 C CNN
-	1    13650 4450
-	1    0    0    -1  
-$EndComp
-Text GLabel 14000 4050 2    50   Input ~ 0
-M3_LIMIT
-Wire Wire Line
-	13850 4050 14000 4050
-Text GLabel 14000 4150 2    50   Input ~ 0
-M5_LIMIT
-Wire Wire Line
-	13850 4150 14000 4150
-Text GLabel 14000 4250 2    50   Input ~ 0
+	1150 7350 2350 7350
+Text GLabel 1150 7150 0    50   Input ~ 0
 M1_LIMIT
-Wire Wire Line
-	13850 4250 14000 4250
-Text GLabel 14000 4350 2    50   Input ~ 0
-M4_LIMIT
-Wire Wire Line
-	13850 4350 14000 4350
-Text GLabel 14000 4450 2    50   Input ~ 0
-M2_LIMIT
-Wire Wire Line
-	13850 4450 14000 4450
-Text GLabel 14000 4550 2    50   Input ~ 0
-M6_LIMIT
-Wire Wire Line
-	13850 4550 14000 4550
-Text GLabel 1100 6100 0    50   Input ~ 0
-M3_LIMIT
-Text GLabel 1100 6200 0    50   Input ~ 0
-M5_LIMIT
-Text GLabel 1100 6400 0    50   Input ~ 0
-M4_LIMIT
-Text GLabel 1100 6500 0    50   Input ~ 0
-M2_LIMIT
-Text GLabel 1100 6650 0    50   Input ~ 0
-M6_LIMIT
-Wire Wire Line
-	4750 5000 5300 5000
-Connection ~ 4750 5000
-Wire Wire Line
-	4650 5150 5200 5150
 $Comp
-L Device:R R4
-U 1 1 5D80B410
-P 2600 7300
-F 0 "R4" H 2670 7346 50  0000 L CNN
-F 1 "10k" H 2670 7255 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2530 7300 50  0001 C CNN
-F 3 "~" H 2600 7300 50  0001 C CNN
-	1    2600 7300
+L Device:R R2
+U 1 1 5D9906ED
+P 1350 8150
+F 0 "R2" H 1420 8196 50  0000 L CNN
+F 1 "10k" H 1420 8105 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1280 8150 50  0001 C CNN
+F 3 "~" H 1350 8150 50  0001 C CNN
+	1    1350 8150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R3
+U 1 1 5D9906E6
+P 1600 8150
+F 0 "R3" H 1670 8196 50  0000 L CNN
+F 1 "10k" H 1670 8105 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1530 8150 50  0001 C CNN
+F 3 "~" H 1600 8150 50  0001 C CNN
+	1    1600 8150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 8450 2350 8450
+Connection ~ 2100 8450
+Wire Wire Line
+	2100 8300 2100 8450
+Wire Wire Line
+	1850 8450 2100 8450
+Wire Wire Line
+	1850 8300 1850 8450
+$Comp
+L Device:R R5
+U 1 1 5D837E40
+P 2350 8150
+F 0 "R5" H 2420 8196 50  0000 L CNN
+F 1 "10k" H 2420 8105 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2280 8150 50  0001 C CNN
+F 3 "~" H 2350 8150 50  0001 C CNN
+	1    2350 8150
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 13900 5800
+NoConn ~ 13900 5700
+NoConn ~ 13900 5600
+NoConn ~ 13900 5500
+NoConn ~ 4700 6200
+NoConn ~ 4700 6100
+NoConn ~ 4250 8900
+$Comp
+L Analog_Switch:MAX323CSA U7
+U 1 1 5D59BFBF
+P 4250 8700
+F 0 "U7" H 4250 8967 50  0000 C CNN
+F 1 "MAX323CSA" H 4250 8876 50  0000 C CNN
+F 2 "sb-cnc-shield-master:switch_13" H 4250 8600 50  0001 C CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf" H 4250 8700 50  0001 C CNN
+	1    4250 8700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5D9906F3
+P 1850 8150
+F 0 "R1" H 1920 8196 50  0000 L CNN
+F 1 "10k" H 1920 8105 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1780 8150 50  0001 C CNN
+F 3 "~" H 1850 8150 50  0001 C CNN
+	1    1850 8150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1600 8300 1600 8450
+Connection ~ 2350 8450
+Wire Wire Line
+	2350 8300 2350 8450
+Wire Wire Line
+	2650 8450 2350 8450
+Wire Wire Line
+	2650 8300 2650 8450
+$Comp
+L power:GND #PWR0139
+U 1 1 5D918486
+P 2350 8450
+F 0 "#PWR0139" H 2350 8200 50  0001 C CNN
+F 1 "GND" H 2355 8277 50  0000 C CNN
+F 2 "" H 2350 8450 50  0001 C CNN
+F 3 "" H 2350 8450 50  0001 C CNN
+	1    2350 8450
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R R6
 U 1 1 5D84DE77
-P 2050 7300
-F 0 "R6" H 2120 7346 50  0000 L CNN
-F 1 "10k" H 2120 7255 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1980 7300 50  0001 C CNN
-F 3 "~" H 2050 7300 50  0001 C CNN
-	1    2050 7300
+P 2100 8150
+F 0 "R6" H 2170 8196 50  0000 L CNN
+F 1 "10k" H 2170 8105 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2030 8150 50  0001 C CNN
+F 3 "~" H 2100 8150 50  0001 C CNN
+	1    2100 8150
 	-1   0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR0139
-U 1 1 5D918486
-P 2300 7600
-F 0 "#PWR0139" H 2300 7350 50  0001 C CNN
-F 1 "GND" H 2305 7427 50  0000 C CNN
-F 2 "" H 2300 7600 50  0001 C CNN
-F 3 "" H 2300 7600 50  0001 C CNN
-	1    2300 7600
+L Device:R R4
+U 1 1 5D80B410
+P 2650 8150
+F 0 "R4" H 2720 8196 50  0000 L CNN
+F 1 "10k" H 2720 8105 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2580 8150 50  0001 C CNN
+F 3 "~" H 2650 8150 50  0001 C CNN
+	1    2650 8150
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	2600 7450 2600 7600
+	4700 6000 5250 6000
+Connection ~ 4800 5850
 Wire Wire Line
-	2600 7600 2300 7600
+	4800 5850 5350 5850
+Text GLabel 1150 7500 0    50   Input ~ 0
+M6_LIMIT
+Text GLabel 1150 7350 0    50   Input ~ 0
+M2_LIMIT
+Text GLabel 1150 7250 0    50   Input ~ 0
+M4_LIMIT
+Text GLabel 1150 7050 0    50   Input ~ 0
+M5_LIMIT
+Text GLabel 1150 6950 0    50   Input ~ 0
+M3_LIMIT
 Wire Wire Line
-	2300 7450 2300 7600
-Connection ~ 2300 7600
+	13900 5400 14050 5400
+Text GLabel 14050 5400 2    50   Input ~ 0
+M6_LIMIT
 Wire Wire Line
-	1550 7450 1550 7600
-$Comp
-L Device:R R1
-U 1 1 5D9906F3
-P 1800 7300
-F 0 "R1" H 1870 7346 50  0000 L CNN
-F 1 "10k" H 1870 7255 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1730 7300 50  0001 C CNN
-F 3 "~" H 1800 7300 50  0001 C CNN
-	1    1800 7300
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Analog_Switch:MAX323CSA U7
-U 1 1 5D59BFBF
-P 4200 7850
-F 0 "U7" H 4200 8117 50  0000 C CNN
-F 1 "MAX323CSA" H 4200 8026 50  0000 C CNN
-F 2 "sb-cnc-shield-master:switch_13" H 4200 7750 50  0001 C CNN
-F 3 "https://datasheets.maximintegrated.com/en/ds/MAX323-MAX325.pdf" H 4200 7850 50  0001 C CNN
-	1    4200 7850
-	1    0    0    -1  
-$EndComp
-NoConn ~ 4200 8050
-NoConn ~ 4650 5250
-NoConn ~ 4650 5350
-NoConn ~ 13850 4650
-NoConn ~ 13850 4750
-NoConn ~ 13850 4850
-NoConn ~ 13850 4950
-$Comp
-L Device:R R5
-U 1 1 5D837E40
-P 2300 7300
-F 0 "R5" H 2370 7346 50  0000 L CNN
-F 1 "10k" H 2370 7255 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 2230 7300 50  0001 C CNN
-F 3 "~" H 2300 7300 50  0001 C CNN
-	1    2300 7300
-	-1   0    0    -1  
-$EndComp
+	13900 5300 14050 5300
+Text GLabel 14050 5300 2    50   Input ~ 0
+M2_LIMIT
 Wire Wire Line
-	1800 7450 1800 7600
+	13900 5200 14050 5200
+Text GLabel 14050 5200 2    50   Input ~ 0
+M4_LIMIT
 Wire Wire Line
-	1800 7600 2050 7600
-Wire Wire Line
-	2050 7450 2050 7600
-Connection ~ 2050 7600
-Wire Wire Line
-	2050 7600 2300 7600
-$Comp
-L Device:R R3
-U 1 1 5D9906E6
-P 1550 7300
-F 0 "R3" H 1620 7346 50  0000 L CNN
-F 1 "10k" H 1620 7255 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1480 7300 50  0001 C CNN
-F 3 "~" H 1550 7300 50  0001 C CNN
-	1    1550 7300
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:R R2
-U 1 1 5D9906ED
-P 1300 7300
-F 0 "R2" H 1370 7346 50  0000 L CNN
-F 1 "10k" H 1370 7255 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1230 7300 50  0001 C CNN
-F 3 "~" H 1300 7300 50  0001 C CNN
-	1    1300 7300
-	-1   0    0    -1  
-$EndComp
-Text GLabel 1100 6300 0    50   Input ~ 0
+	13900 5100 14050 5100
+Text GLabel 14050 5100 2    50   Input ~ 0
 M1_LIMIT
 Wire Wire Line
-	1100 6500 2300 6500
+	13900 5000 14050 5000
+Text GLabel 14050 5000 2    50   Input ~ 0
+M5_LIMIT
 Wire Wire Line
-	2600 7150 2600 6650
-Connection ~ 2600 6650
-Wire Wire Line
-	2600 6650 2750 6650
-Wire Wire Line
-	1100 6650 2600 6650
-Wire Wire Line
-	2300 7150 2300 6500
-Connection ~ 2300 6500
-Wire Wire Line
-	2300 6500 2750 6500
-Wire Wire Line
-	2050 7150 2050 6400
-Wire Wire Line
-	1100 6400 2050 6400
-Connection ~ 2050 6400
-Wire Wire Line
-	2050 6400 2750 6400
-Wire Wire Line
-	1800 7150 1800 6300
-Wire Wire Line
-	1100 6300 1800 6300
-Connection ~ 1800 6300
-Wire Wire Line
-	1800 6300 2750 6300
-Wire Wire Line
-	1100 6200 1550 6200
-Connection ~ 1550 6200
-Wire Wire Line
-	1550 6200 2750 6200
-Wire Wire Line
-	1300 7150 1300 6100
-Wire Wire Line
-	1100 6100 1300 6100
-Connection ~ 1300 6100
-Wire Wire Line
-	1300 6100 2750 6100
-Wire Wire Line
-	1550 7600 1800 7600
-Connection ~ 1800 7600
-Wire Wire Line
-	1300 7600 1550 7600
-Connection ~ 1550 7600
-Wire Wire Line
-	1300 7450 1300 7600
-Text GLabel 2750 6950 0    50   Input ~ 0
-M5_STEP
-Wire Wire Line
-	1550 6200 1550 7150
-NoConn ~ 2750 6750
+	13900 4900 14050 4900
+Text GLabel 14050 4900 2    50   Input ~ 0
+M3_LIMIT
 $Comp
-L robko_PCB_arduino_shield-rescue:ARDUINO_MEGA_SHIELD-arduino_shieldsNCL SHIELD1
-U 1 1 5D595715
-P 3750 4500
-F 0 "SHIELD1" H 3700 7137 60  0000 C CNN
-F 1 "ARDUINO_MEGA_SHIELD" H 3700 7031 60  0000 C CNN
-F 2 "sb-cnc-shield-master:ARDUINO_MEGA_SHIELD" H 3750 4500 50  0001 C CNN
-F 3 "" H 3750 4500 50  0001 C CNN
-	1    3750 4500
+L Connector:Conn_01x13_Male J3
+U 1 1 5D554968
+P 13700 5300
+F 0 "J3" H 13808 6081 50  0000 C CNN
+F 1 "Conn_01x13_Male" H 13808 5990 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x13_P2.54mm_Vertical" H 13700 5300 50  0001 C CNN
+F 3 "~" H 13700 5300 50  0001 C CNN
+	1    13700 5300
 	1    0    0    -1  
 $EndComp
+Connection ~ 14050 4700
+Wire Wire Line
+	14050 4800 14050 4700
+Wire Wire Line
+	13900 4800 14050 4800
+Wire Wire Line
+	14050 4500 14050 4700
+Wire Wire Line
+	13900 4700 14050 4700
+$Comp
+L power:+5V #PWR0138
+U 1 1 5D5AC2CB
+P 14050 4500
+F 0 "#PWR0138" H 14050 4350 50  0001 C CNN
+F 1 "+5V" H 14065 4673 50  0000 C CNN
+F 2 "" H 14050 4500 50  0001 C CNN
+F 3 "" H 14050 4500 50  0001 C CNN
+	1    14050 4500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10050 3400 10200 3400
+Text GLabel 10050 3400 0    50   Input ~ 0
+notEn
+Wire Wire Line
+	9800 3700 10200 3700
+Wire Wire Line
+	9800 3600 10200 3600
+Wire Wire Line
+	9800 3500 10200 3500
+Connection ~ 9250 3600
+Wire Wire Line
+	9250 3700 9600 3700
+Wire Wire Line
+	9250 3600 9250 3700
+Connection ~ 9250 3500
+Wire Wire Line
+	9250 3600 9600 3600
+Wire Wire Line
+	9250 3500 9250 3600
+Wire Wire Line
+	9250 3500 9600 3500
+Wire Wire Line
+	9250 3350 9250 3500
+$Comp
+L power:+5V #PWR0132
+U 1 1 5DD4B52E
+P 9250 3350
+F 0 "#PWR0132" H 9250 3200 50  0001 C CNN
+F 1 "+5V" H 9265 3523 50  0000 C CNN
+F 2 "" H 9250 3350 50  0001 C CNN
+F 3 "" H 9250 3350 50  0001 C CNN
+	1    9250 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP12
+U 1 1 5DD4B528
+P 9700 3700
+F 0 "JP12" H 9700 3885 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 3794 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 3700 50  0001 C CNN
+F 3 "~" H 9700 3700 50  0001 C CNN
+	1    9700 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP11
+U 1 1 5DD4B522
+P 9700 3600
+F 0 "JP11" H 9700 3785 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 3694 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 3600 50  0001 C CNN
+F 3 "~" H 9700 3600 50  0001 C CNN
+	1    9700 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP10
+U 1 1 5DD4B51C
+P 9700 3500
+F 0 "JP10" H 9700 3685 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 3594 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 3500 50  0001 C CNN
+F 3 "~" H 9700 3500 50  0001 C CNN
+	1    9700 3500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10050 5050 10200 5050
+Text GLabel 10050 5050 0    50   Input ~ 0
+notEn
+Wire Wire Line
+	9800 5350 10200 5350
+Wire Wire Line
+	9800 5250 10200 5250
+Wire Wire Line
+	9800 5150 10200 5150
+Connection ~ 9250 5250
+Wire Wire Line
+	9250 5350 9600 5350
+Wire Wire Line
+	9250 5250 9250 5350
+Connection ~ 9250 5150
+Wire Wire Line
+	9250 5250 9600 5250
+Wire Wire Line
+	9250 5150 9250 5250
+Wire Wire Line
+	9250 5150 9600 5150
+Wire Wire Line
+	9250 5000 9250 5150
+$Comp
+L power:+5V #PWR0127
+U 1 1 5DD27A00
+P 9250 5000
+F 0 "#PWR0127" H 9250 4850 50  0001 C CNN
+F 1 "+5V" H 9265 5173 50  0000 C CNN
+F 2 "" H 9250 5000 50  0001 C CNN
+F 3 "" H 9250 5000 50  0001 C CNN
+	1    9250 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP15
+U 1 1 5DD279FA
+P 9700 5350
+F 0 "JP15" H 9700 5535 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 5444 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 5350 50  0001 C CNN
+F 3 "~" H 9700 5350 50  0001 C CNN
+	1    9700 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP14
+U 1 1 5DD279F4
+P 9700 5250
+F 0 "JP14" H 9700 5435 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 5344 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 5250 50  0001 C CNN
+F 3 "~" H 9700 5250 50  0001 C CNN
+	1    9700 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP13
+U 1 1 5DD279EE
+P 9700 5150
+F 0 "JP13" H 9700 5335 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 5244 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 5150 50  0001 C CNN
+F 3 "~" H 9700 5150 50  0001 C CNN
+	1    9700 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10050 6600 10200 6600
+Text GLabel 10050 6600 0    50   Input ~ 0
+notEn
+Wire Wire Line
+	9800 6900 10200 6900
+Wire Wire Line
+	9800 6800 10200 6800
+Wire Wire Line
+	9800 6700 10200 6700
+Connection ~ 9250 6800
+Wire Wire Line
+	9250 6900 9600 6900
+Wire Wire Line
+	9250 6800 9250 6900
+Connection ~ 9250 6700
+Wire Wire Line
+	9250 6800 9600 6800
+Wire Wire Line
+	9250 6700 9250 6800
+Wire Wire Line
+	9250 6700 9600 6700
+Wire Wire Line
+	9250 6550 9250 6700
+$Comp
+L power:+5V #PWR0122
+U 1 1 5DD03F7E
+P 9250 6550
+F 0 "#PWR0122" H 9250 6400 50  0001 C CNN
+F 1 "+5V" H 9265 6723 50  0000 C CNN
+F 2 "" H 9250 6550 50  0001 C CNN
+F 3 "" H 9250 6550 50  0001 C CNN
+	1    9250 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP18
+U 1 1 5DD03F78
+P 9700 6900
+F 0 "JP18" H 9700 7085 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 6994 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 6900 50  0001 C CNN
+F 3 "~" H 9700 6900 50  0001 C CNN
+	1    9700 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP17
+U 1 1 5DD03F72
+P 9700 6800
+F 0 "JP17" H 9700 6985 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 6894 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 6800 50  0001 C CNN
+F 3 "~" H 9700 6800 50  0001 C CNN
+	1    9700 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP16
+U 1 1 5DD03F6C
+P 9700 6700
+F 0 "JP16" H 9700 6885 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 9700 6794 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 9700 6700 50  0001 C CNN
+F 3 "~" H 9700 6700 50  0001 C CNN
+	1    9700 6700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 6600 6900 6600
+Text GLabel 6750 6600 0    50   Input ~ 0
+notEn
+Wire Wire Line
+	6500 6900 6900 6900
+Wire Wire Line
+	6500 6800 6900 6800
+Wire Wire Line
+	6500 6700 6900 6700
+Connection ~ 5950 6800
+Wire Wire Line
+	5950 6900 6300 6900
+Wire Wire Line
+	5950 6800 5950 6900
+Connection ~ 5950 6700
+Wire Wire Line
+	5950 6800 6300 6800
+Wire Wire Line
+	5950 6700 5950 6800
+Wire Wire Line
+	5950 6700 6300 6700
+Wire Wire Line
+	5950 6550 5950 6700
+$Comp
+L power:+5V #PWR0117
+U 1 1 5DCE06DD
+P 5950 6550
+F 0 "#PWR0117" H 5950 6400 50  0001 C CNN
+F 1 "+5V" H 5965 6723 50  0000 C CNN
+F 2 "" H 5950 6550 50  0001 C CNN
+F 3 "" H 5950 6550 50  0001 C CNN
+	1    5950 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP9
+U 1 1 5DCE06D7
+P 6400 6900
+F 0 "JP9" H 6400 7085 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 6994 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 6900 50  0001 C CNN
+F 3 "~" H 6400 6900 50  0001 C CNN
+	1    6400 6900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP8
+U 1 1 5DCE06D1
+P 6400 6800
+F 0 "JP8" H 6400 6985 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 6894 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 6800 50  0001 C CNN
+F 3 "~" H 6400 6800 50  0001 C CNN
+	1    6400 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP7
+U 1 1 5DCE06CB
+P 6400 6700
+F 0 "JP7" H 6400 6885 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 6794 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 6700 50  0001 C CNN
+F 3 "~" H 6400 6700 50  0001 C CNN
+	1    6400 6700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 5050 6900 5050
+Text GLabel 6750 5050 0    50   Input ~ 0
+notEn
+Wire Wire Line
+	6500 5350 6900 5350
+Wire Wire Line
+	6500 5250 6900 5250
+Wire Wire Line
+	6500 5150 6900 5150
+Connection ~ 5950 5250
+Wire Wire Line
+	5950 5350 6300 5350
+Wire Wire Line
+	5950 5250 5950 5350
+Connection ~ 5950 5150
+Wire Wire Line
+	5950 5250 6300 5250
+Wire Wire Line
+	5950 5150 5950 5250
+Wire Wire Line
+	5950 5150 6300 5150
+Wire Wire Line
+	5950 5000 5950 5150
+$Comp
+L power:+5V #PWR0112
+U 1 1 5DCBE1E3
+P 5950 5000
+F 0 "#PWR0112" H 5950 4850 50  0001 C CNN
+F 1 "+5V" H 5965 5173 50  0000 C CNN
+F 2 "" H 5950 5000 50  0001 C CNN
+F 3 "" H 5950 5000 50  0001 C CNN
+	1    5950 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP6
+U 1 1 5DCBE1DD
+P 6400 5350
+F 0 "JP6" H 6400 5535 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 5444 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 5350 50  0001 C CNN
+F 3 "~" H 6400 5350 50  0001 C CNN
+	1    6400 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP5
+U 1 1 5DCBE1D7
+P 6400 5250
+F 0 "JP5" H 6400 5435 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 5344 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 5250 50  0001 C CNN
+F 3 "~" H 6400 5250 50  0001 C CNN
+	1    6400 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP4
+U 1 1 5DCBE1D1
+P 6400 5150
+F 0 "JP4" H 6400 5335 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 5244 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 5150 50  0001 C CNN
+F 3 "~" H 6400 5150 50  0001 C CNN
+	1    6400 5150
+	1    0    0    -1  
+$EndComp
+NoConn ~ 14950 5850
+NoConn ~ 13900 5900
+NoConn ~ 12750 5900
+Wire Wire Line
+	4800 5750 4800 5850
+Wire Wire Line
+	4700 5750 4800 5750
+Wire Wire Line
+	4700 5850 4800 5850
+$Comp
+L power:+5V #PWR0137
+U 1 1 5DB630B5
+P 5350 5850
+F 0 "#PWR0137" H 5350 5700 50  0001 C CNN
+F 1 "+5V" H 5365 6023 50  0000 C CNN
+F 2 "" H 5350 5850 50  0001 C CNN
+F 3 "" H 5350 5850 50  0001 C CNN
+	1    5350 5850
+	1    0    0    -1  
+$EndComp
+NoConn ~ 4700 3000
+NoConn ~ 4700 3200
+NoConn ~ 4700 3300
+NoConn ~ 4700 3400
+NoConn ~ 4700 3500
+NoConn ~ 4700 3600
+NoConn ~ 4700 3700
+NoConn ~ 4700 3900
+NoConn ~ 4700 4000
+NoConn ~ 4700 4100
+NoConn ~ 4700 4200
+NoConn ~ 4700 4300
+NoConn ~ 4700 4400
+NoConn ~ 4700 4500
+NoConn ~ 4700 4600
+NoConn ~ 4700 4800
+NoConn ~ 4700 4900
+NoConn ~ 4700 5000
+NoConn ~ 4700 5100
+NoConn ~ 4700 5200
+NoConn ~ 4700 5300
+NoConn ~ 2800 6750
+NoConn ~ 2800 6500
+NoConn ~ 2800 6300
+NoConn ~ 2800 5700
+NoConn ~ 2800 5600
+NoConn ~ 2800 5500
+NoConn ~ 2800 5400
+NoConn ~ 2800 5300
+NoConn ~ 2800 5200
+NoConn ~ 2800 5100
+NoConn ~ 2800 5000
+NoConn ~ 2800 4800
+NoConn ~ 2800 4700
+NoConn ~ 2800 4600
+NoConn ~ 2800 4500
+NoConn ~ 2800 4400
+NoConn ~ 2800 4300
+NoConn ~ 2800 4200
+NoConn ~ 2800 4100
+NoConn ~ 2800 3900
+NoConn ~ 2800 3500
+NoConn ~ 2800 3400
+Wire Wire Line
+	4700 6700 4800 6700
+Wire Wire Line
+	4700 7250 4800 7250
+Wire Wire Line
+	4700 7150 4800 7150
+Text GLabel 4700 7550 2    50   Input ~ 0
+M6_DIR
+Text GLabel 4700 7450 2    50   Input ~ 0
+M6_STEP
+Wire Wire Line
+	4700 7050 4800 7050
+Wire Wire Line
+	4700 6950 4800 6950
+Text GLabel 2800 7700 0    50   Input ~ 0
+M5_DIR
+Wire Wire Line
+	4700 6850 4800 6850
+Text GLabel 2700 6850 0    50   Input ~ 0
+M4_DIR
+Text GLabel 2700 6650 0    50   Input ~ 0
+M4_STEP
+Connection ~ 11600 6700
+Wire Wire Line
+	11600 6700 12200 6700
+Connection ~ 11600 6400
+Wire Wire Line
+	11600 6400 12200 6400
+Wire Wire Line
+	11250 6400 11600 6400
+Wire Wire Line
+	11250 6600 11250 6400
+Wire Wire Line
+	11100 6600 11250 6600
+$Comp
+L Device:CP C6
+U 1 1 5D662A7F
+P 11600 6550
+F 0 "C6" H 11718 6596 50  0000 L CNN
+F 1 "100uF" H 11718 6505 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 11638 6400 50  0001 C CNN
+F 3 "~" H 11600 6550 50  0001 C CNN
+	1    11600 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11100 6700 11600 6700
+$Comp
+L power:GNDA #PWR0136
+U 1 1 5D662A78
+P 12200 6700
+F 0 "#PWR0136" H 12200 6450 50  0001 C CNN
+F 1 "GNDA" H 12205 6527 50  0000 C CNN
+F 2 "" H 12200 6700 50  0001 C CNN
+F 3 "" H 12200 6700 50  0001 C CNN
+	1    12200 6700
+	1    0    0    1   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0135
+U 1 1 5D662A72
+P 12200 6400
+F 0 "#PWR0135" H 12200 6250 50  0001 C CNN
+F 1 "VIN" H 12215 6573 50  0000 C CNN
+F 2 "" H 12200 6400 60  0000 C CNN
+F 3 "" H 12200 6400 60  0000 C CNN
+	1    12200 6400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11100 7100 11300 7100
+Wire Wire Line
+	11100 7000 11300 7000
+Wire Wire Line
+	11100 6900 11300 6900
+Wire Wire Line
+	11100 6800 11300 6800
+Text GLabel 11300 7100 2    50   Input ~ 0
+M6_4
+Text GLabel 11300 7000 2    50   Input ~ 0
+M6_3
+Text GLabel 11300 6900 2    50   Input ~ 0
+M6_2
+Text GLabel 11300 6800 2    50   Input ~ 0
+M6_1
+Wire Wire Line
+	10100 7300 10200 7300
+Wire Wire Line
+	10100 7200 10200 7200
+Wire Wire Line
+	11250 7300 11250 7400
+Wire Wire Line
+	11100 7300 11250 7300
+Text GLabel 10100 7300 0    50   Input ~ 0
+M6_DIR
+Text GLabel 10100 7200 0    50   Input ~ 0
+M6_STEP
+Wire Wire Line
+	10100 7100 10200 7100
+Wire Wire Line
+	10100 7000 10100 7100
+Wire Wire Line
+	10200 7000 10100 7000
+$Comp
+L power:GND #PWR0134
+U 1 1 5D662A5A
+P 11250 7400
+F 0 "#PWR0134" H 11250 7150 50  0001 C CNN
+F 1 "GND" H 11255 7227 50  0000 C CNN
+F 2 "" H 11250 7400 50  0001 C CNN
+F 3 "" H 11250 7400 50  0001 C CNN
+	1    11250 7400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11100 7200 11550 7200
+$Comp
+L power:+5V #PWR0133
+U 1 1 5D662A53
+P 11550 7200
+F 0 "#PWR0133" H 11550 7050 50  0001 C CNN
+F 1 "+5V" V 11565 7328 50  0000 L CNN
+F 2 "" H 11550 7200 50  0001 C CNN
+F 3 "" H 11550 7200 50  0001 C CNN
+	1    11550 7200
+	0    1    1    0   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_6
+U 1 1 5D662A29
+P 10650 7000
+F 0 "a4988_6" H 10650 7647 60  0000 C CNN
+F 1 "POLOLU_STEPPER_DRIVER" H 10650 7541 60  0001 C CNN
+F 2 "sb-cnc-shield-master:a4988_shield" H 10650 7000 60  0001 C CNN
+F 3 "" H 10650 7000 60  0000 C CNN
+	1    10650 7000
+	1    0    0    -1  
+$EndComp
+Connection ~ 11600 5150
+Wire Wire Line
+	11600 5150 12200 5150
+Connection ~ 11600 4850
+Wire Wire Line
+	11600 4850 12200 4850
+Wire Wire Line
+	11250 4850 11600 4850
+Wire Wire Line
+	11250 5050 11250 4850
+Wire Wire Line
+	11100 5050 11250 5050
+$Comp
+L Device:CP C5
+U 1 1 5D662A1C
+P 11600 5000
+F 0 "C5" H 11718 5046 50  0000 L CNN
+F 1 "100uF" H 11718 4955 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 11638 4850 50  0001 C CNN
+F 3 "~" H 11600 5000 50  0001 C CNN
+	1    11600 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11100 5150 11600 5150
+$Comp
+L power:GNDA #PWR0131
+U 1 1 5D662A15
+P 12200 5150
+F 0 "#PWR0131" H 12200 4900 50  0001 C CNN
+F 1 "GNDA" H 12205 4977 50  0000 C CNN
+F 2 "" H 12200 5150 50  0001 C CNN
+F 3 "" H 12200 5150 50  0001 C CNN
+	1    12200 5150
+	1    0    0    1   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0130
+U 1 1 5D662A0F
+P 12200 4850
+F 0 "#PWR0130" H 12200 4700 50  0001 C CNN
+F 1 "VIN" H 12215 5023 50  0000 C CNN
+F 2 "" H 12200 4850 60  0000 C CNN
+F 3 "" H 12200 4850 60  0000 C CNN
+	1    12200 4850
+	1    0    0    -1  
+$EndComp
+Connection ~ 11600 3500
+Wire Wire Line
+	11600 3500 12200 3500
+Connection ~ 11600 3200
+Wire Wire Line
+	11600 3200 12200 3200
+Wire Wire Line
+	11250 3200 11600 3200
+Wire Wire Line
+	11250 3400 11250 3200
+Wire Wire Line
+	11100 3400 11250 3400
+Wire Wire Line
+	11100 5550 11300 5550
+Wire Wire Line
+	11100 5450 11300 5450
+Wire Wire Line
+	11100 5350 11300 5350
+Wire Wire Line
+	11100 5250 11300 5250
+Text GLabel 11300 5550 2    50   Input ~ 0
+M5_4
+Text GLabel 11300 5450 2    50   Input ~ 0
+M5_3
+Text GLabel 11300 5350 2    50   Input ~ 0
+M5_2
+Text GLabel 11300 5250 2    50   Input ~ 0
+M5_1
+Wire Wire Line
+	10100 5750 10200 5750
+Wire Wire Line
+	10100 5650 10200 5650
+Wire Wire Line
+	11250 5750 11250 5850
+Wire Wire Line
+	11100 5750 11250 5750
+Text GLabel 10100 5750 0    50   Input ~ 0
+M5_DIR
+Text GLabel 10100 5650 0    50   Input ~ 0
+M5_STEP
+Wire Wire Line
+	10100 5550 10200 5550
+Wire Wire Line
+	10100 5450 10100 5550
+Wire Wire Line
+	10200 5450 10100 5450
+$Comp
+L power:GND #PWR0129
+U 1 1 5D6629F0
+P 11250 5850
+F 0 "#PWR0129" H 11250 5600 50  0001 C CNN
+F 1 "GND" H 11255 5677 50  0000 C CNN
+F 2 "" H 11250 5850 50  0001 C CNN
+F 3 "" H 11250 5850 50  0001 C CNN
+	1    11250 5850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11100 5650 11550 5650
+$Comp
+L power:+5V #PWR0128
+U 1 1 5D6629E9
+P 11550 5650
+F 0 "#PWR0128" H 11550 5500 50  0001 C CNN
+F 1 "+5V" V 11565 5778 50  0000 L CNN
+F 2 "" H 11550 5650 50  0001 C CNN
+F 3 "" H 11550 5650 50  0001 C CNN
+	1    11550 5650
+	0    1    1    0   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_5
+U 1 1 5D6629BF
+P 10650 5450
+F 0 "a4988_5" H 10650 6097 60  0000 C CNN
+F 1 "POLOLU_STEPPER_DRIVER" H 10650 5991 60  0001 C CNN
+F 2 "sb-cnc-shield-master:a4988_shield" H 10650 5450 60  0001 C CNN
+F 3 "" H 10650 5450 60  0000 C CNN
+	1    10650 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C4
+U 1 1 5D6629B9
+P 11600 3350
+F 0 "C4" H 11718 3396 50  0000 L CNN
+F 1 "100uF" H 11718 3305 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 11638 3200 50  0001 C CNN
+F 3 "~" H 11600 3350 50  0001 C CNN
+	1    11600 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11100 3900 11300 3900
+Wire Wire Line
+	11100 3800 11300 3800
+Wire Wire Line
+	11100 3700 11300 3700
+Wire Wire Line
+	11100 3600 11300 3600
+Text GLabel 11300 3900 2    50   Input ~ 0
+M4_4
+Text GLabel 11300 3800 2    50   Input ~ 0
+M4_3
+Text GLabel 11300 3700 2    50   Input ~ 0
+M4_2
+Text GLabel 11300 3600 2    50   Input ~ 0
+M4_1
+Wire Wire Line
+	11100 3500 11600 3500
+$Comp
+L power:GNDA #PWR0126
+U 1 1 5D6629AA
+P 12200 3500
+F 0 "#PWR0126" H 12200 3250 50  0001 C CNN
+F 1 "GNDA" H 12205 3327 50  0000 C CNN
+F 2 "" H 12200 3500 50  0001 C CNN
+F 3 "" H 12200 3500 50  0001 C CNN
+	1    12200 3500
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	10100 4100 10200 4100
+Wire Wire Line
+	10100 4000 10200 4000
+Wire Wire Line
+	11250 4100 11250 4200
+Wire Wire Line
+	11100 4100 11250 4100
+Text GLabel 10100 4100 0    50   Input ~ 0
+M4_DIR
+Text GLabel 10100 4000 0    50   Input ~ 0
+M4_STEP
+Wire Wire Line
+	10100 3900 10200 3900
+Wire Wire Line
+	10100 3800 10100 3900
+Wire Wire Line
+	10200 3800 10100 3800
+$Comp
+L power:GND #PWR0125
+U 1 1 5D66299A
+P 11250 4200
+F 0 "#PWR0125" H 11250 3950 50  0001 C CNN
+F 1 "GND" H 11255 4027 50  0000 C CNN
+F 2 "" H 11250 4200 50  0001 C CNN
+F 3 "" H 11250 4200 50  0001 C CNN
+	1    11250 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11100 4000 11550 4000
+$Comp
+L power:+5V #PWR0124
+U 1 1 5D662993
+P 11550 4000
+F 0 "#PWR0124" H 11550 3850 50  0001 C CNN
+F 1 "+5V" V 11565 4128 50  0000 L CNN
+F 2 "" H 11550 4000 50  0001 C CNN
+F 3 "" H 11550 4000 50  0001 C CNN
+	1    11550 4000
+	0    1    1    0   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0123
+U 1 1 5D66298D
+P 12200 3200
+F 0 "#PWR0123" H 12200 3050 50  0001 C CNN
+F 1 "VIN" H 12215 3373 50  0000 C CNN
+F 2 "" H 12200 3200 60  0000 C CNN
+F 3 "" H 12200 3200 60  0000 C CNN
+	1    12200 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_4
+U 1 1 5D662963
+P 10650 3800
+F 0 "a4988_4" H 10650 4447 60  0000 C CNN
+F 1 "POLOLU_STEPPER_DRIVER" H 10650 4341 60  0001 C CNN
+F 2 "sb-cnc-shield-master:a4988_shield" H 10650 3800 60  0001 C CNN
+F 3 "" H 10650 3800 60  0000 C CNN
+	1    10650 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	14950 5750 15100 5750
+Wire Wire Line
+	14950 5650 15100 5650
+Wire Wire Line
+	14950 5550 15100 5550
+Wire Wire Line
+	14950 5450 15100 5450
+Text GLabel 15100 5450 2    50   Input ~ 0
+M6_4
+Text GLabel 15100 5550 2    50   Input ~ 0
+M6_3
+Text GLabel 15100 5650 2    50   Input ~ 0
+M6_2
+Text GLabel 15100 5750 2    50   Input ~ 0
+M6_1
+Wire Wire Line
+	14950 5050 15400 5050
+Wire Wire Line
+	14950 5150 15400 5150
+Wire Wire Line
+	14950 5250 15400 5250
+Wire Wire Line
+	14950 5350 15400 5350
+Text GLabel 15400 5050 2    50   Input ~ 0
+M5_4
+Text GLabel 15400 5150 2    50   Input ~ 0
+M5_3
+Text GLabel 15400 5250 2    50   Input ~ 0
+M5_2
+Text GLabel 15400 5350 2    50   Input ~ 0
+M5_1
+Wire Wire Line
+	14950 4650 15100 4650
+Wire Wire Line
+	14950 4750 15100 4750
+Wire Wire Line
+	14950 4850 15100 4850
+Wire Wire Line
+	14950 4950 15100 4950
+Text GLabel 15100 4950 2    50   Input ~ 0
+M4_4
+Text GLabel 15100 4850 2    50   Input ~ 0
+M4_3
+Text GLabel 15100 4750 2    50   Input ~ 0
+M4_2
+Text GLabel 15100 4650 2    50   Input ~ 0
+M4_1
+Wire Wire Line
+	4700 6600 4800 6600
+Wire Wire Line
+	4700 6500 4800 6500
+Text GLabel 4700 5400 2    50   Input ~ 0
+M3_DIR
+Text GLabel 4700 5500 2    50   Input ~ 0
+M3_STEP
+Connection ~ 8300 6700
+Wire Wire Line
+	8300 6700 8900 6700
+Connection ~ 8300 6400
+Wire Wire Line
+	8300 6400 8900 6400
+Wire Wire Line
+	7950 6400 8300 6400
+Wire Wire Line
+	7950 6600 7950 6400
+Wire Wire Line
+	7800 6600 7950 6600
+$Comp
+L Device:CP C3
+U 1 1 5D62771C
+P 8300 6550
+F 0 "C3" H 8418 6596 50  0000 L CNN
+F 1 "100uF" H 8418 6505 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 8338 6400 50  0001 C CNN
+F 3 "~" H 8300 6550 50  0001 C CNN
+	1    8300 6550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 6700 8300 6700
+$Comp
+L power:GNDA #PWR0121
+U 1 1 5D627715
+P 8900 6700
+F 0 "#PWR0121" H 8900 6450 50  0001 C CNN
+F 1 "GNDA" H 8905 6527 50  0000 C CNN
+F 2 "" H 8900 6700 50  0001 C CNN
+F 3 "" H 8900 6700 50  0001 C CNN
+	1    8900 6700
+	1    0    0    1   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0120
+U 1 1 5D62770F
+P 8900 6400
+F 0 "#PWR0120" H 8900 6250 50  0001 C CNN
+F 1 "VIN" H 8915 6573 50  0000 C CNN
+F 2 "" H 8900 6400 60  0000 C CNN
+F 3 "" H 8900 6400 60  0000 C CNN
+	1    8900 6400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 7100 8000 7100
+Wire Wire Line
+	7800 7000 8000 7000
+Wire Wire Line
+	7800 6900 8000 6900
+Wire Wire Line
+	7800 6800 8000 6800
+Text GLabel 8000 7100 2    50   Input ~ 0
+M3_4
+Text GLabel 8000 7000 2    50   Input ~ 0
+M3_3
+Text GLabel 8000 6900 2    50   Input ~ 0
+M3_2
+Text GLabel 8000 6800 2    50   Input ~ 0
+M3_1
+Wire Wire Line
+	6800 7300 6900 7300
+Wire Wire Line
+	6800 7200 6900 7200
+Wire Wire Line
+	7950 7300 7950 7400
+Wire Wire Line
+	7800 7300 7950 7300
+Text GLabel 6800 7300 0    50   Input ~ 0
+M3_DIR
+Text GLabel 6800 7200 0    50   Input ~ 0
+M3_STEP
+Wire Wire Line
+	6800 7100 6900 7100
+Wire Wire Line
+	6800 7000 6800 7100
+Wire Wire Line
+	6900 7000 6800 7000
+$Comp
+L power:GND #PWR0119
+U 1 1 5D6276F7
+P 7950 7400
+F 0 "#PWR0119" H 7950 7150 50  0001 C CNN
+F 1 "GND" H 7955 7227 50  0000 C CNN
+F 2 "" H 7950 7400 50  0001 C CNN
+F 3 "" H 7950 7400 50  0001 C CNN
+	1    7950 7400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 7200 8250 7200
+$Comp
+L power:+5V #PWR0118
+U 1 1 5D6276F0
+P 8250 7200
+F 0 "#PWR0118" H 8250 7050 50  0001 C CNN
+F 1 "+5V" V 8265 7328 50  0000 L CNN
+F 2 "" H 8250 7200 50  0001 C CNN
+F 3 "" H 8250 7200 50  0001 C CNN
+	1    8250 7200
+	0    1    1    0   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_3
+U 1 1 5D6276C6
+P 7350 7000
+F 0 "a4988_3" H 7350 7647 60  0000 C CNN
+F 1 "POLOLU_STEPPER_DRIVER" H 7350 7541 60  0001 C CNN
+F 2 "sb-cnc-shield-master:a4988_shield" H 7350 7000 60  0001 C CNN
+F 3 "" H 7350 7000 60  0000 C CNN
+	1    7350 7000
+	1    0    0    -1  
+$EndComp
+Connection ~ 8300 5150
+Wire Wire Line
+	8300 5150 8900 5150
+Connection ~ 8300 4850
+Wire Wire Line
+	8300 4850 8900 4850
+Wire Wire Line
+	7950 4850 8300 4850
+Wire Wire Line
+	7950 5050 7950 4850
+Wire Wire Line
+	7800 5050 7950 5050
+$Comp
+L Device:CP C2
+U 1 1 5D61E89A
+P 8300 5000
+F 0 "C2" H 8418 5046 50  0000 L CNN
+F 1 "100uF" H 8418 4955 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 8338 4850 50  0001 C CNN
+F 3 "~" H 8300 5000 50  0001 C CNN
+	1    8300 5000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 5150 8300 5150
+$Comp
+L power:GNDA #PWR0116
+U 1 1 5D61E893
+P 8900 5150
+F 0 "#PWR0116" H 8900 4900 50  0001 C CNN
+F 1 "GNDA" H 8905 4977 50  0000 C CNN
+F 2 "" H 8900 5150 50  0001 C CNN
+F 3 "" H 8900 5150 50  0001 C CNN
+	1    8900 5150
+	1    0    0    1   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0115
+U 1 1 5D61E88D
+P 8900 4850
+F 0 "#PWR0115" H 8900 4700 50  0001 C CNN
+F 1 "VIN" H 8915 5023 50  0000 C CNN
+F 2 "" H 8900 4850 60  0000 C CNN
+F 3 "" H 8900 4850 60  0000 C CNN
+	1    8900 4850
+	1    0    0    -1  
+$EndComp
+Connection ~ 8300 3500
+Wire Wire Line
+	8300 3500 8900 3500
+Connection ~ 8300 3200
+Wire Wire Line
+	8300 3200 8900 3200
+Wire Wire Line
+	7950 3200 8300 3200
+Wire Wire Line
+	7950 3400 7950 3200
+Wire Wire Line
+	7800 3400 7950 3400
+Wire Wire Line
+	12750 5500 12900 5500
+Wire Wire Line
+	12750 5600 12900 5600
+Wire Wire Line
+	12750 5700 12900 5700
+Wire Wire Line
+	12750 5800 12900 5800
+Text GLabel 12900 5800 2    50   Input ~ 0
+M3_4
+Text GLabel 12900 5700 2    50   Input ~ 0
+M3_3
+Text GLabel 12900 5600 2    50   Input ~ 0
+M3_2
+Text GLabel 12900 5500 2    50   Input ~ 0
+M3_1
+Wire Wire Line
+	4700 6400 4800 6400
+Wire Wire Line
+	4700 6300 4800 6300
+Text GLabel 4700 7350 2    50   Input ~ 0
+M2_DIR
+Text GLabel 4800 7150 2    50   Input ~ 0
+M2_STEP
+Wire Wire Line
+	7800 5550 8000 5550
+Wire Wire Line
+	7800 5450 8000 5450
+Wire Wire Line
+	7800 5350 8000 5350
+Wire Wire Line
+	7800 5250 8000 5250
+Text GLabel 8000 5550 2    50   Input ~ 0
+M2_4
+Text GLabel 8000 5450 2    50   Input ~ 0
+M2_3
+Text GLabel 8000 5350 2    50   Input ~ 0
+M2_2
+Text GLabel 8000 5250 2    50   Input ~ 0
+M2_1
+Wire Wire Line
+	6800 5750 6900 5750
+Wire Wire Line
+	6800 5650 6900 5650
+Wire Wire Line
+	7950 5750 7950 5850
+Wire Wire Line
+	7800 5750 7950 5750
+Text GLabel 6800 5750 0    50   Input ~ 0
+M2_DIR
+Text GLabel 6800 5650 0    50   Input ~ 0
+M2_STEP
+Wire Wire Line
+	6800 5550 6900 5550
+Wire Wire Line
+	6800 5450 6800 5550
+Wire Wire Line
+	6900 5450 6800 5450
+$Comp
+L power:GND #PWR0114
+U 1 1 5D5E1E10
+P 7950 5850
+F 0 "#PWR0114" H 7950 5600 50  0001 C CNN
+F 1 "GND" H 7955 5677 50  0000 C CNN
+F 2 "" H 7950 5850 50  0001 C CNN
+F 3 "" H 7950 5850 50  0001 C CNN
+	1    7950 5850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 5650 8250 5650
+$Comp
+L power:+5V #PWR0113
+U 1 1 5D5E1E09
+P 8250 5650
+F 0 "#PWR0113" H 8250 5500 50  0001 C CNN
+F 1 "+5V" V 8265 5778 50  0000 L CNN
+F 2 "" H 8250 5650 50  0001 C CNN
+F 3 "" H 8250 5650 50  0001 C CNN
+	1    8250 5650
+	0    1    1    0   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_2
+U 1 1 5D5E1DD8
+P 7350 5450
+F 0 "a4988_2" H 7350 6097 60  0000 C CNN
+F 1 "POLOLU_STEPPER_DRIVER" H 7350 5991 60  0001 C CNN
+F 2 "sb-cnc-shield-master:a4988_shield" H 7350 5450 60  0001 C CNN
+F 3 "" H 7350 5450 60  0000 C CNN
+	1    7350 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:CP C1
+U 1 1 5D5AF314
+P 8300 3350
+F 0 "C1" H 8418 3396 50  0000 L CNN
+F 1 "100uF" H 8418 3305 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Radial_D10.0mm_P3.50mm" H 8338 3200 50  0001 C CNN
+F 3 "~" H 8300 3350 50  0001 C CNN
+	1    8300 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	12750 5400 13200 5400
+Wire Wire Line
+	12750 5300 13200 5300
+Wire Wire Line
+	12750 5200 13200 5200
+Wire Wire Line
+	12750 5100 13200 5100
+Text GLabel 13200 5400 2    50   Input ~ 0
+M2_4
+Text GLabel 13200 5300 2    50   Input ~ 0
+M2_3
+Text GLabel 13200 5200 2    50   Input ~ 0
+M2_2
+Text GLabel 13200 5100 2    50   Input ~ 0
+M2_1
+Wire Wire Line
+	12750 4700 12900 4700
+Wire Wire Line
+	12750 4800 12900 4800
+Wire Wire Line
+	12750 4900 12900 4900
+Wire Wire Line
+	12750 5000 12900 5000
+Text GLabel 12900 5000 2    50   Input ~ 0
+M1_4
+Text GLabel 12900 4900 2    50   Input ~ 0
+M1_3
+Text GLabel 12900 4800 2    50   Input ~ 0
+M1_2
+Text GLabel 12900 4700 2    50   Input ~ 0
+M1_1
+Wire Wire Line
+	2800 6650 2700 6650
+Wire Wire Line
+	2800 6850 2700 6850
+Text GLabel 2800 6400 0    50   Input ~ 0
+M1_DIR
+Text GLabel 2800 6200 0    50   Input ~ 0
+M1_STEP
+Wire Wire Line
+	7800 3900 8000 3900
+Wire Wire Line
+	7800 3800 8000 3800
+Wire Wire Line
+	7800 3700 8000 3700
+Wire Wire Line
+	7800 3600 8000 3600
+Text GLabel 8000 3900 2    50   Input ~ 0
+M1_4
+Text GLabel 8000 3800 2    50   Input ~ 0
+M1_3
+Text GLabel 8000 3700 2    50   Input ~ 0
+M1_2
+Text GLabel 8000 3600 2    50   Input ~ 0
+M1_1
+Wire Wire Line
+	7800 3500 8300 3500
+$Comp
+L power:GNDA #PWR0111
+U 1 1 5D57ED6D
+P 8900 3500
+F 0 "#PWR0111" H 8900 3250 50  0001 C CNN
+F 1 "GNDA" H 8905 3327 50  0000 C CNN
+F 2 "" H 8900 3500 50  0001 C CNN
+F 3 "" H 8900 3500 50  0001 C CNN
+	1    8900 3500
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	6800 4100 6900 4100
+Wire Wire Line
+	6800 4000 6900 4000
+Wire Wire Line
+	7950 4100 7950 4200
+Wire Wire Line
+	7800 4100 7950 4100
+Wire Wire Line
+	6750 3400 6900 3400
+Text GLabel 6800 4100 0    50   Input ~ 0
+M1_DIR
+Text GLabel 6800 4000 0    50   Input ~ 0
+M1_STEP
+Wire Wire Line
+	6800 3900 6900 3900
+Wire Wire Line
+	6800 3800 6800 3900
+Wire Wire Line
+	6900 3800 6800 3800
+$Comp
+L power:GND #PWR0110
+U 1 1 5D58418C
+P 7950 4200
+F 0 "#PWR0110" H 7950 3950 50  0001 C CNN
+F 1 "GND" H 7955 4027 50  0000 C CNN
+F 2 "" H 7950 4200 50  0001 C CNN
+F 3 "" H 7950 4200 50  0001 C CNN
+	1    7950 4200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7800 4000 8250 4000
+$Comp
+L power:+5V #PWR0109
+U 1 1 5D580E50
+P 8250 4000
+F 0 "#PWR0109" H 8250 3850 50  0001 C CNN
+F 1 "+5V" V 8265 4128 50  0000 L CNN
+F 2 "" H 8250 4000 50  0001 C CNN
+F 3 "" H 8250 4000 50  0001 C CNN
+	1    8250 4000
+	0    1    1    0   
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0108
+U 1 1 5D57BFF0
+P 8900 3200
+F 0 "#PWR0108" H 8900 3050 50  0001 C CNN
+F 1 "VIN" H 8915 3373 50  0000 C CNN
+F 2 "" H 8900 3200 60  0000 C CNN
+F 3 "" H 8900 3200 60  0000 C CNN
+	1    8900 3200
+	1    0    0    -1  
+$EndComp
+Text GLabel 4800 6950 2    50   Input ~ 0
+notEn
+Connection ~ 2200 6050
+Wire Wire Line
+	2200 5950 2200 6050
+$Comp
+L power:GND #PWR0107
+U 1 1 5D579072
+P 2200 6050
+F 0 "#PWR0107" H 2200 5800 50  0001 C CNN
+F 1 "GND" H 2205 5877 50  0000 C CNN
+F 2 "" H 2200 6050 50  0001 C CNN
+F 3 "" H 2200 6050 50  0001 C CNN
+	1    2200 6050
+	1    0    0    -1  
+$EndComp
+Text GLabel 6750 3400 0    50   Input ~ 0
+notEn
+Wire Wire Line
+	6500 3700 6900 3700
+Wire Wire Line
+	6500 3600 6900 3600
+Wire Wire Line
+	6500 3500 6900 3500
+Connection ~ 5950 3600
+Wire Wire Line
+	5950 3700 6300 3700
+Wire Wire Line
+	5950 3600 5950 3700
+Connection ~ 5950 3500
+Wire Wire Line
+	5950 3600 6300 3600
+Wire Wire Line
+	5950 3500 5950 3600
+Wire Wire Line
+	5950 3500 6300 3500
+Wire Wire Line
+	5950 3350 5950 3500
+$Comp
+L power:+5V #PWR0106
+U 1 1 5D574656
+P 5950 3350
+F 0 "#PWR0106" H 5950 3200 50  0001 C CNN
+F 1 "+5V" H 5965 3523 50  0000 C CNN
+F 2 "" H 5950 3350 50  0001 C CNN
+F 3 "" H 5950 3350 50  0001 C CNN
+	1    5950 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4550 8700 4700 8700
+Wire Wire Line
+	3700 8700 3950 8700
+Wire Wire Line
+	2800 3600 2550 3600
+$Comp
+L power:+5V #PWR0105
+U 1 1 5D55F6CF
+P 2550 3600
+F 0 "#PWR0105" H 2550 3450 50  0001 C CNN
+F 1 "+5V" H 2565 3773 50  0000 C CNN
+F 2 "" H 2550 3600 50  0001 C CNN
+F 3 "" H 2550 3600 50  0001 C CNN
+	1    2550 3600
+	1    0    0    -1  
+$EndComp
+Connection ~ 2550 3800
+Wire Wire Line
+	2800 3800 2550 3800
+Wire Wire Line
+	2550 3700 2550 3800
+Wire Wire Line
+	2800 3700 2550 3700
+Wire Wire Line
+	4700 3100 5000 3100
+$Comp
+L power:GND #PWR0104
+U 1 1 5D55C21B
+P 5000 3100
+F 0 "#PWR0104" H 5000 2850 50  0001 C CNN
+F 1 "GND" H 5005 2927 50  0000 C CNN
+F 2 "" H 5000 3100 50  0001 C CNN
+F 3 "" H 5000 3100 50  0001 C CNN
+	1    5000 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0103
+U 1 1 5D55B264
+P 2550 3800
+F 0 "#PWR0103" H 2550 3550 50  0001 C CNN
+F 1 "GND" H 2555 3627 50  0000 C CNN
+F 2 "" H 2550 3800 50  0001 C CNN
+F 3 "" H 2550 3800 50  0001 C CNN
+	1    2550 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP3
+U 1 1 5D5673F9
+P 6400 3700
+F 0 "JP3" H 6400 3885 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 3794 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 3700 50  0001 C CNN
+F 3 "~" H 6400 3700 50  0001 C CNN
+	1    6400 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP2
+U 1 1 5D566F49
+P 6400 3600
+F 0 "JP2" H 6400 3785 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 3694 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 3600 50  0001 C CNN
+F 3 "~" H 6400 3600 50  0001 C CNN
+	1    6400 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Jumper_NO_Small JP1
+U 1 1 5D56626F
+P 6400 3500
+F 0 "JP1" H 6400 3685 50  0001 C CNN
+F 1 "Jumper_NO_Small" H 6400 3594 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 6400 3500 50  0001 C CNN
+F 3 "~" H 6400 3500 50  0001 C CNN
+	1    6400 3500
+	1    0    0    -1  
+$EndComp
+Connection ~ 3850 8900
+Wire Wire Line
+	3850 8800 3850 8900
+Wire Wire Line
+	3700 8800 3850 8800
+Wire Wire Line
+	3700 8900 3850 8900
+$Comp
+L robko_PCB_arduino_shield-rescue:VIN-sb-cnc-shield-rescue #PWR0102
+U 1 1 5D55DE3C
+P 4700 8700
+F 0 "#PWR0102" H 4700 8550 50  0001 C CNN
+F 1 "VIN" H 4715 8873 50  0000 C CNN
+F 2 "" H 4700 8700 60  0000 C CNN
+F 3 "" H 4700 8700 60  0000 C CNN
+	1    4700 8700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GNDA #PWR0101
+U 1 1 5D55C595
+P 3850 8900
+F 0 "#PWR0101" H 3850 8650 50  0001 C CNN
+F 1 "GNDA" H 3855 8727 50  0000 C CNN
+F 2 "" H 3850 8900 50  0001 C CNN
+F 3 "" H 3850 8900 50  0001 C CNN
+	1    3850 8900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Barrel_Jack_Switch J1
+U 1 1 5D55AB20
+P 3400 8800
+F 0 "J1" H 3457 9117 50  0000 C CNN
+F 1 "Barrel_Jack_Switch" H 3457 9026 50  0000 C CNN
+F 2 "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal" H 3450 8760 50  0001 C CNN
+F 3 "~" H 3450 8760 50  0001 C CNN
+	1    3400 8800
+	1    0    0    -1  
+$EndComp
+$Comp
+L robko_PCB_arduino_shield-rescue:POLOLU_STEPPER_DRIVER-sb-cnc-shield-rescue a4988_1
+U 1 1 5D5530B8
+P 7350 3800
+F 0 "a4988_1" H 7350 4447 60  0000 C CNN
+F 1 "POLOLU_STEPPER_DRIVER" H 7350 4341 60  0001 C CNN
+F 2 "sb-cnc-shield-master:a4988_shield" H 7350 3800 60  0001 C CNN
+F 3 "" H 7350 3800 60  0000 C CNN
+	1    7350 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x13_Male J4
+U 1 1 5D556270
+P 14750 5250
+F 0 "J4" H 14858 6031 50  0000 C CNN
+F 1 "Conn_01x13_Male" H 14858 5940 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x13_P2.54mm_Vertical" H 14750 5250 50  0001 C CNN
+F 3 "~" H 14750 5250 50  0001 C CNN
+	1    14750 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x13_Male J2
+U 1 1 5D553446
+P 12550 5300
+F 0 "J2" H 12658 6081 50  0000 C CNN
+F 1 "Conn_01x13_Male" H 12658 5990 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x13_P2.54mm_Vertical" H 12550 5300 50  0001 C CNN
+F 3 "~" H 12550 5300 50  0001 C CNN
+	1    12550 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2200 5950 2800 5950
+Wire Wire Line
+	2200 6050 2800 6050
 $EndSCHEMATC

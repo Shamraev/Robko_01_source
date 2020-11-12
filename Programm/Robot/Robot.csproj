@@ -117,6 +117,8 @@
     <None Include="CodeAnalysis\ClassDiagram_All.cd" />
     <None Include="CodeAnalysis\ClassDiagram_Light.cd" />
     <None Include="CodeAnalysis\CodeMap_ALL.dgml" />
+    <None Include="CodeAnalysis\CodeMap_Light_classesOnly.dgml" />
+    <None Include="CodeAnalysis\CodeMap_ALL_classesOnly.dgml" />
     <None Include="CodeAnalysis\CodeMap_Light.dgml" />
     <None Include="CodeAnalysis\CodeMap_Light_Classes.dgml" />
     <None Include="Properties\Settings.settings">

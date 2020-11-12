@@ -521,37 +521,7 @@ namespace RobotSpace
         }
 
         public bool stopwhile;
-        private void button9_Click(object sender, EventArgs e)//------
-        {
-            int TimeWait = -1;
-            if (textBox1.Text != "") TimeWait = Int32.Parse(textBox1.Text);
-            if (TimeWait < 400)
-            {
-                MessageBox.Show("Введите число большее 400");
-                return;
-            }
-
-            string[] lines = richTextBox3.Text.Split('\n');
-
-            stopwhile = false;
-            if (CycleChkBox.Checked)
-            {
-                do
-                {
-                    if (stopwhile == false)
-                    {
-                        SendListCoodinates(lines, TimeWait);
-                        System.Windows.Forms.Application.DoEvents(); // Эту строку не трогать, это для того чтобы и другие события работали
-                    }
-                    else
-                    {
-                        break; //Прерываем цикл
-                    }
-                } while (true);
-            }
-            else SendListCoodinates(lines, TimeWait);
-
-        }
+       
         private void dataReceived(object sender, SerialDataReceivedEventArgs e)//---------
         {
             //  buffer += serialPort1.ReadExisting();
@@ -580,13 +550,7 @@ namespace RobotSpace
 
             }
         }
-        private void CycleChkBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (CycleChkBox.Checked) stopwhile = false;
-            else stopwhile = true;
-
-        }
-
+        
         private void buttonCurWorkX_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)

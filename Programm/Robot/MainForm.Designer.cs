@@ -43,7 +43,6 @@
             this.блаБлаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.печатьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.правкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ToolStripMenuItemParameters = new System.Windows.Forms.ToolStripMenuItem();
             this.PortNames = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,30 +56,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.chkScrll = new System.Windows.Forms.CheckBox();
-            this.radioButton100 = new System.Windows.Forms.RadioButton();
-            this.radioButton50 = new System.Windows.Forms.RadioButton();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton200 = new System.Windows.Forms.RadioButton();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.chkRecievPrt = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
-            this.CycleChkBox = new System.Windows.Forms.CheckBox();
             this.process1 = new System.Diagnostics.Process();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.buttonCurWorkZ = new System.Windows.Forms.Button();
             this.buttonCurWorkY = new System.Windows.Forms.Button();
@@ -94,14 +75,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.SendBtn = new System.Windows.Forms.Button();
-            this.data_angels = new System.Windows.Forms.TextBox();
-            this.data_coordinates = new System.Windows.Forms.TextBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.richTextBoxGCode = new System.Windows.Forms.RichTextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -120,15 +93,30 @@
             this.labelCurGcode = new System.Windows.Forms.Label();
             this.buttonGCodeStop = new System.Windows.Forms.Button();
             this.buttonGCodeStart = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.richTextBoxGCode = new System.Windows.Forms.RichTextBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.SendBtn = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.data_angels = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.data_coordinates = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton100 = new System.Windows.Forms.RadioButton();
+            this.radioButton200 = new System.Windows.Forms.RadioButton();
+            this.radioButton10 = new System.Windows.Forms.RadioButton();
+            this.radioButton50 = new System.Windows.Forms.RadioButton();
+            this.button2 = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -141,6 +129,10 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -148,7 +140,6 @@
             this.menuStrip1.ContextMenuStrip = this.contextMenuStrip1;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
-            this.правкаToolStripMenuItem,
             this.справкаToolStripMenuItem,
             this.ToolStripMenuItemParameters});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -243,12 +234,6 @@
             this.печатьToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.печатьToolStripMenuItem.Text = "Печать";
             this.печатьToolStripMenuItem.Click += new System.EventHandler(this.печатьToolStripMenuItem_Click);
-            // 
-            // правкаToolStripMenuItem
-            // 
-            this.правкаToolStripMenuItem.Name = "правкаToolStripMenuItem";
-            this.правкаToolStripMenuItem.Size = new System.Drawing.Size(59, 19);
-            this.правкаToolStripMenuItem.Text = "Правка";
             // 
             // справкаToolStripMenuItem
             // 
@@ -346,124 +331,6 @@
             this.chkScrll.Text = "автопрокрутка";
             this.chkScrll.UseVisualStyleBackColor = true;
             // 
-            // radioButton100
-            // 
-            this.radioButton100.AutoSize = true;
-            this.radioButton100.Location = new System.Drawing.Point(15, 86);
-            this.radioButton100.Name = "radioButton100";
-            this.radioButton100.Size = new System.Drawing.Size(58, 27);
-            this.radioButton100.TabIndex = 13;
-            this.radioButton100.TabStop = true;
-            this.radioButton100.Text = "100";
-            this.radioButton100.UseVisualStyleBackColor = true;
-            // 
-            // radioButton50
-            // 
-            this.radioButton50.AutoSize = true;
-            this.radioButton50.Location = new System.Drawing.Point(15, 119);
-            this.radioButton50.Name = "radioButton50";
-            this.radioButton50.Size = new System.Drawing.Size(48, 27);
-            this.radioButton50.TabIndex = 13;
-            this.radioButton50.TabStop = true;
-            this.radioButton50.Text = "50";
-            this.radioButton50.UseVisualStyleBackColor = true;
-            // 
-            // radioButton10
-            // 
-            this.radioButton10.AutoSize = true;
-            this.radioButton10.Location = new System.Drawing.Point(15, 151);
-            this.radioButton10.Name = "radioButton10";
-            this.radioButton10.Size = new System.Drawing.Size(48, 27);
-            this.radioButton10.TabIndex = 13;
-            this.radioButton10.TabStop = true;
-            this.radioButton10.Text = "10";
-            this.radioButton10.UseVisualStyleBackColor = true;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.CausesValidation = false;
-            this.groupBox1.Controls.Add(this.radioButton50);
-            this.groupBox1.Controls.Add(this.radioButton10);
-            this.groupBox1.Controls.Add(this.radioButton200);
-            this.groupBox1.Controls.Add(this.radioButton100);
-            this.groupBox1.Location = new System.Drawing.Point(196, 14);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(156, 193);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "На сколько переместиться";
-            // 
-            // radioButton200
-            // 
-            this.radioButton200.AutoSize = true;
-            this.radioButton200.Location = new System.Drawing.Point(15, 54);
-            this.radioButton200.Name = "radioButton200";
-            this.radioButton200.Size = new System.Drawing.Size(58, 27);
-            this.radioButton200.TabIndex = 13;
-            this.radioButton200.TabStop = true;
-            this.radioButton200.Text = "200";
-            this.radioButton200.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(73, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(55, 57);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Y+";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(73, 148);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(55, 57);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Y-";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(9, 80);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(55, 57);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "X-";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(136, 80);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(55, 57);
-            this.button6.TabIndex = 15;
-            this.button6.Text = "X+";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(136, 12);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(55, 57);
-            this.button5.TabIndex = 15;
-            this.button5.Text = "Z+";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(9, 148);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(55, 57);
-            this.button7.TabIndex = 15;
-            this.button7.Text = "Z-";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.richTextBox2);
@@ -521,56 +388,6 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(95, 277);
-            this.button9.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(109, 34);
-            this.button9.TabIndex = 24;
-            this.button9.Text = "отправить";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(19, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(128, 23);
-            this.label5.TabIndex = 25;
-            this.label5.Text = "задержка, млс";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(152, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(106, 31);
-            this.textBox1.TabIndex = 24;
-            this.textBox1.Text = "500";
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_angels_KeyPress);
-            // 
-            // richTextBox3
-            // 
-            this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox3.ContextMenuStrip = this.contextMenuStrip1;
-            this.richTextBox3.Location = new System.Drawing.Point(23, 54);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(193, 215);
-            this.richTextBox3.TabIndex = 17;
-            this.richTextBox3.Text = "x,y,z\n----------";
-            // 
-            // CycleChkBox
-            // 
-            this.CycleChkBox.AutoSize = true;
-            this.CycleChkBox.Location = new System.Drawing.Point(23, 281);
-            this.CycleChkBox.Name = "CycleChkBox";
-            this.CycleChkBox.Size = new System.Drawing.Size(70, 27);
-            this.CycleChkBox.TabIndex = 8;
-            this.CycleChkBox.Text = "Цикл";
-            this.CycleChkBox.UseVisualStyleBackColor = true;
-            this.CycleChkBox.CheckedChanged += new System.EventHandler(this.CycleChkBox_CheckedChanged);
-            // 
             // process1
             // 
             this.process1.StartInfo.Domain = "";
@@ -580,24 +397,6 @@
             this.process1.StartInfo.StandardOutputEncoding = null;
             this.process1.StartInfo.UserName = "";
             this.process1.SynchronizingObject = this;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(65, 230);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 23);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "углы";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 276);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 23);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "координаты";
             // 
             // groupBox4
             // 
@@ -754,106 +553,6 @@
             this.label4.Size = new System.Drawing.Size(29, 15);
             this.label4.TabIndex = 21;
             this.label4.Text = "Оси";
-            // 
-            // SendBtn
-            // 
-            this.SendBtn.Location = new System.Drawing.Point(117, 318);
-            this.SendBtn.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.SendBtn.Name = "SendBtn";
-            this.SendBtn.Size = new System.Drawing.Size(236, 47);
-            this.SendBtn.TabIndex = 4;
-            this.SendBtn.Text = "отправить";
-            this.SendBtn.UseVisualStyleBackColor = true;
-            this.SendBtn.Click += new System.EventHandler(this.SendBtn_Click);
-            // 
-            // data_angels
-            // 
-            this.data_angels.Location = new System.Drawing.Point(117, 228);
-            this.data_angels.Name = "data_angels";
-            this.data_angels.Size = new System.Drawing.Size(237, 31);
-            this.data_angels.TabIndex = 23;
-            this.data_angels.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_angels_KeyPress);
-            // 
-            // data_coordinates
-            // 
-            this.data_coordinates.Location = new System.Drawing.Point(117, 273);
-            this.data_coordinates.Name = "data_coordinates";
-            this.data_coordinates.Size = new System.Drawing.Size(237, 31);
-            this.data_coordinates.TabIndex = 23;
-            this.data_coordinates.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_coordinates_KeyPress);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(408, 441);
-            this.tabControl1.TabIndex = 24;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.data_coordinates);
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.data_angels);
-            this.tabPage1.Controls.Add(this.button5);
-            this.tabPage1.Controls.Add(this.SendBtn);
-            this.tabPage1.Controls.Add(this.button7);
-            this.tabPage1.Controls.Add(this.button6);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.button4);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 32);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(400, 405);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Вручную";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.richTextBoxGCode);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(400, 426);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "G Code";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // richTextBoxGCode
-            // 
-            this.richTextBoxGCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBoxGCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBoxGCode.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
-            this.richTextBoxGCode.Name = "richTextBoxGCode";
-            this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 420);
-            this.richTextBoxGCode.TabIndex = 21;
-            this.richTextBoxGCode.Text = "";
-            this.richTextBoxGCode.WordWrap = false;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.button9);
-            this.tabPage3.Controls.Add(this.richTextBox3);
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.CycleChkBox);
-            this.tabPage3.Controls.Add(this.textBox1);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(400, 426);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // splitContainer1
             // 
@@ -1066,6 +765,226 @@
             this.buttonGCodeStart.UseVisualStyleBackColor = true;
             this.buttonGCodeStart.Click += new System.EventHandler(this.buttonGCodeStart_Click);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.richTextBoxGCode);
+            this.tabPage2.Location = new System.Drawing.Point(4, 32);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(400, 405);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "G Code";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxGCode
+            // 
+            this.richTextBoxGCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBoxGCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxGCode.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
+            this.richTextBoxGCode.Name = "richTextBoxGCode";
+            this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 399);
+            this.richTextBoxGCode.TabIndex = 21;
+            this.richTextBoxGCode.Text = "";
+            this.richTextBoxGCode.WordWrap = false;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.data_coordinates);
+            this.tabPage1.Controls.Add(this.data_angels);
+            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.button5);
+            this.tabPage1.Controls.Add(this.SendBtn);
+            this.tabPage1.Controls.Add(this.button7);
+            this.tabPage1.Controls.Add(this.button6);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(400, 405);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Вручную";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(65, 230);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 23);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "углы";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(9, 80);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(55, 57);
+            this.button4.TabIndex = 15;
+            this.button4.Text = "X-";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 276);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(109, 23);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "координаты";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(136, 80);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(55, 57);
+            this.button6.TabIndex = 15;
+            this.button6.Text = "X+";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(9, 148);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(55, 57);
+            this.button7.TabIndex = 15;
+            this.button7.Text = "Z-";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // SendBtn
+            // 
+            this.SendBtn.Location = new System.Drawing.Point(117, 318);
+            this.SendBtn.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.SendBtn.Name = "SendBtn";
+            this.SendBtn.Size = new System.Drawing.Size(236, 47);
+            this.SendBtn.TabIndex = 4;
+            this.SendBtn.Text = "отправить";
+            this.SendBtn.UseVisualStyleBackColor = true;
+            this.SendBtn.Click += new System.EventHandler(this.SendBtn_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(136, 12);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(55, 57);
+            this.button5.TabIndex = 15;
+            this.button5.Text = "Z+";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // data_angels
+            // 
+            this.data_angels.Location = new System.Drawing.Point(117, 228);
+            this.data_angels.Name = "data_angels";
+            this.data_angels.Size = new System.Drawing.Size(237, 31);
+            this.data_angels.TabIndex = 23;
+            this.data_angels.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_angels_KeyPress);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(73, 148);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(55, 57);
+            this.button3.TabIndex = 15;
+            this.button3.Text = "Y-";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // data_coordinates
+            // 
+            this.data_coordinates.Location = new System.Drawing.Point(117, 273);
+            this.data_coordinates.Name = "data_coordinates";
+            this.data_coordinates.Size = new System.Drawing.Size(237, 31);
+            this.data_coordinates.TabIndex = 23;
+            this.data_coordinates.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_coordinates_KeyPress);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.CausesValidation = false;
+            this.groupBox1.Controls.Add(this.radioButton50);
+            this.groupBox1.Controls.Add(this.radioButton10);
+            this.groupBox1.Controls.Add(this.radioButton200);
+            this.groupBox1.Controls.Add(this.radioButton100);
+            this.groupBox1.Location = new System.Drawing.Point(196, 14);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(156, 193);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "На сколько переместиться";
+            // 
+            // radioButton100
+            // 
+            this.radioButton100.AutoSize = true;
+            this.radioButton100.Location = new System.Drawing.Point(15, 86);
+            this.radioButton100.Name = "radioButton100";
+            this.radioButton100.Size = new System.Drawing.Size(58, 27);
+            this.radioButton100.TabIndex = 13;
+            this.radioButton100.TabStop = true;
+            this.radioButton100.Text = "100";
+            this.radioButton100.UseVisualStyleBackColor = true;
+            // 
+            // radioButton200
+            // 
+            this.radioButton200.AutoSize = true;
+            this.radioButton200.Location = new System.Drawing.Point(15, 54);
+            this.radioButton200.Name = "radioButton200";
+            this.radioButton200.Size = new System.Drawing.Size(58, 27);
+            this.radioButton200.TabIndex = 13;
+            this.radioButton200.TabStop = true;
+            this.radioButton200.Text = "200";
+            this.radioButton200.UseVisualStyleBackColor = true;
+            // 
+            // radioButton10
+            // 
+            this.radioButton10.AutoSize = true;
+            this.radioButton10.Location = new System.Drawing.Point(15, 151);
+            this.radioButton10.Name = "radioButton10";
+            this.radioButton10.Size = new System.Drawing.Size(48, 27);
+            this.radioButton10.TabIndex = 13;
+            this.radioButton10.TabStop = true;
+            this.radioButton10.Text = "10";
+            this.radioButton10.UseVisualStyleBackColor = true;
+            // 
+            // radioButton50
+            // 
+            this.radioButton50.AutoSize = true;
+            this.radioButton50.Location = new System.Drawing.Point(15, 119);
+            this.radioButton50.Name = "radioButton50";
+            this.radioButton50.Size = new System.Drawing.Size(48, 27);
+            this.radioButton50.TabIndex = 13;
+            this.radioButton50.TabStop = true;
+            this.radioButton50.Text = "50";
+            this.radioButton50.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(73, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(55, 57);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Y+";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(408, 441);
+            this.tabControl1.TabIndex = 24;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 23F);
@@ -1085,18 +1004,10 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -1112,6 +1023,12 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1126,7 +1043,6 @@
         private System.Windows.Forms.ToolStripMenuItem закрытьToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem сохранитьToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem правкаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem справкаToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem блаБлаToolStripMenuItem;
@@ -1141,47 +1057,21 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.CheckBox chkScrll;
-        private System.Windows.Forms.RadioButton radioButton100;
-        private System.Windows.Forms.RadioButton radioButton50;
-        private System.Windows.Forms.RadioButton radioButton10;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton radioButton200;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Diagnostics.Process process1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button SendBtn;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.CheckBox chkRecievPrt;
-        private System.Windows.Forms.TextBox data_coordinates;
-        private System.Windows.Forms.TextBox data_angels;
-        private System.Windows.Forms.CheckBox CycleChkBox;        
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItemParameters;
-        private System.Windows.Forms.RichTextBox richTextBox3;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ToolStripMenuItem PortNames;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.TabControl tabControl2;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.RichTextBox richTextBoxGCode;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
@@ -1209,6 +1099,26 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton radioButton50;
+        private System.Windows.Forms.RadioButton radioButton10;
+        private System.Windows.Forms.RadioButton radioButton200;
+        private System.Windows.Forms.RadioButton radioButton100;
+        private System.Windows.Forms.TextBox data_coordinates;
+        private System.Windows.Forms.TextBox data_angels;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button SendBtn;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.RichTextBox richTextBoxGCode;
     }
 }
 
