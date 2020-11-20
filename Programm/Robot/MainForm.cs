@@ -13,6 +13,8 @@ using MCControl;
 using CommandSend;
 using BusControl;
 using System.Threading;
+using System.Windows.Media;
+using System.ComponentModel;
 
 namespace RobotSpace
 {
@@ -24,8 +26,6 @@ namespace RobotSpace
         public Vector3d CurWorkCoorts = new Vector3d(0, 257, 368);//относительные координаты
         public Vector3d CoortsOffset = new Vector3d(0, 0, 0);    // смещение для перевода из относительных координат в абсолютные и наоборот
                                                                  //AbsWorkCoorts = CurWorkCoorts + CoortsOffset
-
-
 
         private string[] portnames;
         private string robotPortName;
@@ -83,6 +83,17 @@ namespace RobotSpace
             aTimer.AutoReset = true;
             aTimer.Enabled = true;
 
+            Drawer.Init();
+            DrawerClear();
+        }
+        public void DrawerClear()
+        {
+            Invoke(new Action(() =>
+            {
+                if (Drawer != null)
+                Drawer.Clear();
+                XyzDisplay();
+            }));
         }
         protected void ToolTipInit()
         {
@@ -488,7 +499,9 @@ namespace RobotSpace
                 buttonCurWorkX.Text = CoortToString(CurWorkCoorts.x);
                 buttonCurWorkY.Text = CoortToString(CurWorkCoorts.y);
                 buttonCurWorkZ.Text = CoortToString(CurWorkCoorts.z);
-
+                    
+                if (Drawer!=null)
+                    Drawer.AddPoint(AbsWorkCoorts.x, AbsWorkCoorts.y, AbsWorkCoorts.z);
             }));
         }
         protected string CoortToString(double coordt)
@@ -654,6 +667,7 @@ namespace RobotSpace
         }
         private void buttonGCodeStop_Click(object sender, EventArgs e)
         {
+            DrawerClear();
             commandSender.Stop();
         }
         protected void MCControllerCreate()
@@ -740,13 +754,20 @@ namespace RobotSpace
 
         }
 
-
-
         public void ResetCoordnts()
         {
             AbsWorkCoorts = AbsWorkCoorts_ZEROS();
             CurWorkCoorts = AbsWorkCoorts;
             CurWorkCoorts = Vector3DZeros;
+        }
+        public void OutFeedStandart(Feed ffeed)
+        {
+            if (Drawer == null) return;
+
+            if (ffeed==Feed.ffWork)
+                Drawer.color = Colors.Blue;
+            else if (ffeed == Feed.ffRapid)
+                Drawer.color = Colors.Red;
         }
 
     }

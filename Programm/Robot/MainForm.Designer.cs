@@ -79,11 +79,33 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButton50 = new System.Windows.Forms.RadioButton();
+            this.radioButton10 = new System.Windows.Forms.RadioButton();
+            this.radioButton200 = new System.Windows.Forms.RadioButton();
+            this.radioButton100 = new System.Windows.Forms.RadioButton();
+            this.data_coordinates = new System.Windows.Forms.TextBox();
+            this.data_angels = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.SendBtn = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.richTextBoxGCode = new System.Windows.Forms.RichTextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.simVelocity = new System.Windows.Forms.TrackBar();
+            this.simMode = new System.Windows.Forms.CheckBox();
             this.buttonGripperUngrip = new System.Windows.Forms.Button();
             this.buttonGripperGrip = new System.Windows.Forms.Button();
             this.buttonRobot_FindAndGoToZeros = new System.Windows.Forms.Button();
@@ -93,26 +115,8 @@
             this.labelCurGcode = new System.Windows.Forms.Label();
             this.buttonGCodeStop = new System.Windows.Forms.Button();
             this.buttonGCodeStart = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.richTextBoxGCode = new System.Windows.Forms.RichTextBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.SendBtn = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.data_angels = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.data_coordinates = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton100 = new System.Windows.Forms.RadioButton();
-            this.radioButton200 = new System.Windows.Forms.RadioButton();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
-            this.radioButton50 = new System.Windows.Forms.RadioButton();
-            this.button2 = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.Drawer = new HelixControl.MyControl();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -122,17 +126,19 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tabControl2.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.simVelocity)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -569,7 +575,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
             this.splitContainer1.Size = new System.Drawing.Size(861, 441);
-            this.splitContainer1.SplitterDistance = 449;
+            this.splitContainer1.SplitterDistance = 454;
             this.splitContainer1.TabIndex = 21;
             // 
             // tabControl2
@@ -580,15 +586,16 @@
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(449, 441);
+            this.tabControl2.Size = new System.Drawing.Size(454, 441);
             this.tabControl2.TabIndex = 22;
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.elementHost1);
             this.tabPage4.Location = new System.Drawing.Point(4, 32);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(441, 405);
+            this.tabPage4.Size = new System.Drawing.Size(446, 405);
             this.tabPage4.TabIndex = 0;
             this.tabPage4.Text = "Визуализация";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -596,13 +603,233 @@
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.groupBox2);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Location = new System.Drawing.Point(4, 32);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(441, 426);
+            this.tabPage5.Size = new System.Drawing.Size(441, 405);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Порт";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(403, 441);
+            this.tabControl1.TabIndex = 24;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.data_coordinates);
+            this.tabPage1.Controls.Add(this.data_angels);
+            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.button5);
+            this.tabPage1.Controls.Add(this.SendBtn);
+            this.tabPage1.Controls.Add(this.button7);
+            this.tabPage1.Controls.Add(this.button6);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.button4);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 32);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(395, 405);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Вручную";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(73, 12);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(55, 57);
+            this.button2.TabIndex = 15;
+            this.button2.Text = "Y+";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.CausesValidation = false;
+            this.groupBox1.Controls.Add(this.radioButton50);
+            this.groupBox1.Controls.Add(this.radioButton10);
+            this.groupBox1.Controls.Add(this.radioButton200);
+            this.groupBox1.Controls.Add(this.radioButton100);
+            this.groupBox1.Location = new System.Drawing.Point(196, 14);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(156, 193);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "На сколько переместиться";
+            // 
+            // radioButton50
+            // 
+            this.radioButton50.AutoSize = true;
+            this.radioButton50.Location = new System.Drawing.Point(15, 119);
+            this.radioButton50.Name = "radioButton50";
+            this.radioButton50.Size = new System.Drawing.Size(48, 27);
+            this.radioButton50.TabIndex = 13;
+            this.radioButton50.TabStop = true;
+            this.radioButton50.Text = "50";
+            this.radioButton50.UseVisualStyleBackColor = true;
+            // 
+            // radioButton10
+            // 
+            this.radioButton10.AutoSize = true;
+            this.radioButton10.Location = new System.Drawing.Point(15, 151);
+            this.radioButton10.Name = "radioButton10";
+            this.radioButton10.Size = new System.Drawing.Size(48, 27);
+            this.radioButton10.TabIndex = 13;
+            this.radioButton10.TabStop = true;
+            this.radioButton10.Text = "10";
+            this.radioButton10.UseVisualStyleBackColor = true;
+            // 
+            // radioButton200
+            // 
+            this.radioButton200.AutoSize = true;
+            this.radioButton200.Location = new System.Drawing.Point(15, 54);
+            this.radioButton200.Name = "radioButton200";
+            this.radioButton200.Size = new System.Drawing.Size(58, 27);
+            this.radioButton200.TabIndex = 13;
+            this.radioButton200.TabStop = true;
+            this.radioButton200.Text = "200";
+            this.radioButton200.UseVisualStyleBackColor = true;
+            // 
+            // radioButton100
+            // 
+            this.radioButton100.AutoSize = true;
+            this.radioButton100.Location = new System.Drawing.Point(15, 86);
+            this.radioButton100.Name = "radioButton100";
+            this.radioButton100.Size = new System.Drawing.Size(58, 27);
+            this.radioButton100.TabIndex = 13;
+            this.radioButton100.TabStop = true;
+            this.radioButton100.Text = "100";
+            this.radioButton100.UseVisualStyleBackColor = true;
+            // 
+            // data_coordinates
+            // 
+            this.data_coordinates.Location = new System.Drawing.Point(117, 273);
+            this.data_coordinates.Name = "data_coordinates";
+            this.data_coordinates.Size = new System.Drawing.Size(237, 31);
+            this.data_coordinates.TabIndex = 23;
+            this.data_coordinates.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_coordinates_KeyPress);
+            // 
+            // data_angels
+            // 
+            this.data_angels.Location = new System.Drawing.Point(117, 228);
+            this.data_angels.Name = "data_angels";
+            this.data_angels.Size = new System.Drawing.Size(237, 31);
+            this.data_angels.TabIndex = 23;
+            this.data_angels.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_angels_KeyPress);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(73, 148);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(55, 57);
+            this.button3.TabIndex = 15;
+            this.button3.Text = "Y-";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(136, 12);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(55, 57);
+            this.button5.TabIndex = 15;
+            this.button5.Text = "Z+";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // SendBtn
+            // 
+            this.SendBtn.Location = new System.Drawing.Point(117, 318);
+            this.SendBtn.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
+            this.SendBtn.Name = "SendBtn";
+            this.SendBtn.Size = new System.Drawing.Size(236, 47);
+            this.SendBtn.TabIndex = 4;
+            this.SendBtn.Text = "отправить";
+            this.SendBtn.UseVisualStyleBackColor = true;
+            this.SendBtn.Click += new System.EventHandler(this.SendBtn_Click);
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(9, 148);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(55, 57);
+            this.button7.TabIndex = 15;
+            this.button7.Text = "Z-";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(136, 80);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(55, 57);
+            this.button6.TabIndex = 15;
+            this.button6.Text = "X+";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 276);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(109, 23);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "координаты";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(9, 80);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(55, 57);
+            this.button4.TabIndex = 15;
+            this.button4.Text = "X-";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(65, 230);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 23);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "углы";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.richTextBoxGCode);
+            this.tabPage2.Location = new System.Drawing.Point(4, 32);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(400, 405);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "G Code";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // richTextBoxGCode
+            // 
+            this.richTextBoxGCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBoxGCode.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxGCode.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
+            this.richTextBoxGCode.Name = "richTextBoxGCode";
+            this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
+            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 399);
+            this.richTextBoxGCode.TabIndex = 21;
+            this.richTextBoxGCode.Text = "";
+            this.richTextBoxGCode.WordWrap = false;
             // 
             // groupBox3
             // 
@@ -649,6 +876,8 @@
             // 
             // splitContainer2.Panel1
             // 
+            this.splitContainer2.Panel1.Controls.Add(this.simVelocity);
+            this.splitContainer2.Panel1.Controls.Add(this.simMode);
             this.splitContainer2.Panel1.Controls.Add(this.buttonGripperUngrip);
             this.splitContainer2.Panel1.Controls.Add(this.buttonGripperGrip);
             this.splitContainer2.Panel1.Controls.Add(this.buttonRobot_FindAndGoToZeros);
@@ -668,11 +897,30 @@
             this.splitContainer2.SplitterDistance = 129;
             this.splitContainer2.TabIndex = 23;
             // 
+            // simVelocity
+            // 
+            this.simVelocity.Location = new System.Drawing.Point(708, 47);
+            this.simVelocity.Minimum = 1;
+            this.simVelocity.Name = "simVelocity";
+            this.simVelocity.Size = new System.Drawing.Size(123, 45);
+            this.simVelocity.TabIndex = 31;
+            this.simVelocity.Value = 5;
+            // 
+            // simMode
+            // 
+            this.simMode.AutoSize = true;
+            this.simMode.Location = new System.Drawing.Point(715, 10);
+            this.simMode.Name = "simMode";
+            this.simMode.Size = new System.Drawing.Size(116, 27);
+            this.simMode.TabIndex = 30;
+            this.simMode.Text = "симуляция";
+            this.simMode.UseVisualStyleBackColor = true;
+            // 
             // buttonGripperUngrip
             // 
             this.buttonGripperUngrip.BackgroundImage = global::RobotSpace.Properties.Resources.gripper_ungrip;
             this.buttonGripperUngrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonGripperUngrip.Location = new System.Drawing.Point(668, 8);
+            this.buttonGripperUngrip.Location = new System.Drawing.Point(594, 8);
             this.buttonGripperUngrip.Name = "buttonGripperUngrip";
             this.buttonGripperUngrip.Size = new System.Drawing.Size(30, 29);
             this.buttonGripperUngrip.TabIndex = 29;
@@ -683,7 +931,7 @@
             // 
             this.buttonGripperGrip.BackgroundImage = global::RobotSpace.Properties.Resources.gripper_grip_2;
             this.buttonGripperGrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonGripperGrip.Location = new System.Drawing.Point(632, 7);
+            this.buttonGripperGrip.Location = new System.Drawing.Point(558, 7);
             this.buttonGripperGrip.Name = "buttonGripperGrip";
             this.buttonGripperGrip.Size = new System.Drawing.Size(30, 30);
             this.buttonGripperGrip.TabIndex = 28;
@@ -694,7 +942,7 @@
             // 
             this.buttonRobot_FindAndGoToZeros.BackgroundImage = global::RobotSpace.Properties.Resources.robot_go_to_zeros1;
             this.buttonRobot_FindAndGoToZeros.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonRobot_FindAndGoToZeros.Location = new System.Drawing.Point(596, 8);
+            this.buttonRobot_FindAndGoToZeros.Location = new System.Drawing.Point(522, 8);
             this.buttonRobot_FindAndGoToZeros.Name = "buttonRobot_FindAndGoToZeros";
             this.buttonRobot_FindAndGoToZeros.Size = new System.Drawing.Size(30, 29);
             this.buttonRobot_FindAndGoToZeros.TabIndex = 28;
@@ -747,7 +995,7 @@
             // 
             this.buttonGCodeStop.BackgroundImage = global::RobotSpace.Properties.Resources.stop_button;
             this.buttonGCodeStop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonGCodeStop.Location = new System.Drawing.Point(753, 8);
+            this.buttonGCodeStop.Location = new System.Drawing.Point(679, 8);
             this.buttonGCodeStop.Name = "buttonGCodeStop";
             this.buttonGCodeStop.Size = new System.Drawing.Size(30, 29);
             this.buttonGCodeStop.TabIndex = 23;
@@ -758,232 +1006,22 @@
             // 
             this.buttonGCodeStart.BackgroundImage = global::RobotSpace.Properties.Resources.start_button;
             this.buttonGCodeStart.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonGCodeStart.Location = new System.Drawing.Point(717, 8);
+            this.buttonGCodeStart.Location = new System.Drawing.Point(643, 8);
             this.buttonGCodeStart.Name = "buttonGCodeStart";
             this.buttonGCodeStart.Size = new System.Drawing.Size(30, 29);
             this.buttonGCodeStart.TabIndex = 21;
             this.buttonGCodeStart.UseVisualStyleBackColor = true;
             this.buttonGCodeStart.Click += new System.EventHandler(this.buttonGCodeStart_Click);
             // 
-            // tabPage2
+            // elementHost1
             // 
-            this.tabPage2.Controls.Add(this.richTextBoxGCode);
-            this.tabPage2.Location = new System.Drawing.Point(4, 32);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(400, 405);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "G Code";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // richTextBoxGCode
-            // 
-            this.richTextBoxGCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBoxGCode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBoxGCode.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
-            this.richTextBoxGCode.Name = "richTextBoxGCode";
-            this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBoxGCode.Size = new System.Drawing.Size(394, 399);
-            this.richTextBoxGCode.TabIndex = 21;
-            this.richTextBoxGCode.Text = "";
-            this.richTextBoxGCode.WordWrap = false;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.data_coordinates);
-            this.tabPage1.Controls.Add(this.data_angels);
-            this.tabPage1.Controls.Add(this.button3);
-            this.tabPage1.Controls.Add(this.button5);
-            this.tabPage1.Controls.Add(this.SendBtn);
-            this.tabPage1.Controls.Add(this.button7);
-            this.tabPage1.Controls.Add(this.button6);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.button4);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 32);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(400, 405);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Вручную";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(65, 230);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 23);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "углы";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(9, 80);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(55, 57);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "X-";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 276);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(109, 23);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "координаты";
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(136, 80);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(55, 57);
-            this.button6.TabIndex = 15;
-            this.button6.Text = "X+";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(9, 148);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(55, 57);
-            this.button7.TabIndex = 15;
-            this.button7.Text = "Z-";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // SendBtn
-            // 
-            this.SendBtn.Location = new System.Drawing.Point(117, 318);
-            this.SendBtn.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
-            this.SendBtn.Name = "SendBtn";
-            this.SendBtn.Size = new System.Drawing.Size(236, 47);
-            this.SendBtn.TabIndex = 4;
-            this.SendBtn.Text = "отправить";
-            this.SendBtn.UseVisualStyleBackColor = true;
-            this.SendBtn.Click += new System.EventHandler(this.SendBtn_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(136, 12);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(55, 57);
-            this.button5.TabIndex = 15;
-            this.button5.Text = "Z+";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // data_angels
-            // 
-            this.data_angels.Location = new System.Drawing.Point(117, 228);
-            this.data_angels.Name = "data_angels";
-            this.data_angels.Size = new System.Drawing.Size(237, 31);
-            this.data_angels.TabIndex = 23;
-            this.data_angels.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_angels_KeyPress);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(73, 148);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(55, 57);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Y-";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // data_coordinates
-            // 
-            this.data_coordinates.Location = new System.Drawing.Point(117, 273);
-            this.data_coordinates.Name = "data_coordinates";
-            this.data_coordinates.Size = new System.Drawing.Size(237, 31);
-            this.data_coordinates.TabIndex = 23;
-            this.data_coordinates.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.data_coordinates_KeyPress);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.CausesValidation = false;
-            this.groupBox1.Controls.Add(this.radioButton50);
-            this.groupBox1.Controls.Add(this.radioButton10);
-            this.groupBox1.Controls.Add(this.radioButton200);
-            this.groupBox1.Controls.Add(this.radioButton100);
-            this.groupBox1.Location = new System.Drawing.Point(196, 14);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(156, 193);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "На сколько переместиться";
-            // 
-            // radioButton100
-            // 
-            this.radioButton100.AutoSize = true;
-            this.radioButton100.Location = new System.Drawing.Point(15, 86);
-            this.radioButton100.Name = "radioButton100";
-            this.radioButton100.Size = new System.Drawing.Size(58, 27);
-            this.radioButton100.TabIndex = 13;
-            this.radioButton100.TabStop = true;
-            this.radioButton100.Text = "100";
-            this.radioButton100.UseVisualStyleBackColor = true;
-            // 
-            // radioButton200
-            // 
-            this.radioButton200.AutoSize = true;
-            this.radioButton200.Location = new System.Drawing.Point(15, 54);
-            this.radioButton200.Name = "radioButton200";
-            this.radioButton200.Size = new System.Drawing.Size(58, 27);
-            this.radioButton200.TabIndex = 13;
-            this.radioButton200.TabStop = true;
-            this.radioButton200.Text = "200";
-            this.radioButton200.UseVisualStyleBackColor = true;
-            // 
-            // radioButton10
-            // 
-            this.radioButton10.AutoSize = true;
-            this.radioButton10.Location = new System.Drawing.Point(15, 151);
-            this.radioButton10.Name = "radioButton10";
-            this.radioButton10.Size = new System.Drawing.Size(48, 27);
-            this.radioButton10.TabIndex = 13;
-            this.radioButton10.TabStop = true;
-            this.radioButton10.Text = "10";
-            this.radioButton10.UseVisualStyleBackColor = true;
-            // 
-            // radioButton50
-            // 
-            this.radioButton50.AutoSize = true;
-            this.radioButton50.Location = new System.Drawing.Point(15, 119);
-            this.radioButton50.Name = "radioButton50";
-            this.radioButton50.Size = new System.Drawing.Size(48, 27);
-            this.radioButton50.TabIndex = 13;
-            this.radioButton50.TabStop = true;
-            this.radioButton50.Text = "50";
-            this.radioButton50.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(73, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(55, 57);
-            this.button2.TabIndex = 15;
-            this.button2.Text = "Y+";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(408, 441);
-            this.tabControl1.TabIndex = 24;
+            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.Location = new System.Drawing.Point(3, 3);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(440, 399);
+            this.elementHost1.TabIndex = 0;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.Drawer;
             // 
             // MainForm
             // 
@@ -1013,7 +1051,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.statusStrip.ResumeLayout(false);
@@ -1023,12 +1068,7 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.simVelocity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1119,6 +1159,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.RichTextBox richTextBoxGCode;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private HelixControl.MyControl Drawer;
+        public System.Windows.Forms.TrackBar simVelocity;
+        public System.Windows.Forms.CheckBox simMode;
     }
 }
 

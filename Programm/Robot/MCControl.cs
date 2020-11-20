@@ -3,6 +3,8 @@ using System.IO.Ports;
 using RobotSpace;
 using System.Threading;
 using BusControl;
+using System.ComponentModel;
+using static System.Math;
 
 namespace MCControl
 {
@@ -27,6 +29,8 @@ namespace MCControl
 
         protected FrameFormer frameFormer;
 
+        private Thread CSThread;
+
 
         /*-----------------------------------реализация-------------------------------------------*/
 
@@ -40,10 +44,15 @@ namespace MCControl
 
             commandHandle = new ManualResetEvent(true);
             PortTurnOn(owner.RobotPortName); //включить порт
+
+            CSThread = new Thread(new ThreadStart(this.SimStep));
+            CSThread.IsBackground = true;
+            CSThread.Start(); // запускаем поток
         }
         ~MCController()
         {
             PortTurnOff();
+            CSThread.Abort();
         }
 
         protected void CreateSerialPort()
@@ -75,8 +84,11 @@ namespace MCControl
         /// </summary>
         public void Send()
         {
-
-            if ((SerialPortIsOpen()) && (curByteFrame != null))
+            if (owner.simMode.Checked)
+            {
+                SimStep();
+            }
+            else if ((SerialPortIsOpen()) && (curByteFrame != null))
             {
                 if (owner.DoLog) AddLog("MCControl.Send(): curByteArr = " + string.Join(" ", curByteFrame));//??----
                 UpdateStatus_Operation(curByteFrame);//??время для G01 G02/G03 ??
@@ -96,6 +108,34 @@ namespace MCControl
                 taskCompleted = false;
                 commandHandle.Reset();//можно продолжать отправку
             }
+        }
+
+        private void SimStep()
+        {
+            int vel = 1;
+            int t = 1;
+            double s = 50;
+            owner.Invoke(new Action(() =>
+            {
+               vel = owner.simVelocity.Value;
+                if (vel < 1) vel = 1;
+
+                t = (int)Round(s / vel);
+
+                if (vel == owner.simVelocity.Maximum)
+                    t = 0;
+            }));
+
+            if (owner.DoLog) AddLog("MCControl.Send(): curByteArr = " + string.Join(" ", curByteFrame));//??----
+            UpdateStatus_Operation(curByteFrame);//??время для G01 G02/G03 ??
+            prevByteFrame = curByteFrame;
+            taskCompleted = false;
+            commandHandle.Reset();//можно продолжать отправку
+
+            Thread.Sleep(t);//??// обработка плохих зн-ий, округление
+
+            //UpdateStatus_Operation(buf); //??//
+            TaskComplete();
         }
 
         private void AddLog(string str)
@@ -165,6 +205,7 @@ namespace MCControl
 
         public void UpdateStatus_Operation(byte[] frame)
         {
+            if (frame == null) return;
             //if (frame[(byte)FrameFormer.FrameIndexes.REQUEST_RESPONSE] != (byte)FrameFormer.REQUEST_RESPONSE.RESPONSE) return;//обновляем только для ответов
             if (frame[(byte)FrameFormer.FrameIndexes.OPERATION_CODE] == (byte)FrameFormer.OPERATION_CODE.MOVE_TO_ABSOLUTE_ANGLES_Q1Q2Q3) return;//не нужно тратить время на вывод операции перемещение в углы
 

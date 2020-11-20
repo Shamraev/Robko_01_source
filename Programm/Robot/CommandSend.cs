@@ -15,6 +15,12 @@ using static CurveLib.CurveLibMethods;
 
 namespace CommandSend
 {
+    public enum Feed
+    {
+        ffRapid,
+        ffWork
+    }
+    
     enum GCommand//Поддерживаемые G коды и комманды
     {
 
@@ -137,6 +143,7 @@ namespace CommandSend
         }
         public void StartSycle()//при запуске потока CSThread
         {
+            owner.DrawerClear();
             if ((commandList == null) || (mCController == null)) return;
 
 
@@ -249,8 +256,9 @@ namespace CommandSend
             if (!GetXYZ_FromStr(currentStrCommand, ref curGoalCoordts)) return;
 
             TaskGoToRelativeCoorts(curGoalCoordts);
+            owner.OutFeedStandart(Feed.ffRapid);
             SendTask();
-
+            owner.OutFeedStandart(Feed.ffWork);
         }
         protected void SendTask()
         {
