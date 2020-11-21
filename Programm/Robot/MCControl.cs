@@ -112,6 +112,8 @@ namespace MCControl
 
         private void SimStep()
         {
+            if (curByteFrame == null) return;
+
             int vel = 1;
             int t = 1;
             double s = 50;

@@ -59,6 +59,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.DirectoryServices" />
@@ -68,6 +69,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="WindowsFormsIntegration" />
@@ -90,6 +92,7 @@
     <Compile Include="FormSetCurWorkCoordts.Designer.cs">
       <DependentUpon>FormSetCurWorkCoordts.cs</DependentUpon>
     </Compile>
+    <Compile Include="PortableSettingsProvider.cs" />
     <Compile Include="VecLib.cs" />
     <Compile Include="InverseKinematics.cs" />
     <Compile Include="MainForm.cs">

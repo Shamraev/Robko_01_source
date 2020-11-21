@@ -15,6 +15,7 @@ using BusControl;
 using System.Threading;
 using System.Windows.Media;
 using System.ComponentModel;
+using RobotSpace.Properties;
 
 namespace RobotSpace
 {
@@ -65,9 +66,7 @@ namespace RobotSpace
             InitializeComponent();
         }
         private void MainForm_Shown(object sender, EventArgs e)
-        {
-            LoadSettings();
-
+        {         
             ToolTipInit();
             ResetCoordnts();
             if (DoLog) LogCreate();
@@ -85,6 +84,7 @@ namespace RobotSpace
 
             Drawer.Init();
             DrawerClear();
+            Drawer.ResetCamera();
         }
         public void DrawerClear()
         {
@@ -157,21 +157,63 @@ namespace RobotSpace
         }
         protected void LoadSettings()
         {
-            if (Properties.Settings.Default.RobotPortName != null)
-                robotPortName = Properties.Settings.Default.RobotPortName;
-            ToolStripMenuItemDoLog.Checked = Properties.Settings.Default.DoLog;
-            ToolStripMenuItemCorrectPlane.Checked = Properties.Settings.Default.DoCorrect;
+            if (Properties.Settings.Default.Maximised)
+            {
+                Location = Properties.Settings.Default.WindowLocation;
+                WindowState = FormWindowState.Maximized;
+                Size = Properties.Settings.Default.WindowSize;
+            }
+            else if (Properties.Settings.Default.Minimised)
+            {
+                Location = Properties.Settings.Default.WindowLocation;
+                WindowState = FormWindowState.Minimized;
+                Size = Properties.Settings.Default.WindowSize;
+            }
+            else
+            {
+                Location = Properties.Settings.Default.WindowLocation;
+                Size = Properties.Settings.Default.WindowSize;
+            }
+
+            if (Settings.Default.RobotPortName != null)
+                robotPortName = Settings.Default.RobotPortName;
+            ToolStripMenuItemDoLog.Checked = Settings.Default.DoLog;
+            ToolStripMenuItemCorrectPlane.Checked = Settings.Default.DoCorrect;
             DoCorrect = ToolStripMenuItemCorrectPlane.Checked;//??убрать DoCorrect??
             _DoLog = ToolStripMenuItemDoLog.Checked;
         }
         private void SaveSettings()
         {
-            Properties.Settings.Default.RobotPortName = robotPortName;
-            Properties.Settings.Default.DoLog = ToolStripMenuItemDoLog.Checked;
-            Properties.Settings.Default.DoCorrect = ToolStripMenuItemCorrectPlane.Checked;
+            if (WindowState == FormWindowState.Maximized)
+            {
+                Settings.Default.WindowLocation = RestoreBounds.Location;
+                Properties.Settings.Default.WindowSize = RestoreBounds.Size;
+                Properties.Settings.Default.Maximised = true;
+                Properties.Settings.Default.Minimised = false;
+            }
+            else if (WindowState == FormWindowState.Normal)
+            {
+                Settings.Default.WindowLocation = Location;
+                Settings.Default.WindowSize = Size;
+                Settings.Default.Maximised = false;
+                Settings.Default.Minimised = false;
+            }
+            else
+            {
+                Settings.Default.WindowLocation = RestoreBounds.Location;
+                Settings.Default.WindowSize = RestoreBounds.Size;
+                Settings.Default.Maximised = false;
+                Settings.Default.Minimised = true;
+            }
+
+
+
+            Settings.Default.RobotPortName = robotPortName;
+            Settings.Default.DoLog = ToolStripMenuItemDoLog.Checked;
+            Settings.Default.DoCorrect = ToolStripMenuItemCorrectPlane.Checked;
 
             //apply the changes to the settings file  
-            Properties.Settings.Default.Save();
+            Settings.Default.Save();
         }
 
         private void LogClose()
@@ -760,6 +802,12 @@ namespace RobotSpace
             CurWorkCoorts = AbsWorkCoorts;
             CurWorkCoorts = Vector3DZeros;
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            LoadSettings();
+        }
+
         public void OutFeedStandart(Feed ffeed)
         {
             if (Drawer == null) return;

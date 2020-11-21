@@ -187,6 +187,10 @@ namespace HelixControl
             plot.ZoomExtents(500);  // zoom to extents
             //plot.ResetCamera();  // orient and zoom
         }
+        public void ResetCamera()
+        {
+            plot.ResetCamera();  // orient and zoom
+        }
 
     }
 }

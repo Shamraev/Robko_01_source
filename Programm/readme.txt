@@ -7,3 +7,10 @@
 "packages" - dll для HelixControl
 "TaskGcodeExamples" - папка с примерами программы в Gcode
 
+***********************************
+используются стронние проекты
+***********************************
+
+визуализация в 3D: https://www.codeproject.com/Articles/1246255/Plotting-a-Real-time-D-Toolpath-with-Helix-Toolkit
+создание портабельных настроек: https://www.codeproject.com/Articles/1238550/Making-Application-Settings-Portable
+
