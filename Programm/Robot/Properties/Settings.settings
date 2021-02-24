@@ -32,5 +32,8 @@
     <Setting Name="CorrectPlaneM2" Type="System.String" Scope="User">
       <Value Profile="(Default)">100,400,7.5</Value>
     </Setting>
+    <Setting Name="AbsWorkCoorts" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,257,368</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

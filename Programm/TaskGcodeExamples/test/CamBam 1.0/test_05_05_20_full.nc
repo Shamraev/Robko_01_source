@@ -1,3 +1,4 @@
+(Global Robot (X, Y, Z) = (0, 230, 177))
 ( Made using CamBam - http://www.cambam.co.uk )
 ( test_05_05_20 5/6/2020 3:45:16 PM )
 ( Post processor: Default )

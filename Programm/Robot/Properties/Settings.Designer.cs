@@ -142,5 +142,17 @@ namespace RobotSpace.Properties {
                 this["CorrectPlaneM2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,257,368")]
+        public string AbsWorkCoorts {
+            get {
+                return ((string)(this["AbsWorkCoorts"]));
+            }
+            set {
+                this["AbsWorkCoorts"] = value;
+            }
+        }
     }
 }

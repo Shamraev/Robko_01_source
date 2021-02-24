@@ -53,13 +53,21 @@ namespace RobotSpace
         static string _PathToLog = AppPath + @"\Logs";
         static string _LogFileName = String.Format("Log_{0}.txt", DateTime.Now.Ticks);
         TextWriter tw;
-        Vector3d AbsWorkCoortsInStart;
+        Vector3d AbsWorkCoortsInSimStart;
         
         private bool _DoCorrect;
         /// <summary>
         /// включить корректирование по корректирующей плоскости
         /// </summary>
-        public bool DoCorrect { get { return _DoCorrect; } set { _DoCorrect = value; } }
+        public bool DoCorrect
+        {
+            get { return _DoCorrect; }
+            set
+            {
+                _DoCorrect = value;
+                if (iKSolver3DOF!=null) iKSolver3DOF.DoCorrect = DoCorrect;
+            }
+        }
 
         private Vector3d[] CorrectPlanePts_ = new Vector3d[3];
         public Vector3d[] CorrectPlanePts
@@ -80,13 +88,13 @@ namespace RobotSpace
         private void MainForm_Shown(object sender, EventArgs e)
         {         
             ToolTipInit();
-            ResetCoordnts();
+            //ResetCoordnts();
             if (DoLog) LogCreate();
             IKSolverCreate();
             MCControllerCreate();
             СommandSenderCreate();
 
-            XyzDisplay();
+            XyzDisplay(true);
             if (File.Exists(report)) { richTextBox2.Text = File.ReadAllText(report); }
 
             aTimer = new System.Timers.Timer(500);
@@ -181,6 +189,8 @@ namespace RobotSpace
             VectorFromStr(Settings.Default.CorrectPlaneM0, out CorrectPlanePts[0]);
             VectorFromStr(Settings.Default.CorrectPlaneM1, out CorrectPlanePts[1]);
             VectorFromStr(Settings.Default.CorrectPlaneM2, out CorrectPlanePts[2]);
+            VectorFromStr(Settings.Default.AbsWorkCoorts, out AbsWorkCoorts);
+            XyzDisplay(true);
 
             _DoLog = ToolStripMenuItemDoLog.Checked;
         }
@@ -213,12 +223,14 @@ namespace RobotSpace
             Settings.Default.RobotPortName = robotPortName;
             Settings.Default.DoLog = ToolStripMenuItemDoLog.Checked;
             Settings.Default.DoCorrect = ToolStripMenuItemCorrectPlane.Checked;
-            if (CorrectPlanePts.Length == 2)
+            if (CorrectPlanePts.Length == 3)
             {
                 Settings.Default.CorrectPlaneM0 = VectorToStr(CorrectPlanePts[0]);
                 Settings.Default.CorrectPlaneM1 = VectorToStr(CorrectPlanePts[1]);
                 Settings.Default.CorrectPlaneM2 = VectorToStr(CorrectPlanePts[2]);
             }
+            Settings.Default.AbsWorkCoorts = VectorToStr(AbsWorkCoorts);
+            if (simMode.Checked) Settings.Default.AbsWorkCoorts = VectorToStr(AbsWorkCoortsInSimStart);
 
             //apply the changes to the settings file  
             Settings.Default.Save();
@@ -534,8 +546,9 @@ namespace RobotSpace
 
             mCController.SendAngles(a1, a2, a3);
         }
-        public void XyzDisplay()
+        public void XyzDisplay(bool force = false)
         {
+            if (!(force || ((mCController !=null) && mCController.SerialPortIsOpen()) || simMode.Checked)) return;
             Invoke(new Action(() =>
             {
 
@@ -833,12 +846,13 @@ namespace RobotSpace
         }
         protected void SimModeStart()
         {
-            AbsWorkCoortsInStart = AbsWorkCoorts;
+            AbsWorkCoortsInSimStart = AbsWorkCoorts;
             DrawerClear();
         }
         protected void SimModeStop()
         {
-            AbsWorkCoorts = AbsWorkCoortsInStart;
+            commandSender.Stop();
+            AbsWorkCoorts = AbsWorkCoortsInSimStart;
             MoveTo(AbsWorkCoorts);
             DrawerClear();
         }
