@@ -856,6 +856,12 @@ namespace RobotSpace
             MoveTo(AbsWorkCoorts);
             DrawerClear();
         }
+
+        private void справкаToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Help.ShowHelp(this, helpProvider.HelpNamespace);
+        }
+
         public void MoveTo(Vector3d p)
         {
             if (Drawer == null) return;

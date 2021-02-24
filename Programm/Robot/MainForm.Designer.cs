@@ -69,6 +69,8 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.Drawer = new HelixControl.MyControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -106,8 +108,7 @@
             this.labelCurGcode = new System.Windows.Forms.Label();
             this.buttonGCodeStop = new System.Windows.Forms.Button();
             this.buttonGCodeStart = new System.Windows.Forms.Button();
-            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.Drawer = new HelixControl.MyControl();
+            this.helpProvider = new System.Windows.Forms.HelpProvider();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -170,6 +171,7 @@
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
             this.справкаToolStripMenuItem.Size = new System.Drawing.Size(65, 19);
             this.справкаToolStripMenuItem.Text = "Справка";
+            this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
             // ToolStripMenuItemParameters
             // 
@@ -524,13 +526,23 @@
             this.tabPage4.Text = "Визуализация";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // elementHost1
+            // 
+            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.Location = new System.Drawing.Point(3, 3);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(440, 399);
+            this.elementHost1.TabIndex = 0;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.Drawer;
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.groupBox2);
-            this.tabPage5.Location = new System.Drawing.Point(4, 32);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(446, 405);
+            this.tabPage5.Size = new System.Drawing.Size(446, 426);
             this.tabPage5.TabIndex = 1;
             this.tabPage5.Text = "Порт";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -734,10 +746,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.richTextBoxGCode);
-            this.tabPage2.Location = new System.Drawing.Point(4, 32);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(395, 405);
+            this.tabPage2.Size = new System.Drawing.Size(395, 426);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "G Code";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -750,7 +762,7 @@
             this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxGCode.Name = "richTextBoxGCode";
             this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBoxGCode.Size = new System.Drawing.Size(389, 409);
+            this.richTextBoxGCode.Size = new System.Drawing.Size(389, 420);
             this.richTextBoxGCode.TabIndex = 21;
             this.richTextBoxGCode.Text = "";
             this.richTextBoxGCode.WordWrap = false;
@@ -938,15 +950,9 @@
             this.buttonGCodeStart.UseVisualStyleBackColor = true;
             this.buttonGCodeStart.Click += new System.EventHandler(this.buttonGCodeStart_Click);
             // 
-            // elementHost1
+            // helpProvider
             // 
-            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.elementHost1.Location = new System.Drawing.Point(3, 3);
-            this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(440, 399);
-            this.elementHost1.TabIndex = 0;
-            this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.Drawer;
+            this.helpProvider.HelpNamespace = "help\\Site\\index.html";
             // 
             // MainForm
             // 
@@ -961,6 +967,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.Name = "MainForm";
+            this.helpProvider.SetShowHelp(this, true);
             this.Text = "Управление роботом";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -1080,6 +1087,7 @@
         private HelixControl.MyControl Drawer;
         public System.Windows.Forms.TrackBar simVelocity;
         public System.Windows.Forms.CheckBox simMode;
+        private System.Windows.Forms.HelpProvider helpProvider;
     }
 }
 
