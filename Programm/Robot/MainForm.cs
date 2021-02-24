@@ -812,6 +812,7 @@ namespace RobotSpace
         private void MainForm_Load(object sender, EventArgs e)
         {
             LoadSettings();
+            tabControl2.TabPages.RemoveAt(1); // NOT DEBUG
         }
 
         public void OutFeedStandart(Feed ffeed)
