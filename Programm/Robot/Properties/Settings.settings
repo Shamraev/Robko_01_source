@@ -23,5 +23,14 @@
     <Setting Name="Maximised" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="CorrectPlaneM0" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,200,5</Value>
+    </Setting>
+    <Setting Name="CorrectPlaneM1" Type="System.String" Scope="User">
+      <Value Profile="(Default)">-100,400,5</Value>
+    </Setting>
+    <Setting Name="CorrectPlaneM2" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100,400,7.5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

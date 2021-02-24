@@ -60,6 +60,17 @@ namespace RobotSpace
         /// </summary>
         public bool DoCorrect { get { return _DoCorrect; } set { _DoCorrect = value; } }
 
+        private Vector3d[] CorrectPlanePts_ = new Vector3d[3];
+        public Vector3d[] CorrectPlanePts
+        {
+            get { return CorrectPlanePts_; }
+            set
+            {
+                CorrectPlanePts_ = value;
+                if (iKSolver3DOF != null)
+                    iKSolver3DOF.CorrectPlane = new Plane(CorrectPlanePts[0], CorrectPlanePts[1], CorrectPlanePts[2]);
+            }
+        }
 
         public MainForm()
         {
@@ -126,25 +137,11 @@ namespace RobotSpace
 
             tw.WriteLine(str + "\n");
         }
-
-        private Plane CreateCorrectPlane()
-        {
-            //M0, M1, M2 - точки, полученные в реальности; координата z от плоскости стола 
-            //(не важно откуда, важно для всех точек координата z считалась относительно одного и того же)
-            //в глобальных координатах z~190
-            Vector3d M0 = new Vector3d(0, 200, 5);
-            Vector3d M1 = new Vector3d(-100, 400, 5);
-            Vector3d M2 = new Vector3d(100, 400, 7.5);
-
-            Plane pl = new Plane(M0, M1, M2);
-
-            return pl;
-        }
         protected void IKSolverCreate()
         {
             iKSolver3DOF = new IKSolver3DOF(0, 190, 178, 177, 80);//d4 = 178; d5 = 82; 
             iKSolver3DOF.DoCorrect = DoCorrect;
-            iKSolver3DOF.CorrectPlane = CreateCorrectPlane();
+            iKSolver3DOF.CorrectPlane = new Plane(CorrectPlanePts[0], CorrectPlanePts[1], CorrectPlanePts[2]);
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -180,6 +177,10 @@ namespace RobotSpace
             ToolStripMenuItemDoLog.Checked = Settings.Default.DoLog;
             ToolStripMenuItemCorrectPlane.Checked = Settings.Default.DoCorrect;
             DoCorrect = ToolStripMenuItemCorrectPlane.Checked;//??убрать DoCorrect??
+            VectorFromStr(Settings.Default.CorrectPlaneM0, out CorrectPlanePts[0]);
+            VectorFromStr(Settings.Default.CorrectPlaneM1, out CorrectPlanePts[1]);
+            VectorFromStr(Settings.Default.CorrectPlaneM2, out CorrectPlanePts[2]);
+
             _DoLog = ToolStripMenuItemDoLog.Checked;
         }
         private void SaveSettings()
@@ -211,6 +212,12 @@ namespace RobotSpace
             Settings.Default.RobotPortName = robotPortName;
             Settings.Default.DoLog = ToolStripMenuItemDoLog.Checked;
             Settings.Default.DoCorrect = ToolStripMenuItemCorrectPlane.Checked;
+            if (CorrectPlanePts.Length == 2)
+            {
+                Settings.Default.CorrectPlaneM0 = VectorToStr(CorrectPlanePts[0]);
+                Settings.Default.CorrectPlaneM1 = VectorToStr(CorrectPlanePts[1]);
+                Settings.Default.CorrectPlaneM2 = VectorToStr(CorrectPlanePts[2]);
+            }
 
             //apply the changes to the settings file  
             Settings.Default.Save();
@@ -409,7 +416,7 @@ namespace RobotSpace
 
         }
 
-        public bool CheckNumbers(ref string nbrs, out double[] NumbersDouble)
+        public bool CheckNumbers(ref string nbrs, out double[] NumbersDouble, bool showError = true)
         {
 
             String[] gh = nbrs.Split(',');//отделить числа запятой
@@ -417,8 +424,8 @@ namespace RobotSpace
             //проверить введенные числа
             if (gh.Length != 3 || gh.Contains(""))
             {
-
-                MessageBox.Show("Введите 3 числа в формате: 45.25,50.2,90");
+                if (showError)
+                    MessageBox.Show("Введите 3 числа в формате: 45.25,50.2,90");
                 return false;
 
             }
@@ -437,15 +444,14 @@ namespace RobotSpace
                 }
                 catch
                 {
-
-                    MessageBox.Show("Введите 3 числа в формате: 45.25,50.2,90");
+                    if (showError) 
+                        MessageBox.Show("Введите 3 числа в формате: 45.25,50.2,90");
                     return false;
                 }
 
             }
             return true;
         }
-
 
         public void SendAngles()
         {

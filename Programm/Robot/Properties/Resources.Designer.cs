@@ -63,6 +63,16 @@ namespace RobotSpace.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap corret_plane {
+            get {
+                object obj = ResourceManager.GetObject("corret_plane", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap gripper_grip {
             get {
                 object obj = ResourceManager.GetObject("gripper_grip", resourceCulture);

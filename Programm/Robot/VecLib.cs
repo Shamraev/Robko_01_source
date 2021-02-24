@@ -2,6 +2,7 @@
 using static System.Math;
 using static VecLib.VecLibMethods;
 using VecLib;
+using System.Linq;
 
 namespace VecLib
 {
@@ -11,6 +12,9 @@ namespace VecLib
         public static Vector2d X2dAxes = new Vector2d(1, 0);
 
         public static Vector3d Vector3DZeros = new Vector3d(0, 0, 0);
+
+        public static Plane PlaneZeros = new Plane(Vector3DZeros, Vector3DZeros, Vector3DZeros);
+
 
         /// <summary>
         /// Скалярное произведение векторов v1 и v2
@@ -90,6 +94,83 @@ namespace VecLib
         public static Vector2d p2d(Vector3d v)
         {
             return new Vector2d(v.x, v.y);
+        }
+        public static bool NumbersFromStr(string nbrs, int count, out double[] NumbersDouble, int tol = 2)
+        {
+            bool res = false;
+
+            String[] gh = nbrs.Split(',');//отделить числа запятой
+            NumbersDouble = new double[gh.Length];
+            if (gh.Length != count || gh.Contains(""))
+                return false;
+
+            //сделать double  с раделителем - ".", а не ","
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            for (int i = 0; i < gh.Length; i++)
+            {
+                try
+                {
+                    NumbersDouble[i] = Math.Round(Convert.ToDouble(gh[i]), tol);
+                }
+                catch
+                {
+                    return false;
+                }
+
+            }
+            res = true;
+            return res;
+        }
+
+        public static string NumbersToStr(double[] NumbersDouble)
+        {
+            string str = "";
+            for (int i = 0; i < NumbersDouble.Length; i++)
+            {
+                if (i != NumbersDouble.Length - 1) str += Convert.ToString(NumbersDouble[i]) + ",";
+                else str += Convert.ToString(NumbersDouble[i]);
+            }
+            return str;
+        }
+
+        public static bool VectorFromStr(string nbrs, out Vector3d V)
+        {
+            bool res = false;
+
+            V = Vector3DZeros;
+            double[] NumbersDouble;
+            if (NumbersFromStr(nbrs, 3, out NumbersDouble))
+            {
+                V.x = NumbersDouble[0];
+                V.y = NumbersDouble[1];
+                V.z = NumbersDouble[2];
+                res = true;
+            }
+            return res;
+        }
+
+        public static string VectorToStr(Vector3d V)
+        {
+            double[] nbrs = {V.x, V.y, V.z};
+            return NumbersToStr(nbrs);
+        }
+        public static bool PlaneFromStr(string PlaneStr, out Plane pl)
+        {
+            bool res = false;
+            pl = PlaneZeros;
+
+            double[] ABCD;
+            if (NumbersFromStr(PlaneStr, 4, out ABCD, 12))
+            {
+                pl = new Plane(ABCD[0], ABCD[1], ABCD[2], ABCD[3]);
+                res = true;
+            }
+            return res;
+        }
+        public static string PlaneToStr(Plane pl)
+        {
+            double[] ABCD = {pl.A, pl.B, pl.C, pl.D};
+            return NumbersToStr(ABCD);
         }
     }
     public struct Vector3d

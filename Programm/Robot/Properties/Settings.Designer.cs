@@ -106,5 +106,41 @@ namespace RobotSpace.Properties {
                 this["Maximised"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,200,5")]
+        public string CorrectPlaneM0 {
+            get {
+                return ((string)(this["CorrectPlaneM0"]));
+            }
+            set {
+                this["CorrectPlaneM0"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-100,400,5")]
+        public string CorrectPlaneM1 {
+            get {
+                return ((string)(this["CorrectPlaneM1"]));
+            }
+            set {
+                this["CorrectPlaneM1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100,400,7.5")]
+        public string CorrectPlaneM2 {
+            get {
+                return ((string)(this["CorrectPlaneM2"]));
+            }
+            set {
+                this["CorrectPlaneM2"] = value;
+            }
+        }
     }
 }
