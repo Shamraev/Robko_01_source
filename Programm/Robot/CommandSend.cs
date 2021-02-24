@@ -18,7 +18,8 @@ namespace CommandSend
     public enum Feed
     {
         ffRapid,
-        ffWork
+        ffWork,
+        None
     }
     
     enum GCommand//Поддерживаемые G коды и комманды
@@ -133,7 +134,7 @@ namespace CommandSend
         public void Stop()//??
         {
             if (!_CycleStarted) return;
-
+                
             stopCycle = true;
             EndTime();//?? в Stop()??
             _CycleStarted = false;//---??
@@ -152,6 +153,7 @@ namespace CommandSend
 
 
             mCController.commandHandle.Set();//задание mCController: можно начинать
+            mCController.simMode = owner.simMode.Checked;
 
             for (int i = pauseItem; i < commandList.Length; i++)
             {

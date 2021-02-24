@@ -30,6 +30,7 @@ namespace MCControl
         protected FrameFormer frameFormer;
 
         private Thread CSThread;
+        public bool simMode;
 
 
         /*-----------------------------------реализация-------------------------------------------*/
@@ -84,7 +85,7 @@ namespace MCControl
         /// </summary>
         public void Send()
         {
-            if (owner.simMode.Checked)
+            if (simMode)
             {
                 SimStep();
             }

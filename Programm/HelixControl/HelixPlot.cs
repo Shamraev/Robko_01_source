@@ -316,13 +316,21 @@ namespace HelixControl
         /// <seealso cref="AddPoint(double, double, double, Color, double)"/>
         public void AddPoint(Point3D point, Color color, double thickness = -1)
         {
+            //if ((point - point0).LengthSquared < minDistanceSquared) return;  // less than min distance from last point
+
+            if ((thickness == 0) && (marker != null))
+            {
+                marker.Origin = point;
+                coords.Position = new Point3D(point.X - labelOffset, point.Y - labelOffset, point.Z + labelOffset);
+                coords.Text = string.Format(coordinateFormat, point.X, point.Y, point.Z);
+                return;
+            }
+
             if (trace == null)
             {
                 NewTrace(point, color, (thickness > 0) ? thickness : 1);
                 return;
             }
-
-            if ((point - point0).LengthSquared < minDistanceSquared) return;  // less than min distance from last point
 
             if (path.Color != color || (thickness > 0 && path.Thickness != thickness))
             {

@@ -140,16 +140,14 @@ namespace HelixControl
         public void AddPoint(double x, double y, double z)
         {
             var point = new Point3DPlus(new Point3D(x, y, z), color, 1.5);
-            bool invoke = false;
-            lock (points)
-            {
-                points.Add(point);
-                invoke = (points.Count == 1);
-            }
-
-            if (invoke)
-                Dispatcher.BeginInvoke(DispatcherPriority.Background, (Action)PlotData);
+            AddPoint(point);
         }
+
+        private void AddPoint(Point3DPlus point)
+        {
+            plot.AddPoint(point.point, point.color, point.thickness);
+        }
+
         public void Clear()
         {
             if (plot!=null)
@@ -190,6 +188,11 @@ namespace HelixControl
         public void ResetCamera()
         {
             plot.ResetCamera();  // orient and zoom
+        }
+        public void MoveTo(double x, double y, double z)
+        {
+            var point = new Point3DPlus(new Point3D(x, y, z), color, 0);
+            AddPoint(point);
         }
 
     }

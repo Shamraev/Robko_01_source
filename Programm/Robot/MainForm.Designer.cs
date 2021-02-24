@@ -69,8 +69,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
-            this.Drawer = new HelixControl.MyControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -108,6 +106,8 @@
             this.labelCurGcode = new System.Windows.Forms.Label();
             this.buttonGCodeStop = new System.Windows.Forms.Button();
             this.buttonGCodeStart = new System.Windows.Forms.Button();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.Drawer = new HelixControl.MyControl();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -524,16 +524,6 @@
             this.tabPage4.Text = "Визуализация";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // elementHost1
-            // 
-            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.elementHost1.Location = new System.Drawing.Point(3, 3);
-            this.elementHost1.Name = "elementHost1";
-            this.elementHost1.Size = new System.Drawing.Size(440, 399);
-            this.elementHost1.TabIndex = 0;
-            this.elementHost1.Text = "elementHost1";
-            this.elementHost1.Child = this.Drawer;
-            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.groupBox2);
@@ -744,10 +734,10 @@
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.richTextBoxGCode);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 32);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(395, 426);
+            this.tabPage2.Size = new System.Drawing.Size(395, 405);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "G Code";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -760,7 +750,7 @@
             this.richTextBoxGCode.Location = new System.Drawing.Point(3, 3);
             this.richTextBoxGCode.Name = "richTextBoxGCode";
             this.richTextBoxGCode.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.richTextBoxGCode.Size = new System.Drawing.Size(389, 420);
+            this.richTextBoxGCode.Size = new System.Drawing.Size(389, 409);
             this.richTextBoxGCode.TabIndex = 21;
             this.richTextBoxGCode.Text = "";
             this.richTextBoxGCode.WordWrap = false;
@@ -849,6 +839,7 @@
             this.simMode.TabIndex = 30;
             this.simMode.Text = "симуляция";
             this.simMode.UseVisualStyleBackColor = true;
+            this.simMode.CheckedChanged += new System.EventHandler(this.simMode_CheckedChanged);
             // 
             // buttonGripperUngrip
             // 
@@ -946,6 +937,16 @@
             this.buttonGCodeStart.TabIndex = 21;
             this.buttonGCodeStart.UseVisualStyleBackColor = true;
             this.buttonGCodeStart.Click += new System.EventHandler(this.buttonGCodeStart_Click);
+            // 
+            // elementHost1
+            // 
+            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.Location = new System.Drawing.Point(3, 3);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(440, 399);
+            this.elementHost1.TabIndex = 0;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.Drawer;
             // 
             // MainForm
             // 

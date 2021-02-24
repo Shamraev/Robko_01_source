@@ -53,7 +53,8 @@ namespace RobotSpace
         static string _PathToLog = AppPath + @"\Logs";
         static string _LogFileName = String.Format("Log_{0}.txt", DateTime.Now.Ticks);
         TextWriter tw;
-
+        Vector3d AbsWorkCoortsInStart;
+        
         private bool _DoCorrect;
         /// <summary>
         /// включить корректирование по корректирующей плоскости
@@ -102,7 +103,7 @@ namespace RobotSpace
             Invoke(new Action(() =>
             {
                 if (Drawer != null)
-                Drawer.Clear();
+                    Drawer.Clear();
                 XyzDisplay();
             }));
         }
@@ -819,10 +820,33 @@ namespace RobotSpace
         {
             if (Drawer == null) return;
 
-            if (ffeed==Feed.ffWork)
+            if (ffeed == Feed.ffWork)
                 Drawer.color = Colors.Blue;
             else if (ffeed == Feed.ffRapid)
                 Drawer.color = Colors.Red;
+        }
+
+        private void simMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (simMode.Checked) SimModeStart();
+            else SimModeStop();
+        }
+        protected void SimModeStart()
+        {
+            AbsWorkCoortsInStart = AbsWorkCoorts;
+            DrawerClear();
+        }
+        protected void SimModeStop()
+        {
+            AbsWorkCoorts = AbsWorkCoortsInStart;
+            MoveTo(AbsWorkCoorts);
+            DrawerClear();
+        }
+        public void MoveTo(Vector3d p)
+        {
+            if (Drawer == null) return;
+
+            Drawer.MoveTo(p.x, p.y, p.z);
         }
 
     }
